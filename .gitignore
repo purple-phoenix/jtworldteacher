@@ -1,0 +1,11 @@
+# X Spaces audio — large binary files, not tracked
+catalog/spaces/audio/*
+!catalog/spaces/audio/.gitkeep
+
+# macOS
+.DS_Store
+
+# Node (if added later)
+node_modules/
+dist/
+.astro/

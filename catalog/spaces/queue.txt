@@ -1,0 +1,18 @@
+# X Space URLs to process. One per line, # for comments.
+# Pass to: bash catalog/scripts/process-spaces.sh -f catalog/spaces/queue.txt
+# The script is idempotent — already-downloaded and already-transcribed items are skipped.
+
+# Batch added 2026-05-17
+https://x.com/McCarthy_JT/status/2050718796134949361
+https://x.com/McCarthy_JT/status/2053247839224918418
+https://x.com/McCarthy_JT/status/2047435885130477904
+https://x.com/McCarthy_JT/status/2052514673530929516
+https://x.com/McCarthy_JT/status/2040590550663827650
+https://x.com/McCarthy_JT/status/2048182578234941728
+https://x.com/McCarthy_JT/status/2049978677132173515
+https://x.com/McCarthy_JT/status/2039824298353864964
+https://x.com/McCarthy_JT/status/2038029021875687508
+https://x.com/McCarthy_JT/status/2035475410834632757
+https://x.com/McCarthy_JT/status/2017757499760226585
+https://x.com/McCarthy_JT/status/2015567236086292541
+https://x.com/McCarthy_JT/status/2011966017212186907

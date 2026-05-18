@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const episodes = await getCollection('episodes', ({ data }) => !data.draft);
+  return episodes.map((ep) => ({
+    params: { slug: ep.id.replace(/\.md$/, '') },
+    props: { ep },
+  }));
+}
+
+const { ep } = Astro.props;
+const { Content } = await render(ep);
+
+const dateFmt = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Layout title={`${ep.data.title} — JT`} description={ep.data.description}>
+  <main>
+    <p style="margin-top: 4rem;">
+      <a href={import.meta.env.BASE_URL + 'podcast/'}>← All episodes</a>
+    </p>
+
+    <article>
+      <h1 style="font-size: 2rem; margin: 1.5rem 0 0.5rem;">{ep.data.title}</h1>
+      <p style="color: var(--muted); margin: 0 0 1.5rem;">
+        {dateFmt.format(ep.data.pubDate)} · {ep.data.duration}
+        {ep.data.spaceUrl && (
+          <> · <a href={ep.data.spaceUrl} rel="noopener">originally an X Space</a></>
+        )}
+      </p>
+
+      <audio controls preload="none" style="width: 100%; margin: 1rem 0 2rem;">
+        <source src={ep.data.audioUrl} type={ep.data.audioType} />
+        Your browser does not support audio playback.
+        <a href={ep.data.audioUrl}>Download the audio</a>.
+      </audio>
+
+      <p style="font-style: italic; color: var(--muted);">{ep.data.description}</p>
+
+      <Content />
+    </article>
+  </main>
+
+  <footer>
+    © {new Date().getFullYear()} JT. All rights reserved.
+  </footer>
+</Layout>

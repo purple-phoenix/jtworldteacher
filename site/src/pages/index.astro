@@ -25,10 +25,11 @@ import Layout from "../layouts/Layout.astro";
         New episodes most weeks. Available wherever you listen.
       </p>
       <ul class="links">
-        <li><a href="#" rel="noopener">Spotify</a> <!-- TODO --></li>
-        <li><a href="#" rel="noopener">Apple Podcasts</a> <!-- TODO --></li>
+        <li><a href={import.meta.env.BASE_URL + 'podcast/'}>All episodes</a></li>
+        <li><a href="#" rel="noopener">Spotify</a> <!-- TODO: submit feed --></li>
+        <li><a href="#" rel="noopener">Apple Podcasts</a> <!-- TODO: submit feed --></li>
         <li><a href="#" rel="noopener">YouTube</a> <!-- TODO --></li>
-        <li><a href="#" rel="noopener">RSS feed</a> <!-- TODO --></li>
+        <li><a href={import.meta.env.BASE_URL + 'feed.xml'}>RSS feed</a></li>
       </ul>
     </section>
 

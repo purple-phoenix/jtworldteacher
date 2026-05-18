@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const episodes = (await getCollection('episodes', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+
+const dateFmt = new Intl.DateTimeFormat('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Layout title="Podcast — JT">
+  <header class="hero">
+    <h1>Podcast</h1>
+    <p class="tagline">Astrology and simulation theory.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Subscribe</h2>
+      <ul class="links">
+        <li><a href={import.meta.env.BASE_URL + 'feed.xml'}>RSS feed</a></li>
+        <li><a href="#" rel="noopener">Apple Podcasts</a> <!-- TODO --></li>
+        <li><a href="#" rel="noopener">Spotify</a> <!-- TODO --></li>
+        <li><a href="#" rel="noopener">YouTube</a> <!-- TODO --></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Episodes</h2>
+      {episodes.length === 0 ? (
+        <p>No episodes published yet.</p>
+      ) : (
+        <ul class="links">
+          {episodes.map((ep) => {
+            const slug = ep.id.replace(/\.md$/, '');
+            return (
+              <li>
+                <a href={import.meta.env.BASE_URL + `podcast/${slug}/`}>
+                  {ep.data.title}
+                </a>
+                <span style="color: var(--muted); font-size: 0.9em;">
+                  {' '}— {dateFmt.format(ep.data.pubDate)} · {ep.data.duration}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </section>
+  </main>
+
+  <footer>
+    © {new Date().getFullYear()} JT. All rights reserved.
+  </footer>
+</Layout>

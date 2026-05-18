@@ -1,0 +1,81 @@
+import rss from '@astrojs/rss';
+import { getCollection } from 'astro:content';
+import type { APIContext } from 'astro';
+
+const SHOW = {
+  title: 'JT — Astrology & Simulation Theory',
+  description:
+    'A long-form inquiry into what the chart says about the nature of the reality we appear to be inside of. Slow, unhurried, and meant for people already asking the question.',
+  author: 'JT McCarthy',
+  ownerEmail: 'matttmccarthy66@gmail.com',
+  language: 'en-us',
+  category: { text: 'Religion & Spirituality', sub: 'Spirituality' },
+  image: 'podcast-cover.jpg',
+  explicit: false,
+  type: 'episodic' as const,
+};
+
+const xmlEscape = (s: string) =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+export async function GET(context: APIContext) {
+  if (!context.site) throw new Error('astro.config.mjs must set `site` for the RSS feed to build.');
+  const siteRoot = String(context.site).replace(/\/+$/, '');
+  const base = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '');
+  const root = `${siteRoot}${base}/`;
+  const absolute = (path: string) => root + path.replace(/^\/+/, '');
+
+  const episodes = (await getCollection('episodes', ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+  );
+
+  const coverUrl = absolute(SHOW.image);
+
+  return rss({
+    xmlns: {
+      itunes: 'http://www.itunes.com/dtds/podcast-1.0.dtd',
+      content: 'http://purl.org/rss/1.0/modules/content/',
+    },
+    title: SHOW.title,
+    description: SHOW.description,
+    site: root,
+    customData: `
+      <language>${SHOW.language}</language>
+      <itunes:author>${xmlEscape(SHOW.author)}</itunes:author>
+      <itunes:owner>
+        <itunes:name>${xmlEscape(SHOW.author)}</itunes:name>
+        <itunes:email>${xmlEscape(SHOW.ownerEmail)}</itunes:email>
+      </itunes:owner>
+      <itunes:image href="${xmlEscape(coverUrl)}" />
+      <itunes:category text="${xmlEscape(SHOW.category.text)}">
+        <itunes:category text="${xmlEscape(SHOW.category.sub)}" />
+      </itunes:category>
+      <itunes:explicit>${SHOW.explicit}</itunes:explicit>
+      <itunes:type>${SHOW.type}</itunes:type>
+    `.trim(),
+    items: episodes.map((ep) => {
+      const slug = ep.id.replace(/\.md$/, '');
+      const episodeUrl = absolute(`podcast/${slug}/`);
+      const episodeImage = ep.data.image ? absolute(ep.data.image) : coverUrl;
+      return {
+        title: ep.data.title,
+        pubDate: ep.data.pubDate,
+        description: ep.data.description,
+        link: episodeUrl,
+        enclosure: {
+          url: ep.data.audioUrl,
+          length: ep.data.audioLength,
+          type: ep.data.audioType,
+        },
+        customData: `
+          <itunes:duration>${ep.data.duration}</itunes:duration>
+          <itunes:episodeType>${ep.data.episodeType}</itunes:episodeType>
+          <itunes:explicit>${ep.data.explicit}</itunes:explicit>
+          ${ep.data.season ? `<itunes:season>${ep.data.season}</itunes:season>` : ''}
+          ${ep.data.episode ? `<itunes:episode>${ep.data.episode}</itunes:episode>` : ''}
+          <itunes:image href="${xmlEscape(episodeImage)}" />
+        `.trim(),
+      };
+    }),
+  });
+}
