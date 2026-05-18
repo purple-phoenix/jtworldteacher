@@ -31,15 +31,21 @@ export async function GET(context: APIContext) {
 
   const coverUrl = absolute(SHOW.image);
 
+  const feedUrl = absolute('feed.xml');
+  const podcastGuid = '798ea7a3-ff1d-5480-96d7-b963b6198ade';
+
   return rss({
     xmlns: {
       itunes: 'http://www.itunes.com/dtds/podcast-1.0.dtd',
       content: 'http://purl.org/rss/1.0/modules/content/',
+      atom: 'http://www.w3.org/2005/Atom',
+      podcast: 'https://podcastindex.org/namespace/1.0',
     },
     title: SHOW.title,
     description: SHOW.description,
     site: root,
     customData: `
+      <atom:link href="${xmlEscape(feedUrl)}" rel="self" type="application/rss+xml" />
       <language>${SHOW.language}</language>
       <itunes:author>${xmlEscape(SHOW.author)}</itunes:author>
       <itunes:owner>
@@ -52,6 +58,8 @@ export async function GET(context: APIContext) {
       </itunes:category>
       <itunes:explicit>${SHOW.explicit}</itunes:explicit>
       <itunes:type>${SHOW.type}</itunes:type>
+      <podcast:guid>${podcastGuid}</podcast:guid>
+      <podcast:locked owner="${xmlEscape(SHOW.ownerEmail)}">no</podcast:locked>
     `.trim(),
     items: episodes.map((ep) => {
       const slug = ep.id.replace(/\.md$/, '');
