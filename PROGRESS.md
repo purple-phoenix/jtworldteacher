@@ -33,7 +33,7 @@ Two-track repo:
 
 ## Episode status
 
-18 episodes total, oldest first:
+19 episodes total, oldest first:
 
 | Date | Title | Show notes | Audio on R2 | Live |
 |---|---|---|---|---|
@@ -41,6 +41,7 @@ Two-track repo:
 | 2025-05-31 | THE ASTRO RV PROJECT with remote viewer Morgan Farrell | ✅ enriched | ✅ | ✅ |
 | 2025-06-20 | Sacred time and synchronicity storytime | ✅ enriched (pre-show fragment, 8 min) | ✅ | ✅ |
 | 2025-06-27 | Thinking about World War 3 | ✅ enriched | ✅ | ✅ |
+| 2025-07-16 | Human nature and the paranormal | ✅ enriched | ✅ | ✅ |
 | 2026-01-11 | Karmic Deep Impact | ✅ enriched | ✅ | ✅ |
 | 2026-01-20 | Thunderdome: #SaturnNeptune and the Archons | ✅ enriched | ✅ | ✅ |
 | 2026-01-27 | The Empire Never Ended: Secret of the "Psychic Gene" | ✅ enriched | ✅ | ✅ |
