@@ -124,6 +124,17 @@ jtworldteacher/
 - `rclone` (brew) configured with R2 credentials
 - `imagemagick` (brew) — only if regenerating cover art
 
+## Gotchas / known issues
+
+- **Slugify truncates at 60 chars, mid-word** — in `catalog/scripts/download-space.sh`, the `slugify()` function does `cut -c1-60` which can chop a word in half. E.g. "Final Feedback... Intuitive Underground were right about everything" became `...were-right-about-everyt`. The truncated slug becomes the audio filename and R2 URL — once published you don't want to rename it (would break the RSS enclosure). Either accept ugly truncations or improve slugify to cut at word boundaries before adding new long-titled episodes.
+- **Audio filename and episode-page slug can diverge** — for the 3 hand-written episodes (Thunderdome, Final Feedback) the site episode `.md` was named with a cleaner slug than the auto-generated audio filename. We resolved by setting `audioUrl` in frontmatter to the actual R2 audio filename, independent of the `.md` filename. **Pattern to follow**: audio filename is canonical for R2 URLs (never rename after upload — breaks subscribers); episode `.md` filename is canonical for `/podcast/<slug>/` website URL; they can differ; reconcile via the `audioUrl` frontmatter field.
+- **podba.se validator reports byte-range support as failing** — false positive. R2 returns proper HTTP 206 Partial Content with Content-Range header on our audio. Verified by curl: `curl -sI -H "Range: bytes=0-1023" https://media.jtworldteacher.com/episodes/<file>.m4a` returns 206. Apple does its own check and the audio passes. Ignore this red mark in the validator.
+- **Astro `import.meta.env.BASE_URL` was unreliable in `feed.xml.ts`** during the GH-Pages-subpath phase — we abandoned URL-object resolution and used direct string concatenation in `feed.xml.ts` (search for `siteRoot` / `absolute`). It works now with the apex domain, but if anyone re-introduces a base path later, the existing string-concat form should keep working.
+
+## Unknown state (from the previous session)
+
+- **Whether RSS feed was actually submitted to Apple Podcasts Connect / Spotify / YouTube Music / Amazon Music.** Matt said he would do it but the previous session ended before confirming. Next agent should ask or check via the inboxes for verification emails to `matttmccarthy66@gmail.com`. If not yet submitted, walk through the directory submission steps in PODCAST.md §"First-time directory submission."
+
 ## Auxiliary memory
 
 Claude's project memory for this repo is at `~/.claude/projects/-Users-mattmccarthy-github-jtworldteacher/memory/`:
