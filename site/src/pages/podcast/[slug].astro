@@ -1,70 +1,278 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
+import Layout from "../../layouts/Layout.astro";
+import Icon from "../../components/Icon.astro";
+import EpisodeCover from "../../components/EpisodeCover.astro";
+import AudioPlayer from "../../components/AudioPlayer.astro";
+import Rule from "../../components/Rule.astro";
+import { coverVariantForIndex } from "../../data/site";
+import { getCollection, render } from "astro:content";
 
 export async function getStaticPaths() {
-  const episodes = await getCollection('episodes', ({ data }) => !data.draft);
-  return episodes.map((ep) => ({
-    params: { slug: ep.id.replace(/\.md$/, '') },
-    props: { ep },
+  const all = (
+    await getCollection("episodes", ({ data }) => !data.draft)
+  ).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+  return all.map((ep, i) => ({
+    params: { slug: ep.id.replace(/\.md$/, "") },
+    props: { ep, num: all.length - i, variant: coverVariantForIndex(i) },
   }));
 }
 
-const { ep } = Astro.props;
+const { ep, num, variant } = Astro.props;
 const { Content } = await render(ep);
 
-const dateFmt = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
+const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "") + "/";
+
+const dateLong = new Intl.DateTimeFormat("en-US", {
+  weekday: "long",
+  month: "long",
+  day: "numeric",
+  year: "numeric",
 });
 ---
 
-<Layout title={`${ep.data.title} — JT`} description={ep.data.description}>
-  <main>
-    <p style="margin-top: 2rem;">
-      <a href={import.meta.env.BASE_URL + 'podcast/'}>← All episodes</a>
-    </p>
+<Layout title={`${ep.data.title} — J.T. Worldteacher`} description={ep.data.description}>
+  <main class="page-in">
+    <section class="hair-b">
+      <div class="container ep__head">
+        <a href={base + "podcast/"} class="ep__back eyebrow-strong link-u">
+          ← All episodes
+        </a>
+        <div class="ep__head-grid">
+          <div class="ep__head-cover">
+            <EpisodeCover variant={variant} episodeNum={num} size="lg" />
+          </div>
+          <div class="ep__head-body">
+            <div class="ep__meta">
+              <span>{dateLong.format(ep.data.pubDate)}</span>
+              <span class="ep__meta-sep">·</span>
+              <span>{ep.data.duration}</span>
+              {ep.data.spaceUrl && (
+                <>
+                  <span class="ep__meta-sep">·</span>
+                  <a href={ep.data.spaceUrl} class="link-u" rel="noopener">
+                    Originally an X Space
+                  </a>
+                </>
+              )}
+            </div>
+            <h1 class="ep__title font-display">{ep.data.title}</h1>
+            <p class="ep__desc">{ep.data.description}</p>
+            <div class="ep__player">
+              <AudioPlayer
+                audioUrl={ep.data.audioUrl}
+                audioType={ep.data.audioType}
+                durationSeconds={ep.data.durationSeconds}
+              />
+            </div>
+            <div class="ep__platforms">
+              {/* TODO: replace # with real Spotify/Apple/YouTube URLs */}
+              <a href="#" class="link-u ep__platform" rel="noopener">
+                <Icon name="spotify" />Spotify
+              </a>
+              <a href="#" class="link-u ep__platform" rel="noopener">
+                <Icon name="apple" />Apple
+              </a>
+              <a href="#" class="link-u ep__platform" rel="noopener">
+                <Icon name="youtube" />YouTube
+              </a>
+              <a href={base + "feed.xml"} class="link-u ep__platform">
+                <Icon name="rss" />RSS
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <article>
-      <h1 style="font-size: 2rem; margin: 1.5rem 0 0.5rem;">{ep.data.title}</h1>
-      <p style="color: var(--muted); margin: 0 0 1.5rem;">
-        {dateFmt.format(ep.data.pubDate)} · {ep.data.duration}
-        {ep.data.spaceUrl && (
-          <> · <a href={ep.data.spaceUrl} rel="noopener">originally an X Space</a></>
-        )}
-      </p>
+    <section>
+      <div class="container ep__body">
+        <article class="ep__article">
+          <Rule wide class="ep__rule" />
+          <Content />
+        </article>
 
-      <audio controls preload="none" style="width: 100%; margin: 1rem 0 2rem;">
-        <source src={ep.data.audioUrl} type={ep.data.audioType} />
-        Your browser does not support audio playback.
-        <a href={ep.data.audioUrl}>Download the audio</a>.
-      </audio>
-
-      <aside class="summary-card">
-        <h2 style="margin: 0 0 0.5rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); font-weight: normal;">Summary</h2>
-        <p style="margin: 0; font-size: 1.05rem;">{ep.data.description}</p>
-      </aside>
-
-      <Content />
-    </article>
-
-    <p style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule);">
-      <a href={import.meta.env.BASE_URL + 'podcast/'}>← All episodes</a>
-    </p>
+        <div class="ep__back-foot">
+          <a href={base + "podcast/"} class="ep__back eyebrow-strong link-u">
+            ← All episodes
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
-
-  <footer>
-    © {new Date().getFullYear()} JT. All rights reserved.
-  </footer>
 </Layout>
 
 <style>
-  .summary-card {
-    background: rgba(75, 46, 131, 0.06);
-    border-left: 3px solid var(--accent);
-    padding: 1.25rem 1.5rem;
-    margin: 0 0 2rem;
+  .ep__head {
+    padding-top: 48px;
+    padding-bottom: 56px;
+  }
+  @media (min-width: 768px) {
+    .ep__head {
+      padding-top: 64px;
+      padding-bottom: 72px;
+    }
+  }
+  .ep__back {
+    display: inline-block;
+    margin-bottom: 32px;
+    color: var(--ink-soft);
+  }
+  .ep__head-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  @media (min-width: 768px) {
+    .ep__head-grid {
+      grid-template-columns: 240px 1fr;
+      gap: 48px;
+    }
+  }
+  .ep__head-cover {
+    max-width: 280px;
+  }
+  .ep__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .ep__meta-sep {
+    color: var(--hair-strong);
+  }
+  .ep__title {
+    margin-top: 12px;
+    font-weight: 300;
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    font-size: clamp(34px, 5vw, 56px);
+    color: var(--ink);
+  }
+  .ep__desc {
+    margin-top: 16px;
+    max-width: 62ch;
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .ep__player {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--hair);
+  }
+  .ep__platforms {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .ep__platform {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .ep__body {
+    padding-top: 56px;
+    padding-bottom: 64px;
+  }
+  @media (min-width: 768px) {
+    .ep__body {
+      padding-top: 80px;
+      padding-bottom: 96px;
+    }
+  }
+  .ep__article {
+    max-width: 68ch;
+    margin: 0 auto;
+    font-size: 16.5px;
+    line-height: 1.72;
+    color: var(--ink-soft);
+  }
+  .ep__rule {
+    margin-bottom: 40px;
+  }
+  .ep__article :global(h2) {
+    font-family: "Spectral", Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(24px, 3vw, 32px);
+    line-height: 1.15;
+    color: var(--ink);
+    margin-top: 48px;
+    margin-bottom: 16px;
+  }
+  .ep__article :global(h2:first-child) {
+    margin-top: 0;
+  }
+  .ep__article :global(h3) {
+    font-family: "Spectral", Georgia, serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-top: 32px;
+    margin-bottom: 12px;
+  }
+  .ep__article :global(p) {
+    margin: 0 0 1em;
+  }
+  .ep__article :global(ul),
+  .ep__article :global(ol) {
+    margin: 0 0 1em;
+    padding-left: 1.25em;
+  }
+  .ep__article :global(li) {
+    margin: 0.25em 0;
+  }
+  .ep__article :global(a) {
+    color: var(--accent);
+    border-bottom: 1px solid var(--hair-strong);
+    transition: border-color 200ms ease;
+  }
+  .ep__article :global(a:hover) {
+    border-bottom-color: var(--accent);
+  }
+  .ep__article :global(blockquote) {
+    margin: 1.5em 0;
+    padding: 0 0 0 1.25em;
+    border-left: 2px solid var(--accent);
+    font-family: "Spectral", Georgia, serif;
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .ep__article :global(blockquote p) {
+    margin: 0 0 0.5em;
+  }
+  .ep__article :global(code) {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 0.92em;
+    background: var(--bg-elev);
+    padding: 2px 6px;
     border-radius: 2px;
+  }
+  .ep__article :global(hr) {
+    border: 0;
+    border-top: 1px solid var(--hair);
+    margin: 2em 0;
+  }
+  .ep__back-foot {
+    max-width: 68ch;
+    margin: 64px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--hair);
   }
 </style>

@@ -1,73 +1,532 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Sigil from "../components/Sigil.astro";
+import Rule from "../components/Rule.astro";
+import Icon from "../components/Icon.astro";
+import EpisodeCover from "../components/EpisodeCover.astro";
+import AudioPlayer from "../components/AudioPlayer.astro";
+import { SERIES, coverVariantForIndex } from "../data/site";
+import { getCollection } from "astro:content";
+
+const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "") + "/";
+
+const episodes = (
+  await getCollection("episodes", ({ data }) => !data.draft)
+).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const latest = episodes[0];
+const latestSlug = latest?.id.replace(/\.md$/, "");
+const latestNum = episodes.length;
+const latestVariant = coverVariantForIndex(0);
+
+const dateFmt = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
 ---
 
-<Layout title="JT — Astrology & Simulation Theory">
-  <header class="hero">
-    <h1>JT</h1>
-    <p class="tagline">Astrology and simulation theory.</p>
-  </header>
+<Layout title="J.T. Worldteacher — Astrology and simulation theory">
+  <main class="page-in">
+    {/* HERO */}
+    <section class="hero hair-b">
+      <div class="hero__watermark" aria-hidden="true">
+        <span class="hero__watermark-inner slowspin">
+          <Sigil size={620} />
+        </span>
+      </div>
 
-  <main>
-    <section>
-      <h2>About</h2>
-      <p>
-        A long-form inquiry into what the chart says about the nature of the
-        reality we appear to be inside of. Slow, unhurried, and meant for
-        people already asking the question.
-      </p>
-      <!-- TODO: replace with real bio once the framework recordings are done -->
+      <div class="container hero__inner">
+        <div class="hero__masthead">
+          <div class="hero__eyebrow">
+            <span class="hero__rule"></span>
+            <span>Independent teacher · broadcaster</span>
+            <span class="hero__rule"></span>
+          </div>
+
+          <h1 class="hero__wordmark font-display">
+            J.T.<br />Worldteacher
+          </h1>
+
+          <p class="hero__tagline font-display">Astrology and simulation theory.</p>
+
+          <p class="hero__intro">
+            Look — Vedic and mundane astrology, technical remote viewing in the
+            Dames lineage, and a long, careful argument against the architecture
+            we were born into. Orthodox Christian backbone. No hedge.
+          </p>
+
+          <div class="hero__ctas">
+            <a href={base + "about/"} class="link-u hero__cta hero__cta--strong">
+              Read the bio <span aria-hidden="true">→</span>
+            </a>
+            <span class="hero__cta-sep">·</span>
+            <a href={base + "podcast/"} class="link-u hero__cta">All episodes</a>
+            <span class="hero__cta-sep">·</span>
+            <a href={base + "consultations/"} class="link-u hero__cta">
+              Book a consultation
+            </a>
+          </div>
+        </div>
+
+        {
+          latest && (
+            <div class="latest">
+              <div class="latest__head">
+                <div class="latest__head-left">
+                  <span class="latest__dot" />
+                  Latest episode
+                </div>
+                <a href={base + "podcast/"} class="link-u eyebrow-strong">
+                  All episodes →
+                </a>
+              </div>
+
+              <article class="latest__card">
+                <div class="latest__grid">
+                  <div class="latest__cover">
+                    <EpisodeCover
+                      variant={latestVariant}
+                      episodeNum={latestNum}
+                      size="lg"
+                    />
+                  </div>
+                  <div class="latest__body">
+                    <div class="latest__meta">
+                      <span>{dateFmt.format(latest.data.pubDate)}</span>
+                      {latest.data.duration && (
+                        <>
+                          <span class="latest__meta-sep">·</span>
+                          <span>{latest.data.duration}</span>
+                        </>
+                      )}
+                    </div>
+                    <h3 class="latest__title font-display">
+                      <a href={base + `podcast/${latestSlug}/`} class="link-u">
+                        {latest.data.title}
+                      </a>
+                    </h3>
+                    <p class="latest__blurb">{latest.data.description}</p>
+                  </div>
+                </div>
+
+                <div class="latest__player">
+                  <AudioPlayer
+                    audioUrl={latest.data.audioUrl}
+                    audioType={latest.data.audioType}
+                    durationSeconds={latest.data.durationSeconds}
+                  />
+                </div>
+
+                <div class="latest__footer">
+                  <span>{latest.data.duration}</span>
+                  <div class="latest__platforms">
+                    {/* TODO: replace # with real Spotify/Apple/YouTube URLs once feeds are submitted */}
+                    <a href="#" class="link-u latest__platform" rel="noopener">
+                      <Icon name="spotify" />Spotify
+                    </a>
+                    <a href="#" class="link-u latest__platform" rel="noopener">
+                      <Icon name="apple" />Apple
+                    </a>
+                    <a href="#" class="link-u latest__platform" rel="noopener">
+                      <Icon name="youtube" />YT
+                    </a>
+                  </div>
+                </div>
+              </article>
+
+              <div class="latest__caption eyebrow">
+                The podcast is the front door.
+              </div>
+            </div>
+          )
+        }
+      </div>
     </section>
 
-    <section>
-      <h2>Podcast</h2>
-      <p>
-        New episodes most weeks. Available wherever you listen.
-      </p>
-      <ul class="links">
-        <li><a href={import.meta.env.BASE_URL + 'podcast/'}>All episodes</a></li>
-        <li><a href="#" rel="noopener">Spotify</a> <!-- TODO: submit feed --></li>
-        <li><a href="#" rel="noopener">Apple Podcasts</a> <!-- TODO: submit feed --></li>
-        <li><a href="#" rel="noopener">YouTube</a> <!-- TODO --></li>
-        <li><a href={import.meta.env.BASE_URL + 'feed.xml'}>RSS feed</a></li>
-      </ul>
+    {/* SERIES STRIP */}
+    <section class="strip hair-b">
+      <div class="container strip__grid">
+        <div class="strip__intro">
+          <div class="eyebrow">§01 — Recurring</div>
+          <h2 class="strip__h">The shows on rotation.</h2>
+          <p class="strip__lede">
+            Five streams, one signal. Each runs at its own cadence — listen to
+            whichever wavelength is open.
+          </p>
+        </div>
+        <ul class="strip__list">
+          {
+            SERIES.map((s) => (
+              <li class="strip__item">
+                <div>
+                  <div class="strip__item-name font-display">{s.name}</div>
+                  <div class="strip__item-blurb">{s.blurb}</div>
+                </div>
+                <div class="strip__item-cadence eyebrow-strong">{s.cadence}</div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </section>
 
-    <section>
-      <h2>Consultations</h2>
-      <p>
-        One-on-one sessions for people who want to go deeper with their own
-        chart. Honest pricing, no pressure.
-      </p>
-      <p>
-        <a href="#" rel="noopener">Book a session →</a>
-        <!-- TODO: replace with Acuity or Calendly link -->
-      </p>
+    {/* WRITING TEASER */}
+    <section class="teaser hair-b">
+      <div class="container teaser__grid">
+        <div class="teaser__intro">
+          <div class="eyebrow">§02 — Writing</div>
+          <h2 class="strip__h">Notes from the desk.</h2>
+          <p class="strip__lede">
+            Short posts when the radio is quiet, longer essays when something
+            needs to be put on paper before the next transit.
+          </p>
+          <a href={base + "writing/"} class="link-u teaser__cta">
+            All writing →
+          </a>
+        </div>
+        <div class="teaser__list">
+          <div class="teaser__empty">
+            <Rule wide />
+            <p class="teaser__empty-text">
+              Writing collection in preparation. The first pieces will be filed
+              by subject and read at your own pace.
+            </p>
+            <Rule wide />
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section>
-      <h2>Support the work</h2>
-      <p>
-        The podcast is free. If it's been useful and you'd like to support it
-        directly, you can do so here.
-      </p>
-      <ul class="links">
-        <li><a href="#" rel="noopener">One-time contribution</a> <!-- TODO: Stripe Payment Link --></li>
-        <li><a href="#" rel="noopener">Monthly support (Patreon)</a> <!-- TODO: add later --></li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Contact</h2>
-      <p>
-        For interviews, collaborations, or correspondence:
-        <a href="mailto:hello@example.com">hello@example.com</a>
-        <!-- TODO: real email -->
-      </p>
+    {/* QUOTE */}
+    <section class="quote hair-b">
+      <div class="container quote__inner">
+        <Rule class="quote__rule" />
+        <blockquote class="quote__text font-display">
+          “Look — the chart was already drawn. The question is whether you can
+          read it without flinching.”
+        </blockquote>
+        <div class="quote__attrib eyebrow">— J.T., on the air, 03:14 a.m.</div>
+        <Rule class="quote__rule" />
+      </div>
     </section>
   </main>
-
-  <footer>
-    © {new Date().getFullYear()} JT. All rights reserved.
-  </footer>
 </Layout>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero__watermark {
+    pointer-events: none;
+    position: absolute;
+    top: -96px;
+    right: -128px;
+    opacity: 0.06;
+    color: var(--accent);
+  }
+  .hero__watermark-inner {
+    display: inline-flex;
+  }
+  .hero__inner {
+    padding-top: 80px;
+    padding-bottom: 64px;
+    position: relative;
+  }
+  @media (min-width: 768px) {
+    .hero__inner {
+      padding-top: 112px;
+      padding-bottom: 96px;
+    }
+  }
+  .hero__masthead {
+    text-align: center;
+    max-width: 896px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .hero__rule {
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .hero__wordmark {
+    margin: 32px 0 0;
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    font-size: clamp(60px, 11vw, 168px);
+  }
+  .hero__tagline {
+    margin: 28px 0 0;
+    font-style: italic;
+    font-size: clamp(24px, 3.4vw, 30px);
+    line-height: 1.2;
+    color: var(--accent);
+  }
+  .hero__intro {
+    margin: 24px auto 0;
+    max-width: 58ch;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .hero__ctas {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px 24px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .hero__cta--strong {
+    color: var(--ink);
+  }
+  .hero__cta-sep {
+    color: var(--hair-strong);
+  }
+
+  .latest {
+    margin-top: 64px;
+    max-width: 672px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media (min-width: 768px) {
+    .latest {
+      margin-top: 80px;
+    }
+  }
+  .latest__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+  .latest__head-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+  }
+  .latest__dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+  .latest__card {
+    background: var(--bg-elev);
+    border: 1px solid var(--hair-strong);
+    padding: 20px;
+  }
+  @media (min-width: 768px) {
+    .latest__card {
+      padding: 24px;
+    }
+  }
+  .latest__grid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 20px;
+  }
+  @media (min-width: 640px) {
+    .latest__grid {
+      grid-template-columns: 160px 1fr;
+    }
+  }
+  .latest__meta {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .latest__meta-sep {
+    opacity: 0.6;
+  }
+  .latest__title {
+    margin: 8px 0 0;
+    font-size: clamp(22px, 2.4vw, 26px);
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .latest__title a {
+    color: inherit;
+  }
+  .latest__blurb {
+    margin: 8px 0 0;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .latest__player {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--hair);
+  }
+  .latest__footer {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .latest__platforms {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .latest__platform {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .latest__caption {
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  /* Series strip + Writing teaser shared structure */
+  .strip__grid,
+  .teaser__grid {
+    padding-top: 48px;
+    padding-bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  @media (min-width: 768px) {
+    .strip__grid,
+    .teaser__grid {
+      padding-top: 64px;
+      padding-bottom: 64px;
+      grid-template-columns: 4fr 8fr;
+      gap: 40px;
+    }
+  }
+  .strip__h {
+    margin-top: 12px;
+    font-size: clamp(30px, 4vw, 40px);
+    line-height: 1.05;
+  }
+  .strip__lede {
+    margin-top: 16px;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .strip__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair);
+  }
+  .strip__item {
+    padding: 16px 0;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: center;
+    border-bottom: 1px solid var(--hair);
+  }
+  .strip__item:last-child {
+    border-bottom: 0;
+  }
+  .strip__item-name {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+  .strip__item-blurb {
+    margin-top: 4px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .strip__item-cadence {
+    color: var(--ink-mute);
+    text-align: right;
+  }
+
+  .teaser__cta {
+    margin-top: 24px;
+    display: inline-block;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .teaser__empty {
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    color: var(--ink-soft);
+  }
+  .teaser__empty-text {
+    text-align: center;
+    max-width: 44ch;
+    margin: 0 auto;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .quote__inner {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    text-align: center;
+  }
+  @media (min-width: 768px) {
+    .quote__inner {
+      padding-top: 112px;
+      padding-bottom: 112px;
+    }
+  }
+  .quote__rule {
+    max-width: 28rem;
+    margin: 0 auto;
+  }
+  .quote__text {
+    font-style: italic;
+    font-size: clamp(28px, 4.5vw, 48px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    max-width: 26ch;
+    margin: 40px auto;
+    color: var(--ink);
+  }
+  .quote__attrib {
+    margin-bottom: 40px;
+  }
+</style>

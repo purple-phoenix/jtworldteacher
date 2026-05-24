@@ -1,0 +1,155 @@
+---
+interface Props {
+  audioUrl: string;
+  audioType?: string;
+  durationSeconds: number;
+  compact?: boolean;
+  id?: string;
+}
+const {
+  audioUrl,
+  audioType = "audio/mp4",
+  durationSeconds,
+  compact = false,
+  id,
+} = Astro.props;
+
+const playerId = id ?? `ap-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div class:list={["ap", { "ap--compact": compact }]} data-player data-duration={durationSeconds}>
+  <button class="ap__btn" type="button" aria-label="Play" data-ap-toggle>
+    <svg class="ap__icon ap__icon--play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+      <path d="M8 5v14l11-7z"></path>
+    </svg>
+    <svg class="ap__icon ap__icon--pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" hidden>
+      <rect x="6" y="5" width="4" height="14"></rect>
+      <rect x="14" y="5" width="4" height="14"></rect>
+    </svg>
+  </button>
+  <div class="ap__body">
+    <input class="seek ap__seek" type="range" min="0" max={durationSeconds} value="0" step="1" data-ap-seek aria-label="Seek" />
+    <div class="ap__times font-mono">
+      <span data-ap-current>0:00</span>
+      <span data-ap-remaining>−0:00</span>
+    </div>
+  </div>
+  <audio preload="none" data-ap-audio>
+    <source src={audioUrl} type={audioType} />
+  </audio>
+</div>
+
+<style>
+  .ap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 0;
+  }
+  .ap--compact {
+    padding: 0;
+  }
+  .ap__btn {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--bg);
+    border: 0;
+    cursor: pointer;
+    transition: transform 160ms ease;
+  }
+  .ap--compact .ap__btn {
+    width: 36px;
+    height: 36px;
+  }
+  .ap__btn:hover {
+    transform: scale(1.05);
+  }
+  .ap__btn:active {
+    transform: scale(0.95);
+  }
+  .ap__icon--play {
+    margin-left: 2px;
+  }
+  .ap__body {
+    flex: 1;
+    min-width: 0;
+  }
+  .ap__times {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: -4px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--ink-mute);
+  }
+</style>
+
+<script>
+  const fmt = (s: number) => {
+    s = Math.max(0, Math.floor(s));
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = s % 60;
+    if (h > 0)
+      return `${h}:${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+    return `${m}:${String(sec).padStart(2, "0")}`;
+  };
+
+  document.querySelectorAll<HTMLDivElement>("[data-player]").forEach((root) => {
+    const audio = root.querySelector<HTMLAudioElement>("[data-ap-audio]");
+    const toggle = root.querySelector<HTMLButtonElement>("[data-ap-toggle]");
+    const seek = root.querySelector<HTMLInputElement>("[data-ap-seek]");
+    const current = root.querySelector<HTMLSpanElement>("[data-ap-current]");
+    const remaining = root.querySelector<HTMLSpanElement>("[data-ap-remaining]");
+    const playIcon = root.querySelector<SVGElement>(".ap__icon--play");
+    const pauseIcon = root.querySelector<SVGElement>(".ap__icon--pause");
+    if (!audio || !toggle || !seek || !current || !remaining) return;
+
+    const duration = Number(root.dataset.duration ?? 0);
+    remaining.textContent = "−" + fmt(duration);
+
+    const setPlaying = (playing: boolean) => {
+      if (playIcon) playIcon.toggleAttribute("hidden", playing);
+      if (pauseIcon) pauseIcon.toggleAttribute("hidden", !playing);
+      toggle.setAttribute("aria-label", playing ? "Pause" : "Play");
+    };
+
+    toggle.addEventListener("click", () => {
+      if (audio.paused) {
+        // Pause every other player on the page
+        document.querySelectorAll<HTMLAudioElement>("[data-ap-audio]").forEach((a) => {
+          if (a !== audio && !a.paused) a.pause();
+        });
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+
+    audio.addEventListener("play", () => setPlaying(true));
+    audio.addEventListener("pause", () => setPlaying(false));
+    audio.addEventListener("ended", () => setPlaying(false));
+    audio.addEventListener("timeupdate", () => {
+      const t = audio.currentTime;
+      const total = isFinite(audio.duration) ? audio.duration : duration;
+      seek.value = String(Math.floor(t));
+      current.textContent = fmt(t);
+      remaining.textContent = "−" + fmt(Math.max(0, total - t));
+    });
+    audio.addEventListener("loadedmetadata", () => {
+      if (isFinite(audio.duration)) {
+        seek.max = String(Math.floor(audio.duration));
+        remaining.textContent = "−" + fmt(audio.duration);
+      }
+    });
+    seek.addEventListener("input", () => {
+      audio.currentTime = Number(seek.value);
+    });
+  });
+</script>

@@ -1,0 +1,178 @@
+---
+import Sigil from "./Sigil.astro";
+import Icon from "./Icon.astro";
+
+const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "") + "/";
+const year = new Date().getFullYear();
+
+const siteLinks = [
+  { href: base + "about/", label: "About" },
+  { href: base + "writing/", label: "Writing" },
+  { href: base + "podcast/", label: "Podcast" },
+  { href: base + "consultations/", label: "Consultations" },
+];
+
+// TODO: replace external links with real URLs once feeds are submitted
+const elsewhere = [
+  { icon: "rss" as const, label: "RSS", href: base + "feed.xml" },
+  { icon: "spotify" as const, label: "Spotify", href: "#" },
+  { icon: "apple" as const, label: "Apple", href: "#" },
+  { icon: "youtube" as const, label: "YouTube", href: "#" },
+  { icon: "x" as const, label: "@McCarthy_JT", href: "https://x.com/McCarthy_JT" },
+  { icon: "mail" as const, label: "Email", href: "mailto:josephtimothymccarthy@gmail.com" },
+];
+---
+
+<footer class="footer hair-t">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <span class="footer__brand-row">
+        <span class="footer__sigil"><Sigil size={28} /></span>
+        <span class="font-display footer__brand-name">J.T. Worldteacher</span>
+      </span>
+      <p class="font-display footer__tag">
+        Astrology and simulation theory. A late-night signal, recorded in daylight.
+      </p>
+    </div>
+
+    <div class="footer__col">
+      <div class="eyebrow footer__heading">Site</div>
+      <ul class="footer__list">
+        {siteLinks.map((l) => (
+          <li><a href={l.href} class="link-u">{l.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="footer__col footer__col--elsewhere">
+      <div class="eyebrow footer__heading">Elsewhere</div>
+      <div class="footer__elsewhere">
+        {elsewhere.map((e) => (
+          <a href={e.href} class="link-u footer__elsewhere-link" rel={e.href.startsWith("http") ? "noopener" : undefined}>
+            <Icon name={e.icon} />
+            <span>{e.label}</span>
+          </a>
+        ))}
+      </div>
+      <a href="#" class="footer__contrib" rel="noopener">
+        <span class="footer__contrib-diamond"></span>
+        <span class="footer__contrib-label">One-time contribution</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="container footer__strip">
+    <span>© {year} J.T. McCarthy · J.T. Worldteacher. All rights reserved.</span>
+    <span>Recorded under a clear sky. Built static.</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: 128px;
+  }
+  .footer__grid {
+    padding-top: 64px;
+    display: grid;
+    gap: 48px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) {
+    .footer__grid {
+      grid-template-columns: 5fr 3fr 4fr;
+    }
+  }
+  .footer__brand-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .footer__sigil {
+    color: var(--accent);
+    display: inline-flex;
+  }
+  .footer__brand-name {
+    font-size: 24px;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .footer__tag {
+    margin-top: 20px;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.35;
+    color: var(--ink-soft);
+    max-width: 380px;
+  }
+  .footer__heading {
+    margin-bottom: 20px;
+  }
+  .footer__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: var(--ink-soft);
+  }
+  .footer__list li {
+    margin: 0 0 10px;
+    font-size: 14px;
+  }
+  .footer__elsewhere {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 10px;
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+  .footer__elsewhere-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .footer__contrib {
+    margin-top: 28px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid var(--hair-strong);
+  }
+  .footer__contrib-diamond {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    transform: rotate(45deg);
+    transition: transform 240ms ease;
+  }
+  .footer__contrib:hover .footer__contrib-diamond {
+    transform: rotate(225deg);
+  }
+  .footer__contrib-label {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .footer__strip {
+    margin-top: 56px;
+    padding: 24px 20px;
+    border-top: 1px solid var(--hair);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  @media (min-width: 768px) {
+    .footer__strip {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 40px;
+    }
+  }
+</style>

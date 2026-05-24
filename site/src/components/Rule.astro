@@ -1,0 +1,38 @@
+---
+interface Props {
+  wide?: boolean;
+  class?: string;
+}
+const { wide = false, class: cls = "" } = Astro.props;
+---
+
+<div class:list={["rule", cls, { "rule--wide": wide }]}>
+  <span class="rule__line"></span>
+  <span class="rule__diamond"></span>
+  <span class:list={["rule__line", { "rule__line--short": !wide }]}></span>
+</div>
+
+<style>
+  .rule {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .rule__line {
+    display: block;
+    height: 1px;
+    flex: 1;
+    background: var(--hair-strong);
+  }
+  .rule__line--short {
+    flex: none;
+    width: 48px;
+  }
+  .rule__diamond {
+    display: block;
+    width: 6px;
+    height: 6px;
+    transform: rotate(45deg);
+    background: var(--accent);
+  }
+</style>

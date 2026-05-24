@@ -1,0 +1,149 @@
+---
+type Variant = "amber" | "ring" | "rule" | "disc" | "eclipse";
+type Size = "sm" | "md" | "lg";
+
+interface Props {
+  variant?: Variant;
+  size?: Size;
+  episodeNum: number;
+  label?: string;
+}
+const {
+  variant = "amber",
+  size = "lg",
+  episodeNum,
+  label = "ASTROLOGY · SIMULATION",
+} = Astro.props;
+
+const num = String(episodeNum).padStart(3, "0");
+---
+
+<div class:list={["cover", `cover--${size}`]} aria-hidden="true">
+  <div class="cover__stars stars"></div>
+
+  {
+    variant === "amber" && (
+      <div class="cover__amber">
+        <div class="cover__amber-glow" />
+        <svg viewBox="0 0 100 100" class="cover__svg">
+          <circle cx="70" cy="72" r="14" fill="none" stroke="var(--accent)" stroke-width="0.4" />
+          <circle cx="70" cy="72" r="22" fill="none" stroke="var(--accent)" stroke-width="0.25" opacity="0.6" />
+          <circle cx="70" cy="72" r="3" fill="var(--accent)" />
+        </svg>
+      </div>
+    )
+  }
+  {
+    variant === "ring" && (
+      <svg viewBox="0 0 100 100" class="cover__svg">
+        <ellipse cx="50" cy="55" rx="30" ry="8" fill="none" stroke="var(--accent)" stroke-width="0.5" />
+        <ellipse cx="50" cy="55" rx="36" ry="10" fill="none" stroke="var(--accent)" stroke-width="0.25" opacity="0.5" />
+        <circle cx="50" cy="55" r="10" fill="#1a1611" stroke="var(--accent)" stroke-width="0.5" />
+      </svg>
+    )
+  }
+  {
+    variant === "rule" && (
+      <svg viewBox="0 0 100 100" class="cover__svg">
+        <line x1="10" y1="50" x2="90" y2="50" stroke="var(--accent)" stroke-width="0.4" />
+        <circle cx="50" cy="50" r="2" fill="var(--accent)" />
+        <circle cx="50" cy="50" r="12" fill="none" stroke="var(--ink-soft)" stroke-width="0.2" opacity="0.5" />
+      </svg>
+    )
+  }
+  {
+    variant === "disc" && (
+      <svg viewBox="0 0 100 100" class="cover__svg">
+        <ellipse cx="50" cy="55" rx="22" ry="6" fill="none" stroke="var(--accent)" stroke-width="0.5" />
+        <ellipse cx="50" cy="55" rx="22" ry="6" fill="rgba(200,154,74,0.10)" />
+      </svg>
+    )
+  }
+  {
+    variant === "eclipse" && (
+      <svg viewBox="0 0 100 100" class="cover__svg">
+        <circle cx="50" cy="50" r="20" fill="#0e0c0a" stroke="var(--accent)" stroke-width="0.6" />
+        <circle cx="50" cy="50" r="22" fill="none" stroke="var(--accent)" stroke-width="0.25" opacity="0.6" />
+        <circle cx="50" cy="50" r="28" fill="none" stroke="var(--accent)" stroke-width="0.15" opacity="0.4" />
+      </svg>
+    )
+  }
+
+  <div class="cover__top">
+    <span class="cover__num">№ {num}</span>
+    <span class="cover__mark">J.T./M</span>
+  </div>
+  <div class="cover__bottom">{label}</div>
+</div>
+
+<style>
+  .cover {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, #1a1611 0%, #0e0c0a 100%);
+    border: 1px solid var(--hair-strong);
+  }
+  .cover--sm {
+    width: 80px;
+    height: 80px;
+  }
+  .cover--md {
+    width: 112px;
+    height: 112px;
+  }
+  .cover--lg {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+  .cover__stars,
+  .cover__svg,
+  .cover__amber,
+  .cover__amber-glow {
+    position: absolute;
+    inset: 0;
+  }
+  .cover__stars {
+    opacity: 0.7;
+  }
+  .cover__amber-glow {
+    background: radial-gradient(60% 60% at 70% 75%, rgba(200, 154, 74, 0.35), transparent 60%);
+  }
+  .cover__svg {
+    width: 100%;
+    height: 100%;
+  }
+  .cover__top,
+  .cover__bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 8px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    text-transform: uppercase;
+  }
+  .cover__top {
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--ink-soft);
+  }
+  .cover__bottom {
+    bottom: 0;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--ink-mute);
+  }
+  .cover__num {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+  }
+  .cover--lg .cover__num {
+    font-size: 12px;
+  }
+  .cover__mark {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--ink-mute);
+  }
+</style>

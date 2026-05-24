@@ -1,60 +1,376 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import Layout from "../../layouts/Layout.astro";
+import Icon from "../../components/Icon.astro";
+import EpisodeCover from "../../components/EpisodeCover.astro";
+import AudioPlayer from "../../components/AudioPlayer.astro";
+import { coverVariantForIndex } from "../../data/site";
+import { getCollection } from "astro:content";
 
-const episodes = (await getCollection('episodes', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
-);
+const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "") + "/";
 
-const dateFmt = new Intl.DateTimeFormat('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
+const episodes = (
+  await getCollection("episodes", ({ data }) => !data.draft)
+).sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+// Episode "num" runs reverse: newest gets the highest number.
+const total = episodes.length;
+const items = episodes.map((ep, i) => ({
+  ep,
+  slug: ep.id.replace(/\.md$/, ""),
+  num: total - i,
+  variant: coverVariantForIndex(i),
+}));
+
+const featured = items[0];
+
+const dateFmt = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+const dateLong = new Intl.DateTimeFormat("en-US", {
+  weekday: "long",
+  month: "long",
+  day: "numeric",
+  year: "numeric",
 });
 ---
 
-<Layout title="Podcast — JT">
-  <header class="hero">
-    <h1>Podcast</h1>
-    <p class="tagline">Astrology and simulation theory.</p>
-  </header>
+<Layout title="Podcast — J.T. Worldteacher">
+  <main class="page-in">
+    <section class="hair-b">
+      <div class="container pod__head">
+        <div class="eyebrow">Podcast — Archive</div>
+        <h1 class="pod__h1 font-display">The full broadcast.</h1>
+        <p class="pod__lede">
+          Every episode, in order. The show is free; the work is not. Listen
+          wherever you keep podcasts — or play directly from the page.
+        </p>
 
-  <main>
-    <section>
-      <h2>Subscribe</h2>
-      <ul class="links">
-        <li><a href={import.meta.env.BASE_URL + 'feed.xml'}>RSS feed</a></li>
-        <li><a href="#" rel="noopener">Apple Podcasts</a> <!-- TODO --></li>
-        <li><a href="#" rel="noopener">Spotify</a> <!-- TODO --></li>
-        <li><a href="#" rel="noopener">YouTube</a> <!-- TODO --></li>
-      </ul>
+        <div class="pod__platforms">
+          {/* TODO: replace # with real Spotify/Apple/YouTube URLs once feeds are submitted */}
+          <a href="#" class="link-u pod__platform" rel="noopener">
+            <Icon name="spotify" />Spotify
+          </a>
+          <a href="#" class="link-u pod__platform" rel="noopener">
+            <Icon name="apple" />Apple Podcasts
+          </a>
+          <a href="#" class="link-u pod__platform" rel="noopener">
+            <Icon name="youtube" />YouTube
+          </a>
+          <a href={base + "feed.xml"} class="link-u pod__platform">
+            <Icon name="rss" />RSS
+          </a>
+        </div>
+      </div>
     </section>
 
-    <section>
-      <h2>Episodes</h2>
-      {episodes.length === 0 ? (
-        <p>No episodes published yet.</p>
-      ) : (
-        <ul class="links">
-          {episodes.map((ep) => {
-            const slug = ep.id.replace(/\.md$/, '');
-            return (
-              <li>
-                <a href={import.meta.env.BASE_URL + `podcast/${slug}/`}>
-                  {ep.data.title}
-                </a>
-                <span style="color: var(--muted); font-size: 0.9em;">
-                  {' '}— {dateFmt.format(ep.data.pubDate)} · {ep.data.duration}
+    {
+      featured && (
+        <section class="pod__featured hair-b">
+          <div class="container pod__featured-grid">
+            <div class="pod__featured-cover">
+              <EpisodeCover
+                variant={featured.variant}
+                episodeNum={featured.num}
+                size="lg"
+              />
+            </div>
+            <div class="pod__featured-body">
+              <div class="pod__featured-meta">
+                <span class="pod__featured-now">Now playing</span>
+                <span class="pod__featured-sep">·</span>
+                <span class="pod__featured-date">
+                  {dateLong.format(featured.ep.data.pubDate)}
                 </span>
+              </div>
+              <h2 class="pod__featured-title font-display">
+                <a href={base + `podcast/${featured.slug}/`} class="link-u">
+                  {featured.ep.data.title}
+                </a>
+              </h2>
+              <p class="pod__featured-blurb">
+                {featured.ep.data.description}
+              </p>
+              <div class="pod__featured-player">
+                <AudioPlayer
+                  audioUrl={featured.ep.data.audioUrl}
+                  audioType={featured.ep.data.audioType}
+                  durationSeconds={featured.ep.data.durationSeconds}
+                />
+              </div>
+              <div class="pod__featured-foot">
+                <span>{featured.ep.data.duration}</span>
+                <span class="pod__featured-sep">·</span>
+                {/* TODO: replace # with real platform URLs */}
+                <a href="#" class="link-u pod__platform" rel="noopener">
+                  <Icon name="spotify" />Spotify
+                </a>
+                <a href="#" class="link-u pod__platform" rel="noopener">
+                  <Icon name="apple" />Apple
+                </a>
+                <a href="#" class="link-u pod__platform" rel="noopener">
+                  <Icon name="youtube" />YouTube
+                </a>
+                <a href={base + "feed.xml"} class="link-u pod__platform">
+                  <Icon name="rss" />RSS
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <section>
+      <div class="container pod__list-wrap">
+        <ul class="pod__list">
+          {
+            items.map((it, i) => (
+              <li
+                class:list={[
+                  "pod__row",
+                  { "pod__row--last": i === items.length - 1 },
+                ]}
+              >
+                <a
+                  class="pod__row-cover"
+                  href={base + `podcast/${it.slug}/`}
+                  aria-label={`Open ${it.ep.data.title}`}
+                >
+                  <EpisodeCover
+                    variant={it.variant}
+                    episodeNum={it.num}
+                    size="md"
+                  />
+                </a>
+                <div class="pod__row-body">
+                  <div class="pod__row-meta">
+                    <span>{dateFmt.format(it.ep.data.pubDate)}</span>
+                    <span class="pod__featured-sep">·</span>
+                    <span>{it.ep.data.duration}</span>
+                  </div>
+                  <h3 class="pod__row-title font-display">
+                    <a
+                      href={base + `podcast/${it.slug}/`}
+                      class="link-u pod__row-title-link"
+                    >
+                      {it.ep.data.title}
+                    </a>
+                  </h3>
+                  <p class="pod__row-blurb">{it.ep.data.description}</p>
+                </div>
+                <a
+                  class="pod__row-play"
+                  href={base + `podcast/${it.slug}/`}
+                  aria-label="Open episode"
+                >
+                  <Icon name="play" />
+                </a>
               </li>
-            );
-          })}
+            ))
+          }
         </ul>
-      )}
+      </div>
     </section>
   </main>
-
-  <footer>
-    © {new Date().getFullYear()} JT. All rights reserved.
-  </footer>
 </Layout>
+
+<style>
+  .pod__head {
+    padding-top: 64px;
+    padding-bottom: 48px;
+  }
+  @media (min-width: 768px) {
+    .pod__head {
+      padding-top: 96px;
+    }
+  }
+  .pod__h1 {
+    margin-top: 20px;
+    font-weight: 300;
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    font-size: clamp(48px, 7vw, 88px);
+  }
+  .pod__lede {
+    margin-top: 24px;
+    max-width: 62ch;
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .pod__platforms {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .pod__platform {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .pod__featured {
+    background: var(--bg-elev);
+  }
+  .pod__featured-grid {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  @media (min-width: 768px) {
+    .pod__featured-grid {
+      padding-top: 56px;
+      padding-bottom: 56px;
+      grid-template-columns: 220px 1fr;
+    }
+  }
+  .pod__featured-cover {
+    max-width: 280px;
+  }
+  .pod__featured-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .pod__featured-now {
+    color: var(--accent);
+  }
+  .pod__featured-date {
+    color: var(--ink-mute);
+  }
+  .pod__featured-sep {
+    color: var(--hair-strong);
+  }
+  .pod__featured-title {
+    margin-top: 8px;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.08;
+  }
+  .pod__featured-title a {
+    color: var(--ink);
+  }
+  .pod__featured-blurb {
+    margin-top: 12px;
+    max-width: 60ch;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .pod__featured-player {
+    margin-top: 20px;
+  }
+  .pod__featured-foot {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 20px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  .pod__list-wrap {
+    padding-top: 32px;
+    padding-bottom: 48px;
+  }
+  @media (min-width: 768px) {
+    .pod__list-wrap {
+      padding-top: 48px;
+      padding-bottom: 64px;
+    }
+  }
+  .pod__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .pod__row {
+    padding: 24px 0;
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 20px;
+    border-top: 1px solid var(--hair);
+  }
+  .pod__row--last {
+    border-bottom: 1px solid var(--hair);
+  }
+  @media (min-width: 768px) {
+    .pod__row {
+      grid-template-columns: 120px 1fr auto;
+      gap: 32px;
+    }
+  }
+  .pod__row-cover {
+    display: block;
+  }
+  .pod__row-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .pod__row-title {
+    margin-top: 6px;
+    font-size: clamp(22px, 2.6vw, 26px);
+    line-height: 1.12;
+  }
+  .pod__row-title-link {
+    color: var(--ink);
+    transition: color 200ms ease;
+  }
+  .pod__row-title-link:hover {
+    color: var(--accent);
+  }
+  .pod__row-blurb {
+    margin-top: 8px;
+    max-width: 60ch;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .pod__row-play {
+    display: none;
+  }
+  @media (min-width: 768px) {
+    .pod__row-play {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid var(--hair-strong);
+      color: var(--ink-soft);
+      align-self: center;
+      transition: transform 160ms ease, color 200ms ease, border-color 200ms ease;
+    }
+    .pod__row-play:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+  }
+</style>

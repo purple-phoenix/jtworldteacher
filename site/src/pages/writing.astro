@@ -1,0 +1,93 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Rule from "../components/Rule.astro";
+
+const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "") + "/";
+---
+
+<Layout title="Writing — J.T. Worldteacher">
+  <main class="page-in">
+    <section class="hair-b">
+      <div class="container writing__head">
+        <div class="eyebrow">Writing &amp; Updates</div>
+        <h1 class="writing__h1 font-display">Notes from the desk.</h1>
+        <p class="writing__lede">
+          Look — short posts when the radio is quiet, longer essays when an
+          idea has earned the page. Filed by subject. Read at your own pace.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container writing__empty">
+        <Rule wide />
+        <div class="writing__empty-body">
+          <div class="eyebrow">Coming up</div>
+          <p class="writing__empty-text">
+            Remember — the writing follows the broadcast. The first posts are
+            being prepared. In the meantime, the podcast does the speaking.
+          </p>
+          <a href={base + "podcast/"} class="link-u writing__empty-cta">
+            Listen to the show →
+          </a>
+        </div>
+        <Rule wide />
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .writing__head {
+    padding-top: 64px;
+    padding-bottom: 48px;
+  }
+  @media (min-width: 768px) {
+    .writing__head {
+      padding-top: 96px;
+    }
+  }
+  .writing__h1 {
+    margin-top: 20px;
+    font-weight: 300;
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    font-size: clamp(48px, 7vw, 88px);
+  }
+  .writing__lede {
+    margin-top: 24px;
+    max-width: 62ch;
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  .writing__empty {
+    padding-top: 80px;
+    padding-bottom: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+  .writing__empty-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .writing__empty-text {
+    max-width: 52ch;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .writing__empty-cta {
+    margin-top: 8px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+</style>

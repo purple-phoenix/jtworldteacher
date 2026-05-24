@@ -1,0 +1,486 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Sigil from "../components/Sigil.astro";
+import Icon from "../components/Icon.astro";
+import { CONSULTS } from "../data/site";
+
+const initial = CONSULTS[0];
+
+const isList = [
+  "A careful reading of a real chart, done with you in the room.",
+  "A working document — a recording and notes you keep.",
+  "Conversation. You can interrupt. You should interrupt.",
+];
+const isntList = [
+  "A fortune. I will not tell you what will happen in May.",
+  "A diagnosis or a substitute for therapy or medical care.",
+  "A remote viewing session in disguise. RV is its own discipline.",
+];
+---
+
+<Layout title="Consultations — J.T. Worldteacher">
+  <main class="page-in">
+    <section class="hair-b">
+      <div class="container consult__head">
+        <div class="eyebrow">Consultations</div>
+        <h1 class="consult__h1 font-display">Sit down, in private.</h1>
+        <p class="consult__lede">
+          Look — a session is a conversation with a chart on the table. It is
+          not a fortune, it is not a fix, and it is not therapy. It is one hour
+          or two of careful reading, done out loud, with you in the room.
+        </p>
+      </div>
+    </section>
+
+    <section class="hair-b">
+      <div class="container consult__cards-wrap">
+        <div class="consult__cards" role="radiogroup" aria-label="Choose a consultation">
+          {
+            CONSULTS.map((c, i) => (
+              <button
+                type="button"
+                role="radio"
+                aria-checked={i === 0 ? "true" : "false"}
+                class:list={["consult__card", { "is-active": i === 0 }]}
+                data-consult-card
+                data-id={c.id}
+              >
+                <div class="consult__card-top">
+                  <span class="consult__card-length eyebrow-strong">{c.length}</span>
+                  <span class="consult__card-price">{c.price}</span>
+                </div>
+                <h3 class="consult__card-title font-display">{c.title}</h3>
+                <p class="consult__card-pitch font-display">{c.pitch}</p>
+                <ul class="consult__card-points">
+                  {c.points.map((p) => (
+                    <li>
+                      <span class="consult__card-diamond" />
+                      <span>{p}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div class="consult__card-foot">
+                  <span class="consult__card-select eyebrow-strong">
+                    <span data-consult-label-active hidden={i !== 0}>Selected</span>
+                    <span data-consult-label-inactive hidden={i === 0}>Select</span>
+                  </span>
+                  <Icon name="arrow" />
+                </div>
+              </button>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="hair-b">
+      <div class="container consult__detail">
+        <div class="consult__detail-left">
+          <div class="eyebrow">You selected</div>
+          <h2 class="consult__detail-h font-display" data-consult-title>{initial.title}</h2>
+          <div class="consult__detail-meta" data-consult-meta>
+            {initial.length} · {initial.price}
+          </div>
+          <p class="consult__detail-body" data-consult-body>{initial.body}</p>
+
+          <div class="consult__note">
+            <div class="consult__note-h eyebrow-strong">An honest note</div>
+            <p>
+              Remember — turnaround is currently 3–4 weeks. I read every chart
+              myself, and I will not take a session I cannot do well. If the
+              calendar is closed, the waitlist below will reach me.
+            </p>
+          </div>
+        </div>
+
+        <div class="consult__detail-right">
+          <div class="eyebrow">Booking</div>
+          <div class="consult__booking" aria-hidden="true">
+            <div class="consult__booking-stripes"></div>
+            <div class="consult__booking-center">
+              <div class="consult__booking-sigil"><Sigil size={44} /></div>
+              <div class="consult__booking-h font-display">Booking widget</div>
+              <div class="consult__booking-sub eyebrow-strong">
+                Calendly / Acuity embed slot
+              </div>
+            </div>
+          </div>
+          <div class="consult__cta-row">
+            {/* TODO: replace # with real Calendly/Acuity URL */}
+            <a href="#" class="consult__cta-primary" rel="noopener">
+              <span>Book a session</span>
+              <Icon name="arrow" />
+            </a>
+            <a
+              href="mailto:josephtimothymccarthy@gmail.com?subject=Waitlist"
+              class="consult__cta-secondary link-u"
+            >
+              <Icon name="mail" />
+              <span>Join the waitlist</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hair-b">
+      <div class="container consult__isnt">
+        <div>
+          <div class="eyebrow consult__isnt-h is">What it is</div>
+          <ul class="consult__isnt-list">
+            {isList.map((t) => (
+              <li>
+                <span class="consult__diamond consult__diamond--accent" />
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <div class="eyebrow consult__isnt-h isnt">What it isn't</div>
+          <ul class="consult__isnt-list">
+            {isntList.map((t) => (
+              <li>
+                <span class="consult__diamond consult__diamond--ox" />
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .consult__head {
+    padding-top: 64px;
+    padding-bottom: 48px;
+  }
+  @media (min-width: 768px) {
+    .consult__head {
+      padding-top: 96px;
+    }
+  }
+  .consult__h1 {
+    margin-top: 20px;
+    font-weight: 300;
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    font-size: clamp(48px, 7vw, 88px);
+  }
+  .consult__lede {
+    margin-top: 24px;
+    max-width: 62ch;
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  .consult__cards-wrap {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  @media (min-width: 768px) {
+    .consult__cards-wrap {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+  }
+  .consult__cards {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) {
+    .consult__cards {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+  }
+  .consult__card {
+    text-align: left;
+    padding: 24px;
+    background: transparent;
+    border: 1px solid var(--hair-strong);
+    cursor: pointer;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    font: inherit;
+    transition: background 240ms ease, border-color 240ms ease;
+  }
+  @media (min-width: 768px) {
+    .consult__card {
+      padding: 28px;
+    }
+  }
+  .consult__card.is-active {
+    background: var(--bg-elev);
+    border-color: var(--accent);
+  }
+  .consult__card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .consult__card-price {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+  }
+  .consult__card-title {
+    margin-top: 20px;
+    font-size: 26px;
+    line-height: 1.1;
+  }
+  .consult__card-pitch {
+    margin-top: 8px;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+  .consult__card-points {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .consult__card-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .consult__card-diamond {
+    margin-top: 8px;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+  .consult__card-foot {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--hair);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--ink-mute);
+  }
+  .consult__card.is-active .consult__card-foot,
+  .consult__card.is-active .consult__card-select {
+    color: var(--accent);
+  }
+
+  .consult__detail {
+    padding-top: 48px;
+    padding-bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  @media (min-width: 768px) {
+    .consult__detail {
+      padding-top: 64px;
+      padding-bottom: 64px;
+      grid-template-columns: 5fr 7fr;
+    }
+  }
+  .consult__detail-h {
+    margin-top: 12px;
+    font-size: clamp(30px, 4vw, 40px);
+    line-height: 1.05;
+  }
+  .consult__detail-meta {
+    margin-top: 8px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .consult__detail-body {
+    margin-top: 24px;
+    max-width: 52ch;
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+  .consult__note {
+    margin-top: 32px;
+    padding: 20px;
+    border: 1px dashed var(--hair-strong);
+    background: var(--bg-elev);
+  }
+  .consult__note-h {
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .consult__note p {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  .consult__booking {
+    margin-top: 12px;
+    position: relative;
+    aspect-ratio: 5 / 4;
+    background: var(--bg-elev);
+    border: 1px solid var(--hair-strong);
+    overflow: hidden;
+  }
+  .consult__booking-stripes {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 22px,
+      rgba(232, 225, 212, 0.04) 22px,
+      rgba(232, 225, 212, 0.04) 23px
+    );
+  }
+  .consult__booking-center {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 0 32px;
+  }
+  .consult__booking-sigil {
+    color: var(--accent);
+    display: inline-flex;
+  }
+  .consult__booking-h {
+    margin-top: 20px;
+    font-size: 24px;
+  }
+  .consult__booking-sub {
+    margin-top: 8px;
+    color: var(--ink-mute);
+  }
+
+  .consult__cta-row {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  @media (min-width: 640px) {
+    .consult__cta-row {
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+    }
+  }
+  .consult__cta-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .consult__cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .consult__isnt {
+    padding-top: 56px;
+    padding-bottom: 56px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  @media (min-width: 768px) {
+    .consult__isnt {
+      padding-top: 80px;
+      padding-bottom: 80px;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .consult__isnt-h.is {
+    color: var(--accent);
+  }
+  .consult__isnt-h.isnt {
+    color: var(--oxblood);
+  }
+  .consult__isnt-list {
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .consult__isnt-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .consult__diamond {
+    margin-top: 8px;
+    width: 6px;
+    height: 6px;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+  .consult__diamond--accent {
+    background: var(--accent);
+  }
+  .consult__diamond--ox {
+    background: var(--oxblood);
+  }
+</style>
+
+<script define:vars={{ consults: CONSULTS }}>
+  const cards = document.querySelectorAll("[data-consult-card]");
+  const titleEl = document.querySelector("[data-consult-title]");
+  const metaEl = document.querySelector("[data-consult-meta]");
+  const bodyEl = document.querySelector("[data-consult-body]");
+
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const id = card.dataset.id;
+      const c = consults.find((x) => x.id === id);
+      if (!c) return;
+
+      cards.forEach((other) => {
+        const isActive = other === card;
+        other.classList.toggle("is-active", isActive);
+        other.setAttribute("aria-checked", isActive ? "true" : "false");
+        const a = other.querySelector("[data-consult-label-active]");
+        const i = other.querySelector("[data-consult-label-inactive]");
+        if (a) a.hidden = !isActive;
+        if (i) i.hidden = isActive;
+      });
+
+      if (titleEl) titleEl.textContent = c.title;
+      if (metaEl) metaEl.textContent = `${c.length} · ${c.price}`;
+      if (bodyEl) bodyEl.textContent = c.body;
+    });
+  });
+</script>
