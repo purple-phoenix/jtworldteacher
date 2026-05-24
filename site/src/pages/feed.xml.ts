@@ -1,6 +1,7 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
+import { marked } from 'marked';
 
 const SHOW = {
   title: 'JT — Astrology & Simulation Theory',
@@ -8,6 +9,7 @@ const SHOW = {
     'A long-form inquiry into what the chart says about the nature of the reality we appear to be inside of. Slow, unhurried, and meant for people already asking the question.',
   author: 'JT McCarthy',
   ownerEmail: 'josephtimothymccarthy@gmail.com',
+  copyright: '© JT McCarthy',
   language: 'en-us',
   category: { text: 'Religion & Spirituality', sub: 'Spirituality' },
   image: 'podcast-cover.jpg',
@@ -47,6 +49,7 @@ export async function GET(context: APIContext) {
     customData: `
       <atom:link href="${xmlEscape(feedUrl)}" rel="self" type="application/rss+xml" />
       <language>${SHOW.language}</language>
+      <copyright>${xmlEscape(SHOW.copyright)}</copyright>
       <itunes:author>${xmlEscape(SHOW.author)}</itunes:author>
       <itunes:owner>
         <itunes:name>${xmlEscape(SHOW.author)}</itunes:name>
@@ -65,10 +68,12 @@ export async function GET(context: APIContext) {
       const slug = ep.id.replace(/\.md$/, '');
       const episodeUrl = absolute(`podcast/${slug}/`);
       const episodeImage = ep.data.image ? absolute(ep.data.image) : coverUrl;
+      const bodyHtml = ep.body ? (marked.parse(ep.body, { async: false }) as string) : '';
       return {
         title: ep.data.title,
         pubDate: ep.data.pubDate,
         description: ep.data.description,
+        content: bodyHtml || undefined,
         link: episodeUrl,
         enclosure: {
           url: ep.data.audioUrl,
@@ -76,6 +81,7 @@ export async function GET(context: APIContext) {
           type: ep.data.audioType,
         },
         customData: `
+          <itunes:title>${xmlEscape(ep.data.title)}</itunes:title>
           <itunes:duration>${ep.data.duration}</itunes:duration>
           <itunes:episodeType>${ep.data.episodeType}</itunes:episodeType>
           <itunes:explicit>${ep.data.explicit}</itunes:explicit>
