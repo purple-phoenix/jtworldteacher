@@ -14,12 +14,12 @@ const siteLinks = [
 
 // TODO: replace external links with real URLs once feeds are submitted
 const elsewhere = [
-  { icon: "rss" as const, label: "RSS", href: base + "feed.xml" },
-  { icon: "spotify" as const, label: "Spotify", href: "#" },
-  { icon: "apple" as const, label: "Apple", href: "#" },
-  { icon: "youtube" as const, label: "YouTube", href: "#" },
-  { icon: "x" as const, label: "@McCarthy_JT", href: "https://x.com/McCarthy_JT" },
-  { icon: "mail" as const, label: "Email", href: "mailto:josephtimothymccarthy@gmail.com" },
+  { icon: "rss" as const, label: "RSS", href: base + "feed.xml", soon: false },
+  { icon: "spotify" as const, label: "Spotify", href: "#", soon: true },
+  { icon: "apple" as const, label: "Apple", href: "#", soon: true },
+  { icon: "youtube" as const, label: "YouTube", href: "#", soon: true },
+  { icon: "x" as const, label: "@McCarthy_JT", href: "https://x.com/McCarthy_JT", soon: false },
+  { icon: "mail" as const, label: "Email", href: "mailto:josephtimothymccarthy@gmail.com", soon: false },
 ];
 ---
 
@@ -48,13 +48,18 @@ const elsewhere = [
       <div class="eyebrow footer__heading">Elsewhere</div>
       <div class="footer__elsewhere">
         {elsewhere.map((e) => (
-          <a href={e.href} class="link-u footer__elsewhere-link" rel={e.href.startsWith("http") ? "noopener" : undefined}>
+          <a
+            href={e.href}
+            class:list={["footer__elsewhere-link", e.soon ? "is-soon" : "link-u"]}
+            rel={e.href.startsWith("http") ? "noopener" : undefined}
+            aria-disabled={e.soon ? "true" : undefined}
+          >
             <Icon name={e.icon} />
             <span>{e.label}</span>
           </a>
         ))}
       </div>
-      <a href="#" class="footer__contrib" rel="noopener">
+      <a href="#" class="footer__contrib is-soon" aria-disabled="true">
         <span class="footer__contrib-diamond"></span>
         <span class="footer__contrib-label">One-time contribution</span>
       </a>

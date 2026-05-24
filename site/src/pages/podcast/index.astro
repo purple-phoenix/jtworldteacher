@@ -49,13 +49,13 @@ const dateLong = new Intl.DateTimeFormat("en-US", {
 
         <div class="pod__platforms">
           {/* TODO: replace # with real Spotify/Apple/YouTube URLs once feeds are submitted */}
-          <a href="#" class="link-u pod__platform" rel="noopener">
+          <a href="#" class="pod__platform is-soon" aria-disabled="true">
             <Icon name="spotify" />Spotify
           </a>
-          <a href="#" class="link-u pod__platform" rel="noopener">
+          <a href="#" class="pod__platform is-soon" aria-disabled="true">
             <Icon name="apple" />Apple Podcasts
           </a>
-          <a href="#" class="link-u pod__platform" rel="noopener">
+          <a href="#" class="pod__platform is-soon" aria-disabled="true">
             <Icon name="youtube" />YouTube
           </a>
           <a href={base + "feed.xml"} class="link-u pod__platform">
@@ -103,13 +103,13 @@ const dateLong = new Intl.DateTimeFormat("en-US", {
                 <span>{featured.ep.data.duration}</span>
                 <span class="pod__featured-sep">·</span>
                 {/* TODO: replace # with real platform URLs */}
-                <a href="#" class="link-u pod__platform" rel="noopener">
+                <a href="#" class="pod__platform is-soon" aria-disabled="true">
                   <Icon name="spotify" />Spotify
                 </a>
-                <a href="#" class="link-u pod__platform" rel="noopener">
+                <a href="#" class="pod__platform is-soon" aria-disabled="true">
                   <Icon name="apple" />Apple
                 </a>
-                <a href="#" class="link-u pod__platform" rel="noopener">
+                <a href="#" class="pod__platform is-soon" aria-disabled="true">
                   <Icon name="youtube" />YouTube
                 </a>
                 <a href={base + "feed.xml"} class="link-u pod__platform">

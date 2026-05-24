@@ -24,6 +24,13 @@ const isntList = [
       <div class="container consult__head">
         <div class="eyebrow">Consultations</div>
         <h1 class="consult__h1 font-display">Sit down, in private.</h1>
+        <div class="consult__head-soon">
+          <span class="soon-tag">Booking opens soon</span>
+          <span class="consult__head-soon-note">
+            Offerings and pricing below are a preview. The calendar isn't open
+            yet — join the waitlist and you'll hear first.
+          </span>
+        </div>
         <p class="consult__lede">
           Look — a session is a conversation with a chart on the table. It is
           not a fortune, it is not a fix, and it is not therapy. It is one hour
@@ -106,11 +113,10 @@ const isntList = [
             </div>
           </div>
           <div class="consult__cta-row">
-            {/* TODO: replace # with real Calendly/Acuity URL */}
-            <a href="#" class="consult__cta-primary" rel="noopener">
-              <span>Book a session</span>
-              <Icon name="arrow" />
-            </a>
+            {/* TODO: replace # with real Calendly/Acuity URL once booking opens */}
+            <span class="consult__cta-primary consult__cta-primary--soon" aria-disabled="true">
+              <span>Booking opens soon</span>
+            </span>
             <a
               href="mailto:josephtimothymccarthy@gmail.com?subject=Waitlist"
               class="consult__cta-secondary link-u"
@@ -175,6 +181,26 @@ const isntList = [
     font-size: 16.5px;
     line-height: 1.65;
     color: var(--ink-soft);
+  }
+  .consult__head-soon {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  @media (min-width: 640px) {
+    .consult__head-soon {
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+    }
+  }
+  .consult__head-soon-note {
+    max-width: 56ch;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink-mute);
   }
 
   .consult__cards-wrap {
@@ -393,6 +419,12 @@ const isntList = [
     font-size: 11px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
+  }
+  .consult__cta-primary--soon {
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1px dashed var(--hair-strong);
+    cursor: not-allowed;
   }
   .consult__cta-secondary {
     display: inline-flex;

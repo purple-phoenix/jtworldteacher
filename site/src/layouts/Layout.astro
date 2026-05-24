@@ -278,6 +278,40 @@ const {
         color: var(--bg);
       }
 
+      /* ── Coming-soon treatment ───────── */
+      /* Applied to inline links/labels that point at not-yet-real
+         destinations (platform feeds, contribution, booking CTA). */
+      .is-soon {
+        opacity: 0.55;
+        pointer-events: none;
+        cursor: not-allowed;
+      }
+      .is-soon::after {
+        content: "soon";
+        margin-left: 6px;
+        padding: 1px 5px;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 9px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ink-mute);
+        border: 1px solid var(--hair-strong);
+        border-radius: 999px;
+        vertical-align: middle;
+      }
+      /* Standalone "Coming soon" tag, no opacity dim on the host. */
+      .soon-tag {
+        display: inline-block;
+        padding: 3px 8px;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        border-radius: 999px;
+      }
+
       /* ── Layout helpers ───────────────── */
       .container {
         max-width: var(--max);
