@@ -7,7 +7,7 @@ const SHOW = {
   description:
     'A long-form inquiry into what the chart says about the nature of the reality we appear to be inside of. Slow, unhurried, and meant for people already asking the question.',
   author: 'JT McCarthy',
-  ownerEmail: 'matttmccarthy66@gmail.com',
+  ownerEmail: 'josephtimothymccarthy@gmail.com',
   language: 'en-us',
   category: { text: 'Religion & Spirituality', sub: 'Spirituality' },
   image: 'podcast-cover.jpg',

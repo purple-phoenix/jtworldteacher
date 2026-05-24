@@ -60,7 +60,7 @@ Two-track repo:
 ## Open todos
 
 1. **Enrich the Technical Remote Viewing (Apr 25) episode** — its transcript exists at `catalog/spaces/transcripts/2026-04-25-technical-remote-viewing.txt` (365 KB, the 7-hour episode). Needs a dispatched agent to read it and produce show notes in the same format as the other 13. Then update `site/src/content/episodes/2026-04-25-technical-remote-viewing.md` (currently still has the "Detailed show notes coming" stub), commit + push.
-2. **Submit RSS feed to podcast directories** — likely already done by Matt, but worth confirming. The feed URL is `https://jtworldteacher.com/feed.xml`. Owner email in the feed is `matttmccarthy66@gmail.com` (for Apple verification).
+2. **Submit RSS feed to podcast directories** — likely already done by Matt, but worth confirming. The feed URL is `https://jtworldteacher.com/feed.xml`. Owner email in the feed is `josephtimothymccarthy@gmail.com` (for Apple verification).
    - Apple Podcasts Connect: <https://podcastsconnect.apple.com/>
    - Spotify for Podcasters: <https://podcasters.spotify.com/>
    - YouTube Music: <https://podcasters.youtube.com/>
@@ -138,7 +138,7 @@ jtworldteacher/
 
 ## Unknown state (from the previous session)
 
-- **Whether RSS feed was actually submitted to Apple Podcasts Connect / Spotify / YouTube Music / Amazon Music.** Matt said he would do it but the previous session ended before confirming. Next agent should ask or check via the inboxes for verification emails to `matttmccarthy66@gmail.com`. If not yet submitted, walk through the directory submission steps in PODCAST.md §"First-time directory submission."
+- **Whether RSS feed was actually submitted to Apple Podcasts Connect / Spotify / YouTube Music / Amazon Music.** Matt said he would do it but the previous session ended before confirming. Next agent should ask or check via the inboxes for verification emails to `josephtimothymccarthy@gmail.com`. If not yet submitted, walk through the directory submission steps in PODCAST.md §"First-time directory submission."
 
 ## Auxiliary memory
 
