@@ -26,6 +26,8 @@ Source: manual screenshots from X (X blocks scraping), and `yt-dlp` for Space au
 
 | Date | Slug | Type | Topics |
 |------|------|------|--------|
+| 2026-07-05 | [american-disclosure-space](posts/2026-07-05-american-disclosure-space.md) | **Space (audio + transcript)** | Peak Mind, disclosure, eschatology, psychic gene, 3I/ATLAS, simulation |
+| 2026-07-04 | [the-revelation-of-the-hierarchy-space](posts/2026-07-04-the-revelation-of-the-hierarchy-space.md) | **Space (audio + transcript)** | Peak Mind, Theosophy, Kalki, archons, Pitris, simulation |
 | 2026-05-08 | [trvxn-defining-remote-viewing](posts/2026-05-08-trvxn-defining-remote-viewing.md) | quote-tweet (Space promo) | ufology, TRV, TRvXN |
 | 2026-05-07 | [ufox-crusade](posts/2026-05-07-ufox-crusade.md) | quote-tweet (Space promo) | UFOx, psyop, crusade |
 | 2026-05-04 | [iran-ceasefire-commentary](posts/2026-05-04-iran-ceasefire-commentary.md) | quote-tweet | geopolitics, Iran, media-criticism |
