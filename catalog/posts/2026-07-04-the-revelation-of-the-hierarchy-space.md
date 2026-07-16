@@ -6,7 +6,7 @@ space_id: 1dGYllAYPAvKX
 space_url: https://x.com/i/spaces/1dGYllAYPAvKX
 space_title: "The Revelation of the Hierarchy"
 audio: ../spaces/audio/2026-07-04-the-revelation-of-the-hierarchy.m4a
-audio_bytes: 71093578
+audio_bytes: 67968458
 transcript: ../spaces/transcripts/2026-07-04-the-revelation-of-the-hierarchy.txt
 topics: [spaces, Peak Mind, Theosophy, Kalki, simulation, archons, Pitris, psychic gene]
 source: yt-dlp

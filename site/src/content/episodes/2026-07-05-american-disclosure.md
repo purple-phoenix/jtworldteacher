@@ -3,10 +3,10 @@ title: "American Disclosure"
 pubDate: 2026-07-05
 description: "JT reframes UFO disclosure as American eschatology — a Puritan-vs-Baptist theological civil war fought through the alien question — then ties it back to 3I/ATLAS, the simulation, and the archons."
 audioUrl: "https://media.jtworldteacher.com/episodes/2026-07-05-american-disclosure.m4a"
-audioLength: 70186179
+audioLength: 62682653
 audioType: "audio/mp4"
-duration: "1:38:22"
-durationSeconds: 5902
+duration: "1:27:51"
+durationSeconds: 5271
 episodeType: "full"
 explicit: false
 draft: false
@@ -16,9 +16,7 @@ spaceId: "1nxeLLzBvvrJX"
 
 ## About this episode
 
-The second Peak Mind episode (a redo of a Space JT forgot to record) opens with a long answer to a listener's question about the **psychic gene** — Dean Radin's Institute of Noetic Sciences work on a chromosome-7 mutation that, in roughly 40% of the population, correlates with a complete absence of psychic ability. Radin framed it as the Church having "bred out" the psychics; JT does the part nobody else did and looks up what the sequence actually does in mainstream genetics — it suppresses endogenous retroviruses — and infers the reverse: psychic ability may not be innate to humans at all, but the downstream result of ancient retroviral infection. Map the mutation and it's a bullseye centered on Rome, overrepresented in Anglo power structures (East Anglia, King John's descendants, the American establishment). JT's brother Matt joins to run the interview.
-
-The thesis proper: the specifically American obsession with UFO **disclosure** is unexamined theology wearing a secular costume. The US is "very close to being a theocracy," and its two governing ideologies are really two Protestant sects. Blue/liberal America is the descendant of New England **Puritanism** — Calvinist, East-Anglian, funneled through Cotton Mather's fusion of clergy and medicine, the Ivy divinity schools, and the post-Revolution **Unitarian** and **Universalist** movements that spread west with the Yankee diaspora and became the country's de facto state religion after the Civil War. JT walks the provocative parallels: sacraments secularized into medical certifications (birth, marriage, death), and **vaccination as communion** — a shared substance injected rather than eaten, which is why it inspires fervor and revulsion out of all proportion to the medical argument.
+The second Peak Mind episode (a redo of a Space JT forgot to record) begins with JT's brother Matt joining to run the interview. The specifically American obsession with UFO **disclosure** is unexamined theology wearing a secular costume. The US is "very close to being a theocracy," and its two governing ideologies are really two Protestant sects. Blue/liberal America is the descendant of New England **Puritanism** — Calvinist, East-Anglian, funneled through Cotton Mather's fusion of clergy and medicine, the Ivy divinity schools, and the post-Revolution **Unitarian** and **Universalist** movements that spread west with the Yankee diaspora and became the country's de facto state religion after the Civil War. JT walks the provocative parallels: sacraments secularized into medical certifications (birth, marriage, death), and **vaccination as communion** — a shared substance injected rather than eaten, which is why it inspires fervor and revulsion out of all proportion to the medical argument.
 
 Against that, the **South** — read as "the last medieval European society," an aristocratic Royalist estate order crushed in a war JT calls a "second English revolution," then only briefly occupied, so its values never fully turned over. Its post-war religious answer was the Great Awakening and the evangelical/Baptist churches, carrying a Gnostic-flavored, Old-Testament-heavy reading of scripture. Run UFOs through these two lenses and you get the whole disclosure discourse: the Puritan North expects **space-brother angels** arriving to judge us for pollution and nuclear weapons (climate change slotting neatly into Revelation's burning earth); the Baptist South sees **interdimensional demons** running a pre-tribulation deception — the "Collins Elite" faction inside a military-industrial complex disproportionately staffed by Southern Baptist culture. Disclosure isn't a science story; it's a sectarian civil war fought through the alien question.
 
@@ -26,8 +24,6 @@ The last stretch pulls it back to the through-line. **Simulationism is the third
 
 ## Show notes
 
-- **The psychic gene, part two** — Dean Radin / IONS chromosome-7 mutation (~40% of the population, ~60% "normal"); the sequence's mainstream function is suppressing **endogenous retroviruses**, from which JT infers psychic ability may be retroviral in origin rather than innate
-- The mutation maps as a **bullseye centered on Rome**; JT traces its overrepresentation through East Anglia, the Anglo-American establishment, King John's presidential descendants, and Italian popes
 - **US as a near-theocracy** — the two-party system as two Protestant theologies; "liberal / woke / progressive" reframed not as politics but as **New England Puritan** theology in disguise
 - Genealogy of blue America — English non-conformists (ranters, diggers, levellers) and Puritans → **Cotton Mather** fusing Calvinist clergy with medicine and the Ivy divinity schools (Harvard, Yale) → post-Revolution **Unitarian** and **Universalist** churches → the **Yankee diaspora** carrying them west (New England, Upper Midwest, Pacific Coast, Southwest)
 - **Sacraments secularized into the medical system** — birth, marriage, and death certificates as civil sacraments; the "American civil religion"; **vaccination framed as communion** (a shared substance injected rather than consumed), explaining the fervor/revulsion split independent of the medical facts
