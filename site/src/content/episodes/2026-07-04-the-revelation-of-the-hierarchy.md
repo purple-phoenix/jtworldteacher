@@ -3,10 +3,10 @@ title: "The Revelation of the Hierarchy"
 pubDate: 2026-07-04
 description: "The debut of Peak Mind: JT lays out the whole framework — the Theosophists' Kalki prophecy, the biological simulation, the archons, the Pitris, and the tripartite nature of man — with his brother Matt steering the interview."
 audioUrl: "https://media.jtworldteacher.com/episodes/2026-07-04-the-revelation-of-the-hierarchy.m4a"
-audioLength: 71093578
+audioLength: 67968458
 audioType: "audio/mp4"
-duration: "1:39:39"
-durationSeconds: 5979
+duration: "1:35:16"
+durationSeconds: 5716
 episodeType: "full"
 explicit: false
 draft: false
