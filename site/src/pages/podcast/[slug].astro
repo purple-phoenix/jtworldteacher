@@ -23,11 +23,14 @@ const { Content } = await render(ep);
 
 const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "") + "/";
 
+// Date-only frontmatter is coerced to UTC midnight; format in UTC so the
+// displayed calendar day matches pubDate regardless of server timezone.
 const dateLong = new Intl.DateTimeFormat("en-US", {
   weekday: "long",
   month: "long",
   day: "numeric",
   year: "numeric",
+  timeZone: "UTC",
 });
 ---
 
