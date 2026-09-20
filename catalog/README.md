@@ -26,6 +26,9 @@ Source: manual screenshots from X (X blocks scraping), and `yt-dlp` for Space au
 
 | Date | Slug | Type | Topics |
 |------|------|------|--------|
+| 2026-09-16 | [the-world-tree-and-the-eclipse-in-leo-space](posts/2026-09-16-the-world-tree-and-the-eclipse-in-leo-space.md) | **Space (audio + transcript)** | Peak Mind, Maya pyramids, world tree, demiurge, Leo eclipse, Regulus |
+| 2026-09-09 | [intuitive-underground-and-the-power-of-remote-viewing-space](posts/2026-09-09-intuitive-underground-and-the-power-of-remote-viewing-space.md) | **Space (audio + transcript)** | Peak Mind, remote viewing, Intuitive Underground, Morgan Farrell, prediction, simulation |
+| 2026-09-02 | [technical-remote-viewing-and-the-kill-shot-space](posts/2026-09-02-technical-remote-viewing-and-the-kill-shot-space.md) | **Space (audio + transcript)** | Peak Mind, remote viewing, TRV, Morgan Farrell, Ed Dames, Kill Shot |
 | 2026-07-05 | [american-disclosure-space](posts/2026-07-05-american-disclosure-space.md) | **Space (audio + transcript)** | Peak Mind, disclosure, eschatology, 3I/ATLAS, simulation |
 | 2026-07-04 | [the-revelation-of-the-hierarchy-space](posts/2026-07-04-the-revelation-of-the-hierarchy-space.md) | **Space (audio + transcript)** | Peak Mind, Theosophy, Kalki, archons, Pitris, simulation |
 | 2026-05-08 | [trvxn-defining-remote-viewing](posts/2026-05-08-trvxn-defining-remote-viewing.md) | quote-tweet (Space promo) | ufology, TRV, TRvXN |
