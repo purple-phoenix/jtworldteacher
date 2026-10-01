@@ -11,7 +11,7 @@
  */
 
 import { spawnSync } from "node:child_process";
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -83,16 +83,37 @@ function contextAround(html, needle, radius = 400) {
   return html.slice(Math.max(0, i - radius), Math.min(html.length, i + needle.length + radius));
 }
 
-// Homepage latest card (American Disclosure) uses short format: "Jul 5, 2026"
-const homeCtx = contextAround(home, "American Disclosure");
-if (!homeCtx) fail("homepage missing American Disclosure latest card");
-if (!homeCtx.includes("Jul 5, 2026")) {
-  fail(`homepage American Disclosure missing "Jul 5, 2026" (got shifted date). Context: ${homeCtx.slice(0, 200)}`);
+// Homepage latest card shows whichever non-draft episode is newest, in short
+// format ("Jul 5, 2026"). Derive it from the content dir so publishing a newer
+// episode doesn't break this check.
+const episodesDir = join(siteRoot, "src", "content", "episodes");
+const latest = readdirSync(episodesDir)
+  .filter((f) => f.endsWith(".md"))
+  .map((f) => {
+    const fm = readFileSync(join(episodesDir, f), "utf8").split(/^---$/m)[1] || "";
+    return {
+      title: fm.match(/^title:\s*"(.*)"\s*$/m)?.[1],
+      pubDate: fm.match(/^pubDate:\s*(\d{4}-\d{2}-\d{2})\s*$/m)?.[1],
+      draft: /^draft:\s*true\s*$/m.test(fm),
+    };
+  })
+  .filter((e) => e.title && e.pubDate && !e.draft)
+  .sort((a, b) => b.pubDate.localeCompare(a.pubDate))[0];
+if (!latest) fail("could not determine latest episode from src/content/episodes");
+const shortFmt = (d, timeZone) =>
+  new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric", timeZone }).format(d);
+const latestDate = new Date(latest.pubDate);
+const expectedShort = shortFmt(latestDate, "UTC");
+const shiftedShort = shortFmt(latestDate, "America/New_York");
+const homeCtx = contextAround(home, latest.title);
+if (!homeCtx) fail(`homepage missing latest card for ${JSON.stringify(latest.title)}`);
+if (!homeCtx.includes(expectedShort)) {
+  fail(`homepage latest card missing "${expectedShort}" (got shifted date). Context: ${homeCtx.slice(0, 200)}`);
 }
-if (homeCtx.includes("Jul 4, 2026")) {
-  fail(`homepage American Disclosure still shows "Jul 4, 2026" — timezone shift not fixed`);
+if (homeCtx.includes(shiftedShort)) {
+  fail(`homepage latest card still shows "${shiftedShort}" — timezone shift not fixed`);
 }
-ok('homepage shows "Jul 5, 2026" for American Disclosure');
+ok(`homepage shows "${expectedShort}" for latest episode (${latest.title})`);
 
 // Episode page uses long format: "Sunday, July 5, 2026"
 if (!episode.includes("Sunday, July 5, 2026")) {
@@ -103,9 +124,13 @@ if (episode.includes("July 4, 2026") || episode.includes("Saturday, July 4")) {
 }
 ok('episode page shows "Sunday, July 5, 2026"');
 
-// Podcast index featured + row for American Disclosure (not the legitimate Jul 4 episode)
-const featuredCtx = contextAround(podcastIndex, "American Disclosure");
-if (!featuredCtx) fail("podcast index missing American Disclosure");
+// Podcast index entry for American Disclosure (not the legitimate Jul 4 episode).
+// It may be the featured card or a list row depending on what's newest; in both
+// the date sits just before the title text, so scope to the window ending at the
+// last occurrence of the title (the heading, after any aria-label on the cover).
+const titleAt = podcastIndex.lastIndexOf("American Disclosure");
+if (titleAt < 0) fail("podcast index missing American Disclosure");
+const featuredCtx = podcastIndex.slice(Math.max(0, titleAt - 700), titleAt);
 if (!featuredCtx.includes("Sunday, July 5, 2026") && !featuredCtx.includes("Jul 5, 2026")) {
   fail(`podcast index American Disclosure missing July 5 formatted date`);
 }

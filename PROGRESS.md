@@ -67,7 +67,7 @@ Two-track repo:
    - Amazon Music: <https://podcasters.amazon.com/>
    - After Apple accepts, Overcast / Pocket Casts / Castro / Castbox auto-pick it up.
 3. **Real cover art** (cosmetic, not blocking) — current art at `site/public/podcast-cover.jpg` is a 3000×3000 typographic placeholder using the site's cream/ink/purple palette. Apple-spec compliant but generic. Replace whenever JT provides art he likes.
-4. **Wire up the placeholder links** in `site/src/pages/index.astro` and `podcast/index.astro` — Spotify, Apple, YouTube, Patreon, Stripe, contact email all currently `href="#"` with TODO comments.
+4. **Wire up the placeholder links** in `site/src/pages/index.astro` and `podcast/index.astro` — Apple, YouTube, Patreon, Stripe, contact email still `href="#"` with TODO comments. (Spotify is now wired to the public show `https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC` across `index.astro`, `podcast/index.astro`, `podcast/[slug].astro`, and `Footer.astro`.)
 5. **Site bio / about copy** — `index.astro` has a generic "About" paragraph. Replace with real bio.
 6. **Ownership transfer to JT** when he's ready — update `feed.xml.ts` `SHOW.ownerEmail` to JT's address and re-verify with directories; add him as user in Apple/Spotify dashboards.
 
