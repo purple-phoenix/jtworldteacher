@@ -137,7 +137,7 @@ rm audio/YYYY-MM-DD-slug.wav
 - `-ovtt` → `.vtt` with timestamps (useful for jumping around the audio)
 - `-of <prefix>` → output filename without extension
 
-Then wrap the `.txt` content in the [transcript frontmatter template](spaces/README.md#transcript-frontmatter) and save as `transcripts/YYYY-MM-DD-slug.md`.
+Keep both generated files as `transcripts/YYYY-MM-DD-slug.txt` and `transcripts/YYYY-MM-DD-slug.vtt`. Record the Space metadata and links in the matching `posts/YYYY-MM-DD-slug-space.md` catalog entry.
 
 ### Speeding it up
 
@@ -173,5 +173,6 @@ catalog/
     ├── audio/            # git-ignored
     │   └── YYYY-MM-DD-slug.m4a
     └── transcripts/      # tracked in git
-        └── YYYY-MM-DD-slug.md
+        ├── YYYY-MM-DD-slug.txt
+        └── YYYY-MM-DD-slug.vtt
 ```
