@@ -35,11 +35,14 @@ Spaces only persist if the **host toggled "record" before going live**. If not, 
 
 **MacWhisper** (free, runs locally on Apple Silicon): drag the audio file in, export to `.txt` or `.srt`. Copy into `transcripts/<slug>.md` and wrap with the [frontmatter template](#transcript-frontmatter).
 
-Or via CLI with `whisper.cpp`:
+Or via CLI with `whisper.cpp` (convert first; this `whisper-cli` build requires WAV input):
 
 ```bash
-brew install whisper-cpp
-whisper-cli -m ~/path/to/ggml-large-v3.bin -f audio/<slug>.m4a -otxt
+brew install whisper-cpp ffmpeg
+ffmpeg -y -i audio/<slug>.m4a -ar 16000 -ac 1 -c:a pcm_s16le audio/<slug>.wav
+whisper-cli -m ~/.whisper-models/ggml-large-v3-turbo.bin \
+  -f audio/<slug>.wav -otxt -ovtt -of transcripts/<slug>
+rm audio/<slug>.wav
 ```
 
 ## Transcript frontmatter
