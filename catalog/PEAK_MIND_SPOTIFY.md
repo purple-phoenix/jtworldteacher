@@ -9,9 +9,9 @@ Peak Mind is the Wednesday show with JT and his brother Matt. It is not JT's Thu
 Do not automate these decisions:
 
 1. **Select the show.** Decide that the Space is a genuine Peak Mind episode, not merely the latest Space JT linked. If the evidence is ambiguous, stop and ask the captain.
-2. **Choose the source cut window.** Listen and use the transcript/waveform to identify the first real program sentence and the end of the spoken close. Remove only demonstrated hold music, pre-show chatter, and dead-air tail. Never cut inside the show.
+2. **Approve the edit and transcript.** Listen and use the transcript/waveform to identify the first real program sentence and the end of the spoken close. Remove only demonstrated hold music, pre-show chatter, dead-air tail, and whole Whisper cues demonstrated to be hallucinations. Never cut inside the show or silently rewrite speech.
 
-Everything after those approved inputs is deterministic and handled by `catalog/scripts/prepare_peak_mind_kit.py`.
+`catalog/scripts/prepare_peak_mind_kit.py` automates the deterministic work around those gates and pauses before finalization for explicit transcript-cleanup attestation.
 
 ## 1. Discover and verify candidates (judgment gate)
 
@@ -97,25 +97,45 @@ Create a private JSON file in scratch. Titles, descriptions, speakers, and selec
 
 The final directory is always `~/Downloads/peak-mind-spotify/<date>-<slug>/`. The script refuses to overwrite it. To revise a kit, review and deliberately move the old directory first; there is no force flag.
 
-## 4. Build and validate the kit (automatic)
+## 4. Create the source-bound review checkpoint (automatic)
 
-Pass the approved canonical Space URL. The script independently downloads that Space again so the final kit cannot accidentally combine a URL with another candidate's scratch audio or transcript:
+Pass the approved canonical Space URL. The script independently downloads that Space again so the final kit cannot accidentally combine a URL with another candidate's scratch audio or transcript. It transcribes the uncut source, writes a hash-bound checkpoint under `~/Downloads/peak-mind-spotify/.checkpoints/`, prints the exact next command, and stops without creating a kit:
 
 ```bash
 python3 catalog/scripts/prepare_peak_mind_kit.py prepare "$url" \
   --manifest "$work/manifest.json"
 ```
 
-The script:
+Phase 1:
 
 - re-verifies Space id, date, and `@McCarthy_JT` host with `yt-dlp`;
-- downloads the verified replay into private staging;
+- freshly downloads the verified replay into a private checkpoint;
 - checks dependencies and the required Whisper model;
 - checks the cut window against source duration;
+- converts the source to mono 16 kHz WAV for Whisper, writes editable `draft.vtt`, and preserves a hashed `draft.original.vtt`;
+- records the canonical Space URL/id, verified metadata, manifest hash, source hash/byte count/probe, draft provenance, and tool versions in `CHECKPOINT.json`.
+
+## 5. Review transcript cleanup, then resume
+
+Open the checkpoint's `source.m4a` and `draft.vtt`. Remove only whole cues demonstrated by listening to be Whisper hallucinations; do not edit `draft.original.vtt`, rewrite speech, reorder cues, or alter timestamps. Resume verifies the reviewed VTT is an exact subsequence of the hashed original. Confirm the approved start/end do not cross a retained cue. If either cut crosses a cue, delete the checkpoint and restart phase 1 with corrected manifest timestamps rather than guessing which words belong inside the cut.
+
+After that review, run the exact command printed by phase 1 and stored in `NEXT-STEPS.txt`:
+
+```bash
+python3 catalog/scripts/prepare_peak_mind_kit.py resume \
+  ~/Downloads/peak-mind-spotify/.checkpoints/YYYY-MM-DD-slug \
+  --attest-cleanup
+```
+
+`--attest-cleanup` is an explicit operator attestation that the draft was checked against the audio. Phase 2 revalidates the managed checkpoint path, Space identity, manifest hash, source hash and byte count, source duration, draft provenance, and cut boundaries before it:
+
+- drops reviewed cues wholly outside the approved cut and refuses any cue crossing either boundary;
+- shifts retained VTT cues to the edited-audio timeline and derives TXT from that cleaned VTT;
 - trims AAC with ffmpeg stream copy (`-c:a copy`) and fast-start metadata;
-- transcribes the edited audio so VTT timestamps directly match the final file, then derives TXT from that VTT;
 - verifies AAC/M4A codec, duration, byte count, full decode, transcripts, and SHA-256;
-- atomically creates the kit only after validation.
+- atomically creates the fixed Downloads kit only after validation, then removes the private checkpoint.
+
+Repeating the same resume command is safe: it validates and returns the completed kit without overwriting it.
 
 Validate again at any time:
 

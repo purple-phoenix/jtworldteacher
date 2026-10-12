@@ -17,34 +17,6 @@ sys.modules[SPEC.name] = kit
 SPEC.loader.exec_module(kit)
 
 
-class TranscriptTests(unittest.TestCase):
-    def test_transcribe_source_derives_txt_from_generated_vtt(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            source = root / "final.m4a"
-            source.write_bytes(b"audio")
-            prefix = root / "final"
-            prefix.with_suffix(".txt").write_text("stale Whisper TXT\n", encoding="utf-8")
-
-            def fake_run(args, **_kwargs):
-                if args[0] == "whisper-cli":
-                    prefix.with_suffix(".vtt").write_text(
-                        "WEBVTT\n\n"
-                        "00:00:00.000 --> 00:00:02.000\nProgram starts.\n\n"
-                        "00:00:02.000 --> 00:00:04.000\nSecond\nline.\n",
-                        encoding="utf-8",
-                    )
-
-            with mock.patch.object(kit, "run_command", side_effect=fake_run):
-                count = kit.transcribe_source(source, prefix)
-
-            self.assertEqual(count, 2)
-            self.assertEqual(
-                prefix.with_suffix(".txt").read_text(encoding="utf-8"),
-                "Program starts.\nSecond line.\n",
-            )
-
-
 class InputValidationTests(unittest.TestCase):
     def manifest_data(self) -> dict:
         return {
@@ -116,7 +88,105 @@ class InputValidationTests(unittest.TestCase):
                     kit.canonical_space_url(url)
 
 
-class PrepareBehaviorTests(unittest.TestCase):
+class TranscriptTests(unittest.TestCase):
+    def test_cleanup_removes_attested_hallucination_and_derives_txt(self):
+        draft = """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+hold music
+
+00:00:10.000 --> 00:00:12.000
+Program starts.
+
+00:00:14.000 --> 00:00:16.000
+Program ends.
+
+00:00:20.000 --> 00:00:25.000
+dead air hallucination
+"""
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "draft.vtt"
+            source.write_text(draft, encoding="utf-8")
+            count = kit.clean_transcript(
+                source, root / "final.vtt", root / "final.txt", 10.0, 16.0
+            )
+            self.assertEqual(count, 2)
+            self.assertEqual(
+                (root / "final.txt").read_text(encoding="utf-8"),
+                "Program starts.\nProgram ends.\n",
+            )
+            self.assertNotIn("hallucination", (root / "final.vtt").read_text(encoding="utf-8"))
+
+    def test_cleanup_rejects_cues_straddling_either_cut_boundary(self):
+        cases = (
+            "00:00:09.800 --> 00:00:12.000",
+            "00:00:14.000 --> 00:00:16.200",
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for index, timing in enumerate(cases):
+                draft = root / f"draft-{index}.vtt"
+                draft.write_text(f"WEBVTT\n\n{timing}\nMixed cut speech.\n", encoding="utf-8")
+                with self.subTest(timing=timing):
+                    with self.assertRaisesRegex(kit.KitError, "straddles a cut boundary"):
+                        kit.clean_transcript(
+                            draft, root / "final.vtt", root / "final.txt", 10.0, 16.0
+                        )
+
+
+class WorkflowTests(unittest.TestCase):
+    SOURCE_PROBE = {
+        "streams": [
+            {
+                "codec_type": "audio",
+                "codec_name": "aac",
+                "sample_rate": "48000",
+                "channels": 2,
+            }
+        ],
+        "format": {"format_name": "mov,mp4,m4a", "duration": "25.0", "size": "12"},
+    }
+    FINAL_PROBE = {
+        "streams": [
+            {
+                "codec_type": "audio",
+                "codec_name": "aac",
+                "sample_rate": "48000",
+                "channels": 2,
+            }
+        ],
+        "format": {"format_name": "mov,mp4,m4a", "duration": "6.0", "size": "11"},
+    }
+    METADATA = {
+        "id": "1Example",
+        "title": "twitter-spaces video #1Example",
+        "upload_date": "20261007",
+        "timestamp": 1791413864,
+        "uploader": "JT",
+        "uploader_id": "McCarthy_JT",
+        "webpage_url": "https://x.com/i/spaces/1Example",
+        "ext": "m4a",
+        "acodec": "aac",
+    }
+    DRAFT = """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+hold music
+
+00:00:10.000 --> 00:00:12.000
+Program starts.
+
+00:00:12.000 --> 00:00:14.000
+Thank you.
+
+00:00:14.000 --> 00:00:16.000
+Program ends.
+
+00:00:20.000 --> 00:00:25.000
+dead air
+"""
+
     def manifest(self, root: Path) -> Path:
         path = root / "manifest.json"
         path.write_text(
@@ -142,142 +212,253 @@ class PrepareBehaviorTests(unittest.TestCase):
         )
         return path
 
-    def args(self, manifest: Path) -> argparse.Namespace:
+    def prepare_args(self, manifest: Path) -> argparse.Namespace:
         return argparse.Namespace(
             space_url="https://x.com/i/spaces/1Example",
             manifest=manifest,
         )
 
-    def test_prepare_refuses_existing_kit_before_command_boundaries(self):
+    def resume_args(self, checkpoint: Path, attested: bool = True) -> argparse.Namespace:
+        return argparse.Namespace(checkpoint=checkpoint, attest_cleanup=attested)
+
+    def create_checkpoint(self, root: Path, draft: str | None = None) -> Path:
+        manifest = self.manifest(root)
+
+        def fake_download(_url, destination):
+            destination.write_bytes(b"source-audio")
+
+        def fake_transcribe(_source, prefix):
+            content = self.DRAFT if draft is None else draft
+            prefix.with_suffix(".vtt").write_text(content, encoding="utf-8")
+            return len(kit.parse_vtt(content))
+
+        with (
+            mock.patch.object(kit, "require_dependencies"),
+            mock.patch.object(kit, "resolve_space", return_value=self.METADATA),
+            mock.patch.object(kit, "download_source", side_effect=fake_download),
+            mock.patch.object(kit, "probe_media", return_value=self.SOURCE_PROBE),
+            mock.patch.object(kit, "transcribe_source", side_effect=fake_transcribe),
+            mock.patch.object(kit, "tool_version", return_value="fixture-version"),
+        ):
+            return kit.prepare(
+                self.prepare_args(manifest),
+                output_root=root / "output",
+                checkpoint_root=root / "checkpoints",
+            )
+
+    def resume_checkpoint(self, root: Path, checkpoint: Path) -> Path:
+        def fake_trim(_source, destination, _start, _end):
+            destination.write_bytes(b"final-audio")
+
+        def fake_probe(path):
+            return self.SOURCE_PROBE if path.name == "source.m4a" else self.FINAL_PROBE
+
+        with (
+            mock.patch.object(kit, "require_dependencies"),
+            mock.patch.object(kit, "probe_media", side_effect=fake_probe),
+            mock.patch.object(kit, "trim_audio", side_effect=fake_trim) as trim,
+            mock.patch.object(kit, "run_command"),
+            mock.patch.object(kit, "tool_version", return_value="fixture-version"),
+            mock.patch.object(kit.shutil, "which", return_value="/fixture/ffprobe"),
+        ):
+            result = kit.resume(
+                self.resume_args(checkpoint),
+                output_root=root / "output",
+                checkpoint_root=root / "checkpoints",
+            )
+            trim.reset_mock()
+            repeated = kit.resume(
+                self.resume_args(checkpoint),
+                output_root=root / "output",
+                checkpoint_root=root / "checkpoints",
+            )
+            trim.assert_not_called()
+        self.assertEqual(repeated, result)
+        return result
+
+    def test_prepare_creates_provenance_checkpoint_and_stops(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest = self.manifest(root)
-            existing = root / "output" / "2026-10-07-proof-of-work"
-            existing.mkdir(parents=True)
+            checkpoint = self.create_checkpoint(root)
+            record = json.loads((checkpoint / "CHECKPOINT.json").read_text(encoding="utf-8"))
+            self.assertEqual(record["source"]["space_id"], "1Example")
+            self.assertEqual(record["source"]["space_url"], "https://x.com/i/spaces/1Example")
+            self.assertEqual(record["source"]["sha256"], kit.sha256(checkpoint / "source.m4a"))
+            self.assertEqual(
+                record["draft"]["generated_from_source_sha256"], record["source"]["sha256"]
+            )
+            instructions = (checkpoint / "NEXT-STEPS.txt").read_text(encoding="utf-8")
+            self.assertIn("Remove only demonstrated Whisper hallucination cues", instructions)
+            self.assertIn("--attest-cleanup", instructions)
+            self.assertFalse((root / "output" / "2026-10-07-proof-of-work").exists())
+
+    def test_prepare_refuses_existing_checkpoint_before_commands(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.create_checkpoint(root)
             with mock.patch.object(kit, "require_dependencies") as dependencies:
-                with self.assertRaisesRegex(kit.KitError, "Refusing to overwrite"):
-                    kit.prepare(self.args(manifest), output_root=root / "output")
+                with self.assertRaisesRegex(kit.KitError, "overwrite existing checkpoint"):
+                    kit.prepare(
+                        self.prepare_args(root / "manifest.json"),
+                        output_root=root / "output",
+                        checkpoint_root=root / "checkpoints",
+                    )
                 dependencies.assert_not_called()
-
-    def test_prepare_downloads_transcribes_and_validates_with_mocked_boundaries(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            manifest = self.manifest(root)
-
-            source_probe = {
-                "streams": [{"codec_type": "audio", "codec_name": "aac", "sample_rate": "48000", "channels": 2}],
-                "format": {"format_name": "mov,mp4,m4a", "duration": "25.0", "size": "12"},
-            }
-            final_probe = {
-                "streams": [{"codec_type": "audio", "codec_name": "aac", "sample_rate": "48000", "channels": 2}],
-                "format": {"format_name": "mov,mp4,m4a", "duration": "6.0", "size": "11"},
-            }
-
-            def fake_trim(_source, destination, _start, _end):
-                destination.write_bytes(b"final-audio")
-
-            def fake_download(_url, destination):
-                destination.write_bytes(b"source-audio")
-
-            def fake_transcribe(_source, prefix):
-                prefix.with_suffix(".txt").write_text(
-                    "Program starts.\nProgram ends.\n", encoding="utf-8"
-                )
-                prefix.with_suffix(".vtt").write_text(
-                    "WEBVTT\n\n"
-                    "00:00:00.000 --> 00:00:02.000\nProgram starts.\n\n"
-                    "00:00:04.500 --> 00:00:06.000\nProgram ends.\n",
-                    encoding="utf-8",
-                )
-                return 2
-
-            def fake_probe(path):
-                return final_probe if path.name.endswith("proof-of-work.m4a") else source_probe
-
-            metadata = {
-                "id": "1Example",
-                "title": "twitter-spaces video #1Example",
-                "upload_date": "20261007",
-                "timestamp": 1791413864,
-                "uploader": "JT",
-                "uploader_id": "McCarthy_JT",
-                "webpage_url": "https://x.com/i/spaces/1Example",
-                "ext": "m4a",
-                "acodec": "aac",
-            }
-            with (
-                mock.patch.object(kit, "require_dependencies"),
-                mock.patch.object(kit, "resolve_space", return_value=metadata),
-                mock.patch.object(kit, "download_source", side_effect=fake_download) as download,
-                mock.patch.object(kit, "probe_media", side_effect=fake_probe),
-                mock.patch.object(kit, "trim_audio", side_effect=fake_trim),
-                mock.patch.object(kit, "transcribe_source", side_effect=fake_transcribe),
-                mock.patch.object(kit, "run_command"),
-                mock.patch.object(kit, "tool_version", return_value="fixture-version"),
-            ):
-                result = kit.prepare(self.args(manifest), output_root=root / "output")
-                download.assert_called_once_with(
-                    "https://x.com/i/spaces/1Example", mock.ANY
-                )
-                self.assertTrue(result.is_dir())
-                self.assertEqual(
-                    (result / "2026-10-07-proof-of-work.txt").read_text(encoding="utf-8"),
-                    "Program starts.\nProgram ends.\n",
-                )
-                self.assertIn("TITLE: Proof of Work", (result / "UPLOAD.txt").read_text(encoding="utf-8"))
-                self.assertIn("2026-10-07-proof-of-work.m4a", (result / "SHA256SUMS").read_text())
-
-    def test_prepare_rejects_cut_end_beyond_one_source_aac_frame(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            manifest = self.manifest(root)
-            source_probe = {
-                "streams": [
-                    {
-                        "codec_type": "audio",
-                        "codec_name": "aac",
-                        "sample_rate": "48000",
-                        "channels": 2,
-                    }
-                ],
-                "format": {"format_name": "mov,mp4,m4a", "duration": "15.8", "size": "12"},
-            }
-
-            metadata = {
-                "id": "1Example",
-                "upload_date": "20261007",
-                "uploader_id": "McCarthy_JT",
-            }
-
-            def fake_download(_url, destination):
-                destination.write_bytes(b"source-audio")
-
-            with (
-                mock.patch.object(kit, "require_dependencies"),
-                mock.patch.object(kit, "resolve_space", return_value=metadata),
-                mock.patch.object(kit, "download_source", side_effect=fake_download),
-                mock.patch.object(kit, "probe_media", return_value=source_probe),
-                mock.patch.object(kit, "trim_audio") as trim,
-            ):
-                with self.assertRaisesRegex(kit.KitError, "more than one AAC frame"):
-                    kit.prepare(self.args(manifest), output_root=root / "output")
-                trim.assert_not_called()
 
     def test_prepare_rejects_non_jt_host(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            manifest = self.manifest(root)
-            metadata = {
-                "id": "1Example",
-                "upload_date": "20261007",
-                "uploader_id": "SomeoneElse",
-            }
+            metadata = {**self.METADATA, "uploader_id": "SomeoneElse"}
             with (
                 mock.patch.object(kit, "require_dependencies"),
                 mock.patch.object(kit, "resolve_space", return_value=metadata),
             ):
                 with self.assertRaisesRegex(kit.KitError, "not @McCarthy_JT"):
-                    kit.prepare(self.args(manifest), output_root=root / "output")
+                    kit.prepare(
+                        self.prepare_args(self.manifest(root)),
+                        output_root=root / "output",
+                        checkpoint_root=root / "checkpoints",
+                    )
+
+    def test_resume_requires_attestation_and_managed_checkpoint_path(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            checkpoint = self.create_checkpoint(root)
+            with self.assertRaisesRegex(kit.KitError, "requires --attest-cleanup"):
+                kit.resume(
+                    self.resume_args(checkpoint, attested=False),
+                    output_root=root / "output",
+                    checkpoint_root=root / "checkpoints",
+                )
+            outside = root / "outside" / checkpoint.name
+            with self.assertRaisesRegex(kit.KitError, "directly inside"):
+                kit.resume(
+                    self.resume_args(outside),
+                    output_root=root / "output",
+                    checkpoint_root=root / "checkpoints",
+                )
+
+    def test_resume_refuses_tampered_source_and_mismatched_identity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            checkpoint = self.create_checkpoint(root)
+            (checkpoint / "source.m4a").write_bytes(b"different-audio")
+            with mock.patch.object(kit, "require_dependencies"):
+                with self.assertRaisesRegex(kit.KitError, "source audio hash"):
+                    kit.resume(
+                        self.resume_args(checkpoint),
+                        output_root=root / "output",
+                        checkpoint_root=root / "checkpoints",
+                    )
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            checkpoint = self.create_checkpoint(root)
+            (checkpoint / "draft.vtt").write_text(
+                self.DRAFT.replace("Program starts.", "Rewritten speech."), encoding="utf-8"
+            )
+            with (
+                mock.patch.object(kit, "require_dependencies"),
+                mock.patch.object(kit, "probe_media", return_value=self.SOURCE_PROBE),
+            ):
+                with self.assertRaisesRegex(kit.KitError, "may only delete whole Whisper cues"):
+                    kit.resume(
+                        self.resume_args(checkpoint),
+                        output_root=root / "output",
+                        checkpoint_root=root / "checkpoints",
+                    )
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            checkpoint = self.create_checkpoint(root)
+            record_path = checkpoint / "CHECKPOINT.json"
+            record = json.loads(record_path.read_text(encoding="utf-8"))
+            record["source"]["space_id"] = "AnotherSpace"
+            record_path.write_text(json.dumps(record), encoding="utf-8")
+            with mock.patch.object(kit, "require_dependencies"):
+                with self.assertRaisesRegex(kit.KitError, "URL and id"):
+                    kit.resume(
+                        self.resume_args(checkpoint),
+                        output_root=root / "output",
+                        checkpoint_root=root / "checkpoints",
+                    )
+
+    def test_resume_uses_reviewed_vtt_and_is_idempotent(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            checkpoint = self.create_checkpoint(root)
+            reviewed = """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+hold music
+
+00:00:10.000 --> 00:00:12.000
+Program starts.
+
+00:00:14.000 --> 00:00:16.000
+Program ends.
+
+00:00:20.000 --> 00:00:25.000
+dead air
+"""
+            (checkpoint / "draft.vtt").write_text(reviewed, encoding="utf-8")
+            result = self.resume_checkpoint(root, checkpoint)
+            transcript = result / "2026-10-07-proof-of-work.txt"
+            self.assertEqual(transcript.read_text(encoding="utf-8"), "Program starts.\nProgram ends.\n")
+            evidence = json.loads((result / "SOURCE-EVIDENCE.json").read_text(encoding="utf-8"))
+            self.assertTrue(evidence["transcript_cleanup"]["attested"])
+            self.assertNotEqual(
+                evidence["transcript_cleanup"]["cleaned_vtt_sha256"],
+                evidence["transcript_cleanup"]["original_draft_vtt_sha256"],
+            )
+            self.assertFalse(checkpoint.exists())
+
+    def test_resume_rejects_straddling_reviewed_cue_before_trim(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            checkpoint = self.create_checkpoint(
+                root,
+                "WEBVTT\n\n00:00:09.800 --> 00:00:12.000\nMixed cut speech.\n",
+            )
+            with (
+                mock.patch.object(kit, "require_dependencies"),
+                mock.patch.object(kit, "probe_media", return_value=self.SOURCE_PROBE),
+                mock.patch.object(kit, "trim_audio") as trim,
+            ):
+                with self.assertRaisesRegex(kit.KitError, "straddles a cut boundary"):
+                    kit.resume(
+                        self.resume_args(checkpoint),
+                        output_root=root / "output",
+                        checkpoint_root=root / "checkpoints",
+                    )
+                trim.assert_not_called()
+
+    def test_prepare_rejects_cut_end_beyond_one_source_aac_frame(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            manifest = self.manifest(root)
+            short_probe = {
+                **self.SOURCE_PROBE,
+                "format": {**self.SOURCE_PROBE["format"], "duration": "15.8"},
+            }
+
+            def fake_download(_url, destination):
+                destination.write_bytes(b"source-audio")
+
+            with (
+                mock.patch.object(kit, "require_dependencies"),
+                mock.patch.object(kit, "resolve_space", return_value=self.METADATA),
+                mock.patch.object(kit, "download_source", side_effect=fake_download),
+                mock.patch.object(kit, "probe_media", return_value=short_probe),
+                mock.patch.object(kit, "transcribe_source") as transcribe,
+            ):
+                with self.assertRaisesRegex(kit.KitError, "more than one AAC frame"):
+                    kit.prepare(
+                        self.prepare_args(manifest),
+                        output_root=root / "output",
+                        checkpoint_root=root / "checkpoints",
+                    )
+                transcribe.assert_not_called()
 
 
 class DurationValidationTests(unittest.TestCase):
