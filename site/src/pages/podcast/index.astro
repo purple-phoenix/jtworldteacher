@@ -78,6 +78,7 @@ const dateLong = new Intl.DateTimeFormat("en-US", {
                 variant={featured.variant}
                 episodeNum={featured.num}
                 size="lg"
+                image={featured.ep.data.image}
               />
             </div>
             <div class="pod__featured-body">
@@ -146,6 +147,7 @@ const dateLong = new Intl.DateTimeFormat("en-US", {
                     variant={it.variant}
                     episodeNum={it.num}
                     size="md"
+                    image={it.ep.data.image}
                   />
                 </a>
                 <div class="pod__row-body">

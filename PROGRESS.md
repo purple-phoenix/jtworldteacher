@@ -66,22 +66,13 @@ Two-track repo:
    - YouTube Music: <https://podcasters.youtube.com/>
    - Amazon Music: <https://podcasters.amazon.com/>
    - After Apple accepts, Overcast / Pocket Casts / Castro / Castbox auto-pick it up.
-3. **Real cover art** (cosmetic, not blocking) — current art at `site/public/podcast-cover.jpg` is a 3000×3000 typographic placeholder using the site's cream/ink/purple palette. Apple-spec compliant but generic. Replace whenever JT provides art he likes.
-4. **Wire up the placeholder links** in `site/src/pages/index.astro` and `podcast/index.astro` — Apple, YouTube, Patreon, Stripe, contact email still `href="#"` with TODO comments. (Spotify is now wired to the public show `https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC` across `index.astro`, `podcast/index.astro`, `podcast/[slug].astro`, and `Footer.astro`.)
-5. **Site bio / about copy** — `index.astro` has a generic "About" paragraph. Replace with real bio.
-6. **Ownership transfer to JT** when he's ready — update `feed.xml.ts` `SHOW.ownerEmail` to JT's address and re-verify with directories; add him as user in Apple/Spotify dashboards.
+3. **Wire up the placeholder links** in `site/src/pages/index.astro` and `podcast/index.astro` — Apple, YouTube, Patreon, Stripe, contact email still `href="#"` with TODO comments. (Spotify is now wired to the public show `https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC` across `index.astro`, `podcast/index.astro`, `podcast/[slug].astro`, and `Footer.astro`.)
+4. **Site bio / about copy** — `index.astro` has a generic "About" paragraph. Replace with real bio.
+5. **Ownership transfer to JT** when he's ready — update `feed.xml.ts` `SHOW.ownerEmail` to JT's address and re-verify with directories; add him as user in Apple/Spotify dashboards.
 
 ## How to add a new episode
 
-When JT does a new X Space:
-
-1. Add the tweet URL to `catalog/spaces/queue.txt`.
-2. Run: `bash catalog/scripts/parallel-pipeline.sh catalog/spaces/queue.txt` — downloads audio, transcribes via whisper, creates catalog stub post and minimal site episode page.
-3. (For full show notes) dispatch an agent to read the transcript and return summary + show notes + quotes, then update the episode markdown.
-4. Upload audio to R2: `rclone copy catalog/spaces/audio/ r2:jtworldteacher-podcast/episodes/ --include "*.m4a"` (idempotent).
-5. Commit + push. GH Actions deploys automatically. Episode goes live + appears in RSS within ~1 min.
-
-Full workflow doc: `PODCAST.md` (root). Catalog workflow: `catalog/WORKFLOW.md`.
+Follow `PODCAST.md` for publishing and `catalog/WORKFLOW.md` for the catalog pipeline.
 
 ## Key file locations
 

@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "direction": "Oracular Broadside",
+  "spotifyDimensions": [3000, 3000],
+  "webDimensions": [1200, 1200],
+  "episodes": [
+    {
+      "title": "The Revelation of the Hierarchy",
+      "slug": "2026-07-04-the-revelation-of-the-hierarchy",
+      "filename": "2026-07-04-the-revelation-of-the-hierarchy.jpg",
+      "sitePath": "episodes/2026-07-04-the-revelation-of-the-hierarchy.jpg",
+      "siteEpisodePath": "src/content/episodes/2026-07-04-the-revelation-of-the-hierarchy.md",
+      "siteStatus": "wired",
+      "enclosure": {
+        "audioUrl": "https://media.jtworldteacher.com/episodes/2026-07-04-the-revelation-of-the-hierarchy.m4a",
+        "audioLength": 67968458,
+        "audioType": "audio/mp4",
+        "duration": "1:35:16",
+        "durationSeconds": 5716
+      }
+    },
+    {
+      "title": "American Disclosure",
+      "slug": "2026-07-05-american-disclosure",
+      "filename": "2026-07-05-american-disclosure.jpg",
+      "sitePath": "episodes/2026-07-05-american-disclosure.jpg",
+      "siteEpisodePath": "src/content/episodes/2026-07-05-american-disclosure.md",
+      "siteStatus": "wired",
+      "enclosure": {
+        "audioUrl": "https://media.jtworldteacher.com/episodes/2026-07-05-american-disclosure.m4a",
+        "audioLength": 62682653,
+        "audioType": "audio/mp4",
+        "duration": "1:27:51",
+        "durationSeconds": 5271
+      }
+    },
+    {
+      "title": "Technical Remote Viewing and the Kill Shot",
+      "slug": "2026-09-02-technical-remote-viewing-and-the-kill-shot",
+      "filename": "2026-09-02-technical-remote-viewing-and-the-kill-shot.jpg",
+      "sitePath": "episodes/2026-09-02-technical-remote-viewing-and-the-kill-shot.jpg",
+      "siteEpisodePath": "src/content/episodes/2026-09-02-technical-remote-viewing-and-the-kill-shot.md",
+      "siteStatus": "wired",
+      "enclosure": {
+        "audioUrl": "https://media.jtworldteacher.com/episodes/2026-09-02-technical-remote-viewing-and-the-kill-shot.m4a",
+        "audioLength": 62332252,
+        "audioType": "audio/mp4",
+        "duration": "1:27:22",
+        "durationSeconds": 5242
+      }
+    },
+    {
+      "title": "Intuitive Underground and the Power of Remote Viewing",
+      "slug": "2026-09-09-intuitive-underground-and-the-power-of-remote-viewing",
+      "filename": "2026-09-09-intuitive-underground-and-the-power-of-remote-viewing.jpg",
+      "sitePath": "episodes/2026-09-09-intuitive-underground-and-the-power-of-remote-viewing.jpg",
+      "siteEpisodePath": "src/content/episodes/2026-09-09-intuitive-underground-and-the-power-of-remote-viewing.md",
+      "siteStatus": "wired",
+      "enclosure": {
+        "audioUrl": "https://media.jtworldteacher.com/episodes/2026-09-09-intuitive-underground-and-the-power-of-remote-viewing.m4a",
+        "audioLength": 82432293,
+        "audioType": "audio/mp4",
+        "duration": "1:55:32",
+        "durationSeconds": 6932
+      }
+    },
+    {
+      "title": "The World Tree and the Eclipse in Leo",
+      "slug": "2026-09-16-the-world-tree-and-the-eclipse-in-leo",
+      "filename": "2026-09-16-the-world-tree-and-the-eclipse-in-leo.jpg",
+      "sitePath": "episodes/2026-09-16-the-world-tree-and-the-eclipse-in-leo.jpg",
+      "siteEpisodePath": "src/content/episodes/2026-09-16-the-world-tree-and-the-eclipse-in-leo.md",
+      "siteStatus": "wired",
+      "enclosure": {
+        "audioUrl": "https://media.jtworldteacher.com/episodes/2026-09-16-the-world-tree-and-the-eclipse-in-leo.m4a",
+        "audioLength": 94874934,
+        "audioType": "audio/mp4",
+        "duration": "2:12:58",
+        "durationSeconds": 7978
+      }
+    },
+    {
+      "title": "Proof of Work and the Simulation's Challenge Rating",
+      "slug": "2026-10-07-proof-of-work-and-the-simulations-challenge-rating",
+      "filename": "2026-10-07-proof-of-work-and-the-simulations-challenge-rating.jpg",
+      "sitePath": "episodes/2026-10-07-proof-of-work-and-the-simulations-challenge-rating.jpg",
+      "siteEpisodePath": null,
+      "siteStatus": "deferred-no-authoritative-episode",
+      "enclosure": null,
+      "deferredReason": "No authoritative episode markdown or transcript exists on origin/main; wiring is reserved for the future episode-publication task."
+    }
+  ]
+}

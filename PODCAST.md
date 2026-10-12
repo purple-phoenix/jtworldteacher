@@ -9,16 +9,15 @@ How "JT — Astrology & Simulation Theory" gets from a downloaded X Space → pu
 GitHub Pages can't serve large media files at scale. Audio lives on R2.
 
 1. Sign up at <https://dash.cloudflare.com/> (free).
-2. R2 → Create bucket → name it `jtworld-podcast` (or similar).
+2. R2 → Create bucket → name it `jtworldteacher-podcast`.
 3. Settings → "Public access" → "Connect custom domain" → enter `media.jtworldteacher.com`. (Cloudflare will give you a CNAME target to add at Porkbun — already covered in §4 below.) The audio URL pattern becomes `https://media.jtworldteacher.com/episodes/<slug>.m4a`.
 4. Generate an API token (R2 → Manage R2 API Tokens → "Object Read & Write" on this bucket). Save the **Access Key ID** + **Secret** somewhere safe (1Password). You'll only need these locally to upload — they don't go in the repo.
 5. After uploading the first audio file, update `audioUrl` in each `site/src/content/episodes/*.md` to point at `https://media.jtworldteacher.com/episodes/<slug>.m4a`.
 
 ### 2. Cover art
 
-Apple Podcasts requires square JPG/PNG, **3000 × 3000 px**, sRGB, < 500 KB.
+The show cover at `site/public/podcast-cover.jpg` is a square **3000 × 3000 px** sRGB JPEG.
 
-- Drop it at `site/public/podcast-cover.jpg`.
 - Same image gets used for every episode unless an episode sets its own `image:` frontmatter (also a path relative to `site/public/`).
 - For the show artwork on R2 (some directories prefer the cover art served from the same origin as the audio), upload a copy to R2 too at `cover.jpg`.
 
@@ -73,7 +72,8 @@ Easiest is the dashboard: R2 → bucket → Upload → drop the `.m4a` into an `
 rclone config   # follow prompts: New remote → name "r2" → S3 → Cloudflare R2 → paste keys
 
 # upload
-rclone copy catalog/spaces/audio/YYYY-MM-DD-slug.m4a r2:jtworld-podcast/episodes/
+rclone copy catalog/spaces/audio/YYYY-MM-DD-slug.m4a r2:jtworldteacher-podcast/episodes/ \
+  --metadata --metadata-set content-type=audio/mp4
 ```
 
 The final URL will be `<R2_DOMAIN>/episodes/YYYY-MM-DD-slug.m4a`.
@@ -92,7 +92,6 @@ audioLength: 64460131   # exact bytes — `stat -f "%z" file.m4a` on macOS
 audioType: "audio/mp4"   # m4a / aac is audio/mp4; mp3 is audio/mpeg
 duration: "1:30:22"     # hh:mm:ss
 durationSeconds: 5422
-episode: 2              # episode number (optional but recommended)
 episodeType: "full"     # full | trailer | bonus
 explicit: false
 draft: false            # set to true to keep it out of the feed while drafting
@@ -104,9 +103,13 @@ spaceId: "1XXXXXXXXXX"
 
 Show notes go here. Use multiple paragraphs.
 
-## Transcript
+## Show notes
 
-(Paste cleaned transcript here, or include it via a separate markdown chunk.)
+Detailed bullets go here.
+
+## Notable quotes
+
+Selected quotes go here. Keep the full transcript in `catalog/spaces/transcripts/`.
 ```
 
 ### 4. Build + preview locally
@@ -171,7 +174,7 @@ site/
 │           ├── index.astro             # episode list
 │           └── [slug].astro            # episode detail page
 └── public/
-    └── podcast-cover.jpg               # 3000×3000 cover art (you need to add this)
+    └── podcast-cover.jpg               # 3000×3000 show cover art
 ```
 
 ## Notes & gotchas
