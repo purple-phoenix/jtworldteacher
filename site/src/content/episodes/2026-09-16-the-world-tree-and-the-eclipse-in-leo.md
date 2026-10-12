@@ -12,6 +12,7 @@ explicit: false
 draft: false
 spaceUrl: "https://x.com/i/spaces/1qJDzWRDEwLKV"
 spaceId: "1qJDzWRDEwLKV"
+image: "episodes/2026-09-16-the-world-tree-and-the-eclipse-in-leo.jpg"
 ---
 
 ## About this episode

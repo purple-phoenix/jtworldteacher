@@ -12,6 +12,7 @@ explicit: false
 draft: false
 spaceUrl: "https://x.com/i/spaces/1yKAPwAqZVDxb"
 spaceId: "1yKAPwAqZVDxb"
+image: "episodes/2026-09-09-intuitive-underground-and-the-power-of-remote-viewing.jpg"
 ---
 
 ## About this episode
