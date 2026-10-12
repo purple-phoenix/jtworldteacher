@@ -26,7 +26,7 @@ DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 TIMING_RE = re.compile(
     r"^(?P<start>\d{2}:\d{2}:\d{2}\.\d{3})\s+-->\s+"
-    r"(?P<end>\d{2}:\d{2}:\d{2}\.\d{3})(?P<settings>.*)$"
+    r"(?P<end>\d{2}:\d{2}:\d{2}\.\d{3}).*$"
 )
 REQUIRED_TOOLS = ("yt-dlp", "ffmpeg", "ffprobe", "whisper-cli")
 MODEL = Path.home() / ".whisper-models" / "ggml-large-v3-turbo.bin"
@@ -41,7 +41,6 @@ class Cue:
     start: float
     end: float
     text: str
-    settings: str = ""
 
 
 def run_command(args: list[str], *, capture: bool = False) -> subprocess.CompletedProcess[str]:
@@ -60,12 +59,11 @@ def run_command(args: list[str], *, capture: bool = False) -> subprocess.Complet
         raise KitError(f"Command failed ({' '.join(args)}): {detail}") from exc
 
 
-def require_dependencies(needs_whisper: bool) -> None:
-    tools = REQUIRED_TOOLS if needs_whisper else REQUIRED_TOOLS[:3]
-    missing = [tool for tool in tools if shutil.which(tool) is None]
+def require_dependencies() -> None:
+    missing = [tool for tool in REQUIRED_TOOLS if shutil.which(tool) is None]
     if missing:
         raise KitError(f"Missing dependencies: {', '.join(missing)}")
-    if needs_whisper and not MODEL.is_file():
+    if not MODEL.is_file():
         raise KitError(f"Missing Whisper model: {MODEL}")
 
 
@@ -197,7 +195,7 @@ def download_source(url: str, destination: Path) -> None:
         raise KitError("yt-dlp completed without creating source audio")
 
 
-def transcribe_source(source: Path, prefix: Path) -> None:
+def transcribe_source(source: Path, prefix: Path) -> int:
     wav = prefix.with_suffix(".wav")
     try:
         run_command(
@@ -225,7 +223,6 @@ def transcribe_source(source: Path, prefix: Path) -> None:
                 str(MODEL),
                 "-f",
                 str(wav),
-                "-otxt",
                 "-ovtt",
                 "-of",
                 str(prefix),
@@ -234,8 +231,15 @@ def transcribe_source(source: Path, prefix: Path) -> None:
         )
     finally:
         wav.unlink(missing_ok=True)
-    if not prefix.with_suffix(".txt").is_file() or not prefix.with_suffix(".vtt").is_file():
-        raise KitError("Whisper did not create both TXT and VTT outputs")
+    vtt = prefix.with_suffix(".vtt")
+    if not vtt.is_file():
+        raise KitError("Whisper did not create a VTT output")
+    cues = parse_vtt(vtt.read_text(encoding="utf-8"))
+    prefix.with_suffix(".txt").write_text(
+        "\n".join(" ".join(cue.text.split()) for cue in cues) + "\n",
+        encoding="utf-8",
+    )
+    return len(cues)
 
 
 def trim_audio(source: Path, destination: Path, start: float, end: float) -> None:
@@ -271,14 +275,6 @@ def parse_time(value: str) -> float:
     return int(hours) * 3600 + int(minutes) * 60 + float(seconds)
 
 
-def format_time(value: float) -> str:
-    millis = max(0, round(value * 1000))
-    hours, remainder = divmod(millis, 3_600_000)
-    minutes, remainder = divmod(remainder, 60_000)
-    seconds, ms = divmod(remainder, 1000)
-    return f"{hours:02d}:{minutes:02d}:{seconds:02d}.{ms:03d}"
-
-
 def parse_vtt(text: str) -> list[Cue]:
     normalized = text.replace("\r\n", "\n").replace("\r", "\n")
     blocks = re.split(r"\n{2,}", normalized.strip())
@@ -299,39 +295,11 @@ def parse_vtt(text: str) -> list[Cue]:
                     parse_time(match.group("start")),
                     parse_time(match.group("end")),
                     cue_text,
-                    match.group("settings"),
                 )
             )
     if not cues:
         raise KitError("VTT transcript contains no cues")
     return cues
-
-
-def clean_transcript(raw_vtt: Path, output_vtt: Path, output_txt: Path, start: float, end: float) -> int:
-    cues = parse_vtt(raw_vtt.read_text(encoding="utf-8"))
-    kept: list[Cue] = []
-    for cue in cues:
-        if cue.end <= start or cue.start >= end:
-            continue
-        if cue.start < start or cue.end > end:
-            raise KitError(
-                "A transcript cue straddles a cut boundary; choose a pause/cue boundary "
-                "or manually produce aligned transcripts rather than silently retaining cut speech"
-            )
-        kept.append(Cue(cue.start - start, cue.end - start, cue.text, cue.settings))
-    if not kept:
-        raise KitError("No transcript cues remain inside the selected cut window")
-
-    vtt_parts = ["WEBVTT\n"]
-    txt_lines: list[str] = []
-    for cue in kept:
-        vtt_parts.append(
-            f"{format_time(cue.start)} --> {format_time(cue.end)}{cue.settings}\n{cue.text}\n"
-        )
-        txt_lines.append(" ".join(cue.text.split()))
-    output_vtt.write_text("\n".join(vtt_parts), encoding="utf-8")
-    output_txt.write_text("\n".join(txt_lines) + "\n", encoding="utf-8")
-    return len(kept)
 
 
 def sha256(path: Path) -> str:
@@ -355,6 +323,19 @@ def tool_version(command: str) -> str:
     return (result.stdout or result.stderr).splitlines()[0]
 
 
+def aac_frame_duration(probe: dict[str, Any]) -> float:
+    stream = audio_stream(probe)
+    if stream.get("codec_name") != "aac":
+        raise KitError(f"Audio codec is {stream.get('codec_name')!r}, expected AAC")
+    try:
+        sample_rate = float(stream["sample_rate"])
+    except (KeyError, TypeError, ValueError) as exc:
+        raise KitError("ffprobe did not report an audio sample rate") from exc
+    if sample_rate <= 0:
+        raise KitError("ffprobe reported an invalid audio sample rate")
+    return 1024 / sample_rate
+
+
 def validate_final_probe(probe: dict[str, Any], expected_duration: float) -> None:
     stream = audio_stream(probe)
     if stream.get("codec_name") != "aac":
@@ -363,9 +344,11 @@ def validate_final_probe(probe: dict[str, Any], expected_duration: float) -> Non
     if not formats.intersection({"mov", "mp4", "m4a"}):
         raise KitError("Final audio is not an MP4/M4A container")
     actual = media_duration(probe)
-    if abs(actual - expected_duration) > 1.0:
+    tolerance = aac_frame_duration(probe)
+    if abs(actual - expected_duration) > tolerance:
         raise KitError(
-            f"Final duration {actual:.3f}s differs from requested {expected_duration:.3f}s by more than 1s"
+            f"Final duration {actual:.3f}s differs from requested {expected_duration:.3f}s "
+            f"by more than one AAC frame ({tolerance:.6f}s)"
         )
 
 
@@ -406,10 +389,12 @@ def write_upload_sheet(
     )
 
 
-def prepare(args: argparse.Namespace) -> Path:
+def prepare(args: argparse.Namespace, *, output_root: Path | None = None) -> Path:
     manifest = read_manifest(args.manifest.resolve())
     url, url_id = canonical_space_url(args.space_url)
-    output_root = args.output_root.expanduser().resolve()
+    if output_root is None:
+        output_root = Path.home() / "Downloads" / "peak-mind-spotify"
+    output_root = output_root.expanduser().resolve()
     base = f"{manifest['date']}-{manifest['slug']}"
     final_dir = output_root / base
 
@@ -420,8 +405,7 @@ def prepare(args: argparse.Namespace) -> Path:
             "Choose a new slug or explicitly move the existing kit after reviewing it."
         )
 
-    needs_whisper = args.transcript_prefix is None
-    require_dependencies(needs_whisper)
+    require_dependencies()
     output_root.mkdir(parents=True, exist_ok=True)
     stage = Path(tempfile.mkdtemp(prefix=f".{base}.work-", dir=output_root))
     try:
@@ -440,50 +424,27 @@ def prepare(args: argparse.Namespace) -> Path:
             )
 
         source = stage / "source.m4a"
-        if args.source_file:
-            source_input = args.source_file.expanduser().resolve()
-            if not source_input.is_file():
-                raise KitError(f"Source file does not exist: {source_input}")
-            shutil.copy2(source_input, source)
-        else:
-            download_source(url, source)
+        download_source(url, source)
 
         source_probe = probe_media(source)
         source_duration = media_duration(source_probe)
         cut_start = manifest["cut_start_seconds"]
         cut_end = manifest["cut_end_seconds"]
-        if cut_end > source_duration + 0.25:
+        source_tolerance = aac_frame_duration(source_probe)
+        if cut_end > source_duration + source_tolerance:
             raise KitError(
-                f"Cut end {cut_end:.3f}s exceeds source duration {source_duration:.3f}s"
+                f"Cut end {cut_end:.3f}s exceeds source duration {source_duration:.3f}s "
+                f"by more than one AAC frame ({source_tolerance:.6f}s)"
             )
-
-        raw_vtt = None
-        if args.transcript_prefix:
-            prefix = args.transcript_prefix.expanduser().resolve()
-            raw_vtt = prefix.with_suffix(".vtt")
-            if not raw_vtt.is_file():
-                raise KitError(f"Transcript prefix must have {raw_vtt.name}")
 
         audio_name = f"{base}.m4a"
-        txt_name = f"{base}.txt"
-        vtt_name = f"{base}.vtt"
         final_audio = stage / audio_name
-        final_txt = stage / txt_name
-        final_vtt = stage / vtt_name
         trim_audio(source, final_audio, cut_start, cut_end)
-        if raw_vtt is None:
-            transcribe_source(final_audio, final_audio.with_suffix(""))
-            cue_count = len(parse_vtt(final_vtt.read_text(encoding="utf-8")))
-            transcript_method = (
-                "converted the edited M4A to mono 16 kHz PCM WAV, transcribed it with "
-                "whisper.cpp large-v3-turbo, and retained the resulting edited-audio timestamps"
-            )
-        else:
-            cue_count = clean_transcript(raw_vtt, final_vtt, final_txt, cut_start, cut_end)
-            transcript_method = (
-                "removed raw-source cues outside the approved cut window and shifted retained "
-                "VTT cues to the edited-audio timeline"
-            )
+        cue_count = transcribe_source(final_audio, final_audio.with_suffix(""))
+        transcript_method = (
+            "converted the edited M4A to mono 16 kHz PCM WAV, transcribed it with "
+            "whisper.cpp large-v3-turbo, and derived TXT from the final-audio VTT"
+        )
 
         final_probe = probe_media(final_audio)
         validate_final_probe(final_probe, cut_end - cut_start)
@@ -521,11 +482,8 @@ def prepare(args: argparse.Namespace) -> Path:
                 "transcript_cues": cue_count,
                 "transcript_method": transcript_method,
             },
-            "tools": {
-                tool: tool_version(tool)
-                for tool in (REQUIRED_TOOLS if needs_whisper else REQUIRED_TOOLS[:3])
-            },
-            "whisper_model": str(MODEL) if needs_whisper else None,
+            "tools": {tool: tool_version(tool) for tool in REQUIRED_TOOLS},
+            "whisper_model": str(MODEL),
         }
         (stage / "SOURCE-EVIDENCE.json").write_text(
             json.dumps(evidence, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
@@ -544,9 +502,7 @@ def prepare(args: argparse.Namespace) -> Path:
             transcript_method,
         )
 
-        # Source and raw Whisper files are working data, not upload-kit deliverables.
-        for path in (source, stage / "source.txt", stage / "source.vtt"):
-            path.unlink(missing_ok=True)
+        source.unlink(missing_ok=True)
 
         checksum_files = sorted(
             path for path in stage.iterdir() if path.is_file() and path.name != "SHA256SUMS"
@@ -601,10 +557,11 @@ def validate_kit(kit_dir: Path, *, check_dependencies: bool = True) -> None:
 
     cues = parse_vtt(vtt.read_text(encoding="utf-8"))
     duration = media_duration(probe)
-    if cues[-1].end > duration + 0.5:
+    if cues[-1].end > duration + aac_frame_duration(probe):
         raise KitError("Final VTT extends beyond final audio")
-    if not txt.read_text(encoding="utf-8").strip():
-        raise KitError("Final TXT transcript is empty")
+    expected_txt = "\n".join(" ".join(cue.text.split()) for cue in cues) + "\n"
+    if txt.read_text(encoding="utf-8") != expected_txt:
+        raise KitError("Final TXT transcript is not derived from the final VTT")
 
     checksum_path = kit_dir / "SHA256SUMS"
     checked_names: set[str] = set()
@@ -647,20 +604,6 @@ def parser() -> argparse.ArgumentParser:
     prepare_parser = subparsers.add_parser("prepare", help="prepare a new upload kit")
     prepare_parser.add_argument("space_url", help="verified canonical X Space URL")
     prepare_parser.add_argument("--manifest", required=True, type=Path, help="editor-approved JSON manifest")
-    prepare_parser.add_argument(
-        "--output-root",
-        type=Path,
-        default=Path.home() / "Downloads" / "peak-mind-spotify",
-        help="parent directory for the date-slug kit",
-    )
-    prepare_parser.add_argument(
-        "--source-file", type=Path, help="reuse an already downloaded source while still verifying its URL"
-    )
-    prepare_parser.add_argument(
-        "--transcript-prefix",
-        type=Path,
-        help="reuse raw Whisper PREFIX.vtt made from the uncut source",
-    )
 
     validate_parser = subparsers.add_parser("validate", help="validate an existing upload kit")
     validate_parser.add_argument("kit_dir", type=Path)

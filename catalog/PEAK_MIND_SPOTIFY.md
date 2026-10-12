@@ -95,28 +95,11 @@ Create a private JSON file in scratch. Titles, descriptions, speakers, and selec
 }
 ```
 
-The final directory is always `<output-root>/<date>-<slug>/`. The script refuses to overwrite it. To revise a kit, review and deliberately move the old directory first; there is no force flag.
+The final directory is always `~/Downloads/peak-mind-spotify/<date>-<slug>/`. The script refuses to overwrite it. To revise a kit, review and deliberately move the old directory first; there is no force flag.
 
 ## 4. Build and validate the kit (automatic)
 
-Reuse the inspected source and its raw VTT transcript so the script does not download or transcribe twice:
-
-```bash
-python3 catalog/scripts/prepare_peak_mind_kit.py prepare "$url" \
-  --manifest "$work/manifest.json" \
-  --source-file "$work/source.m4a" \
-  --transcript-prefix "$work/source"
-```
-
-If the source-level Whisper pass lost words at the hold-music/program transition, reuse only the source. The script trims first, converts the edited audio to mono 16 kHz WAV, and creates fresh TXT/VTT output on the final timeline:
-
-```bash
-python3 catalog/scripts/prepare_peak_mind_kit.py prepare "$url" \
-  --manifest "$work/manifest.json" \
-  --source-file "$work/source.m4a"
-```
-
-Or omit both reuse options and let the script download the verified replay before doing the same final-audio transcription:
+Pass the approved canonical Space URL. The script independently downloads that Space again so the final kit cannot accidentally combine a URL with another candidate's scratch audio or transcript:
 
 ```bash
 python3 catalog/scripts/prepare_peak_mind_kit.py prepare "$url" \
@@ -126,12 +109,11 @@ python3 catalog/scripts/prepare_peak_mind_kit.py prepare "$url" \
 The script:
 
 - re-verifies Space id, date, and `@McCarthy_JT` host with `yt-dlp`;
+- downloads the verified replay into private staging;
 - checks dependencies and the required Whisper model;
 - checks the cut window against source duration;
 - trims AAC with ffmpeg stream copy (`-c:a copy`) and fast-start metadata;
-- when given `--transcript-prefix`, removes cues outside the approved cut window and shifts retained VTT timestamps;
-- refuses a cut through a reused transcript cue rather than guessing which words to keep;
-- otherwise transcribes the edited audio so TXT/VTT timestamps directly match the final file;
+- transcribes the edited audio so VTT timestamps directly match the final file, then derives TXT from that VTT;
 - verifies AAC/M4A codec, duration, byte count, full decode, transcripts, and SHA-256;
 - atomically creates the kit only after validation.
 
