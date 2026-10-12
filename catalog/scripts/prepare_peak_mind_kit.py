@@ -21,7 +21,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-SPACE_RE = re.compile(r"^https://(?:x|twitter)\.com/i/spaces/([A-Za-z0-9]+)(?:[/?#].*)?$")
+SPACE_RE = re.compile(r"^https://x\.com/i/spaces/([A-Za-z0-9]+)$")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 TIMING_RE = re.compile(
@@ -86,6 +86,8 @@ def read_manifest(path: Path) -> dict[str, Any]:
         "cut_start_seconds",
         "cut_end_seconds",
         "edit_rationale",
+        "selection_evidence",
+        "ruled_out_candidates",
     }
     missing = sorted(required - data.keys())
     if missing:
@@ -107,6 +109,22 @@ def read_manifest(path: Path) -> dict[str, Any]:
         isinstance(item, str) and item.strip() for item in data["speakers"]
     ):
         raise KitError("Manifest speakers must be a non-empty array of names")
+    if not isinstance(data["selection_evidence"], list) or not data["selection_evidence"] or not all(
+        isinstance(item, str) and item.strip() for item in data["selection_evidence"]
+    ):
+        raise KitError("Manifest selection_evidence must be a non-empty array of evidence strings")
+    if not isinstance(data["ruled_out_candidates"], list):
+        raise KitError("Manifest ruled_out_candidates must be an array")
+    for candidate in data["ruled_out_candidates"]:
+        if not isinstance(candidate, dict) or set(candidate) != {"space_url", "reason"}:
+            raise KitError(
+                "Manifest ruled_out_candidates entries must contain only space_url and reason"
+            )
+        if not isinstance(candidate["space_url"], str):
+            raise KitError("Manifest ruled_out_candidates space_url values must be strings")
+        canonical_space_url(candidate["space_url"])
+        if not isinstance(candidate["reason"], str) or not candidate["reason"].strip():
+            raise KitError("Manifest ruled_out_candidates reasons must be non-empty strings")
     try:
         start = float(data["cut_start_seconds"])
         end = float(data["cut_end_seconds"])
@@ -122,7 +140,7 @@ def read_manifest(path: Path) -> dict[str, Any]:
 def canonical_space_url(url: str) -> tuple[str, str]:
     match = SPACE_RE.fullmatch(url)
     if not match:
-        raise KitError("Space URL must look like https://x.com/i/spaces/<id>")
+        raise KitError("Space URL must be exactly https://x.com/i/spaces/<id>")
     space_id = match.group(1)
     return f"https://x.com/i/spaces/{space_id}", space_id
 
@@ -295,14 +313,12 @@ def clean_transcript(raw_vtt: Path, output_vtt: Path, output_txt: Path, start: f
     for cue in cues:
         if cue.end <= start or cue.start >= end:
             continue
-        overlap_start = max(cue.start, start)
-        overlap_end = min(cue.end, end)
-        if cue.start < start - 0.25 or cue.end > end + 0.25:
+        if cue.start < start or cue.end > end:
             raise KitError(
                 "A transcript cue straddles a cut boundary; choose a pause/cue boundary "
                 "or manually produce aligned transcripts rather than silently retaining cut speech"
             )
-        kept.append(Cue(overlap_start - start, overlap_end - start, cue.text, cue.settings))
+        kept.append(Cue(cue.start - start, cue.end - start, cue.text, cue.settings))
     if not kept:
         raise KitError("No transcript cues remain inside the selected cut window")
 
@@ -444,10 +460,9 @@ def prepare(args: argparse.Namespace) -> Path:
         raw_vtt = None
         if args.transcript_prefix:
             prefix = args.transcript_prefix.expanduser().resolve()
-            raw_txt = prefix.with_suffix(".txt")
             raw_vtt = prefix.with_suffix(".vtt")
-            if not raw_txt.is_file() or not raw_vtt.is_file():
-                raise KitError(f"Transcript prefix must have both {raw_txt.name} and {raw_vtt.name}")
+            if not raw_vtt.is_file():
+                raise KitError(f"Transcript prefix must have {raw_vtt.name}")
 
         audio_name = f"{base}.m4a"
         txt_name = f"{base}.txt"
@@ -489,8 +504,8 @@ def prepare(args: argparse.Namespace) -> Path:
                 "duration_seconds": source_duration,
                 "probe": source_probe,
             },
-            "selection_evidence": manifest.get("selection_evidence", []),
-            "ruled_out_candidates": manifest.get("ruled_out_candidates", []),
+            "selection_evidence": manifest["selection_evidence"],
+            "ruled_out_candidates": manifest["ruled_out_candidates"],
             "edit": {
                 "start_seconds": cut_start,
                 "end_seconds": cut_end,
@@ -644,7 +659,7 @@ def parser() -> argparse.ArgumentParser:
     prepare_parser.add_argument(
         "--transcript-prefix",
         type=Path,
-        help="reuse raw Whisper PREFIX.txt and PREFIX.vtt made from the uncut source",
+        help="reuse raw Whisper PREFIX.vtt made from the uncut source",
     )
 
     validate_parser = subparsers.add_parser("validate", help="validate an existing upload kit")

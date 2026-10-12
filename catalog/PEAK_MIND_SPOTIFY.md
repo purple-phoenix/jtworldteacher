@@ -99,7 +99,7 @@ The final directory is always `<output-root>/<date>-<slug>/`. The script refuses
 
 ## 4. Build and validate the kit (automatic)
 
-Reuse the inspected source and its raw transcript so the script does not download or transcribe twice:
+Reuse the inspected source and its raw VTT transcript so the script does not download or transcribe twice:
 
 ```bash
 python3 catalog/scripts/prepare_peak_mind_kit.py prepare "$url" \

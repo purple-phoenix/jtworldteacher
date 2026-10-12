@@ -61,6 +61,103 @@ Pre-show and show in one cue.
             with self.assertRaisesRegex(kit.KitError, "straddles a cut boundary"):
                 kit.clean_transcript(source, root / "final.vtt", root / "final.txt", 10.0, 12.0)
 
+    def test_clean_transcript_refuses_cue_just_before_start_boundary(self):
+        raw = """WEBVTT
+
+00:00:09.800 --> 00:00:12.000
+Cut speech and retained speech in one cue.
+"""
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "raw.vtt"
+            source.write_text(raw, encoding="utf-8")
+            with self.assertRaisesRegex(kit.KitError, "straddles a cut boundary"):
+                kit.clean_transcript(source, root / "final.vtt", root / "final.txt", 10.0, 16.0)
+
+    def test_clean_transcript_refuses_cue_just_after_end_boundary(self):
+        raw = """WEBVTT
+
+00:00:14.000 --> 00:00:16.200
+Retained speech and cut speech in one cue.
+"""
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "raw.vtt"
+            source.write_text(raw, encoding="utf-8")
+            with self.assertRaisesRegex(kit.KitError, "straddles a cut boundary"):
+                kit.clean_transcript(source, root / "final.vtt", root / "final.txt", 10.0, 16.0)
+
+
+class InputValidationTests(unittest.TestCase):
+    def manifest_data(self) -> dict:
+        return {
+            "schema_version": 1,
+            "date": "2026-10-07",
+            "slug": "proof-of-work",
+            "title": "Proof of Work",
+            "speakers": ["JT", "Matt McCarthy"],
+            "concise_description": "A transcript-grounded description.",
+            "spotify_description": "A longer transcript-grounded description.",
+            "cut_start_seconds": 10.0,
+            "cut_end_seconds": 16.0,
+            "edit_rationale": "Removed demonstrated hold music and dead air only.",
+            "selection_evidence": ["The recording identifies the Wednesday Peak Mind show."],
+            "ruled_out_candidates": [],
+        }
+
+    def read_manifest(self, root: Path, data: dict):
+        path = root / "manifest.json"
+        path.write_text(json.dumps(data), encoding="utf-8")
+        return kit.read_manifest(path)
+
+    def test_manifest_requires_nonempty_selection_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for evidence in (None, [], [" "]):
+                data = self.manifest_data()
+                if evidence is None:
+                    del data["selection_evidence"]
+                else:
+                    data["selection_evidence"] = evidence
+                with self.subTest(evidence=evidence):
+                    with self.assertRaisesRegex(kit.KitError, "selection_evidence"):
+                        self.read_manifest(root, data)
+
+    def test_manifest_requires_explicit_valid_ruled_out_candidates(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            cases = (
+                None,
+                "not-an-array",
+                [{"space_url": 123, "reason": "BoomRoom"}],
+                [{"space_url": "https://twitter.com/i/spaces/Other", "reason": "BoomRoom"}],
+                [{"space_url": "https://x.com/i/spaces/Other", "reason": ""}],
+            )
+            for candidates in cases:
+                data = self.manifest_data()
+                if candidates is None:
+                    del data["ruled_out_candidates"]
+                else:
+                    data["ruled_out_candidates"] = candidates
+                with self.subTest(candidates=candidates):
+                    with self.assertRaises(kit.KitError):
+                        self.read_manifest(root, data)
+
+    def test_space_url_accepts_only_exact_canonical_form(self):
+        self.assertEqual(
+            kit.canonical_space_url("https://x.com/i/spaces/1Example"),
+            ("https://x.com/i/spaces/1Example", "1Example"),
+        )
+        for url in (
+            "https://twitter.com/i/spaces/1Example",
+            "https://x.com/i/spaces/1Example/",
+            "https://x.com/i/spaces/1Example?ref=share",
+            "https://x.com/i/spaces/1Example#fragment",
+        ):
+            with self.subTest(url=url):
+                with self.assertRaisesRegex(kit.KitError, "Space URL"):
+                    kit.canonical_space_url(url)
+
 
 class PrepareBehaviorTests(unittest.TestCase):
     def manifest(self, root: Path) -> Path:
@@ -78,6 +175,10 @@ class PrepareBehaviorTests(unittest.TestCase):
                     "cut_start_seconds": 10.0,
                     "cut_end_seconds": 16.0,
                     "edit_rationale": "Removed demonstrated hold music and dead air only.",
+                    "selection_evidence": [
+                        "The recording identifies the Wednesday Peak Mind show."
+                    ],
+                    "ruled_out_candidates": [],
                 }
             ),
             encoding="utf-8",
@@ -112,7 +213,6 @@ class PrepareBehaviorTests(unittest.TestCase):
             source = root / "source.m4a"
             source.write_bytes(b"source-audio")
             prefix = root / "raw"
-            prefix.with_suffix(".txt").write_text("raw transcript\n", encoding="utf-8")
             prefix.with_suffix(".vtt").write_text(
                 "WEBVTT\n\n"
                 "00:00:00.000 --> 00:00:05.000\nhold hallucination\n\n"
@@ -231,7 +331,6 @@ class PrepareBehaviorTests(unittest.TestCase):
             source = root / "source.m4a"
             source.write_bytes(b"source")
             prefix = root / "raw"
-            prefix.with_suffix(".txt").write_text("raw\n")
             prefix.with_suffix(".vtt").write_text(
                 "WEBVTT\n\n00:00:10.000 --> 00:00:16.000\nProgram.\n"
             )
