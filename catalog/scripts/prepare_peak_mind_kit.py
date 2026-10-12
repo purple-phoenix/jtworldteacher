@@ -511,6 +511,7 @@ def prepare(
 
     require_dependencies()
     checkpoint_root.mkdir(parents=True, exist_ok=True, mode=0o700)
+    checkpoint_root.chmod(0o700)
     stage = Path(tempfile.mkdtemp(prefix=f".{base}.work-", dir=checkpoint_root))
     try:
         metadata = resolve_space(url)

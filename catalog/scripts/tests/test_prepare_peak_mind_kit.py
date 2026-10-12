@@ -3,7 +3,9 @@
 import argparse
 import importlib.util
 import json
+import os
 import shutil
+import stat
 import sys
 import tempfile
 import unittest
@@ -375,6 +377,26 @@ dead air
             self.assertIn("Remove only demonstrated Whisper hallucination cues", instructions)
             self.assertIn("--attest-cleanup", instructions)
             self.assertFalse((root / "output" / "2026-10-07-proof-of-work").exists())
+
+    def test_prepare_enforces_owner_only_scratch_without_executable_files(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            checkpoint_root = root / "checkpoints"
+            previous_umask = os.umask(0o022)
+            try:
+                checkpoint_root.mkdir(mode=0o777)
+                sentinel = checkpoint_root / "preserve-me"
+                sentinel.write_text("existing scratch content", encoding="utf-8")
+                self.assertEqual(stat.S_IMODE(checkpoint_root.stat().st_mode), 0o755)
+                checkpoint = self.create_checkpoint(root)
+            finally:
+                os.umask(previous_umask)
+
+            self.assertEqual(stat.S_IMODE(checkpoint_root.stat().st_mode), 0o700)
+            self.assertEqual(stat.S_IMODE(checkpoint.stat().st_mode), 0o700)
+            self.assertEqual(sentinel.read_text(encoding="utf-8"), "existing scratch content")
+            for name in ("source.m4a", "draft.vtt", "draft.original.vtt"):
+                self.assertEqual(stat.S_IMODE((checkpoint / name).stat().st_mode) & 0o111, 0)
 
     def test_prepare_refuses_existing_checkpoint_before_commands(self):
         with tempfile.TemporaryDirectory() as directory:

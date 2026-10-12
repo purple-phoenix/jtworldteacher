@@ -44,7 +44,7 @@ Keep working files outside the repository or in ignored scratch space:
 ```bash
 url=https://x.com/i/spaces/SPACE_ID
 work=/path/to/private/scratch
-mkdir -p "$work"
+install -d -m 700 "$work"
 yt-dlp --no-warnings -o "$work/source.m4a" "$url"
 ffprobe -v error -show_entries format=duration,size:stream=codec_name,sample_rate,channels \
   -of json "$work/source.m4a"
