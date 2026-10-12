@@ -824,9 +824,13 @@ def validate_kit(
     source_record = evidence.get("source")
     if not isinstance(source_record, dict):
         raise KitError("SOURCE-EVIDENCE.json lacks source evidence")
-    _, source_id = canonical_space_url(str(source_record.get("space_url", "")))
+    source_url, source_id = canonical_space_url(str(source_record.get("space_url", "")))
     if source_record.get("space_id") != source_id:
         raise KitError("SOURCE-EVIDENCE.json Space URL and id do not match")
+    metadata = source_record.get("yt_dlp")
+    if not isinstance(metadata, dict):
+        raise KitError("SOURCE-EVIDENCE.json yt-dlp metadata is invalid")
+    validate_space_metadata(metadata, source_url, source_id, manifest)
     edit = evidence.get("edit")
     if not isinstance(edit, dict) or edit.get("start_seconds") != manifest["cut_start_seconds"]:
         raise KitError("SOURCE-EVIDENCE.json edit start does not match MANIFEST.json")

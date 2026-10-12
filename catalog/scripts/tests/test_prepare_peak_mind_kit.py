@@ -277,6 +277,21 @@ dead air
         self.assertEqual(repeated, result)
         return result
 
+    def rewrite_evidence(self, final_dir: Path, mutate) -> None:
+        evidence_path = final_dir / "SOURCE-EVIDENCE.json"
+        evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+        mutate(evidence)
+        evidence_path.write_text(json.dumps(evidence, indent=2) + "\n", encoding="utf-8")
+        checksum_files = sorted(
+            path
+            for path in final_dir.iterdir()
+            if path.is_file() and path.name != "SHA256SUMS"
+        )
+        (final_dir / "SHA256SUMS").write_text(
+            "".join(f"{kit.sha256(path)}  {path.name}\n" for path in checksum_files),
+            encoding="utf-8",
+        )
+
     def test_prepare_creates_provenance_checkpoint_and_stops(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -441,19 +456,11 @@ dead air
             final_dir = self.resume_checkpoint(root, checkpoint)
             shutil.copytree(saved_checkpoint, checkpoint)
 
-            evidence_path = final_dir / "SOURCE-EVIDENCE.json"
-            evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
-            evidence["source"]["space_url"] = "https://x.com/i/spaces/AnotherSpace"
-            evidence["source"]["space_id"] = "AnotherSpace"
-            evidence_path.write_text(json.dumps(evidence, indent=2) + "\n", encoding="utf-8")
-            checksum_files = sorted(
-                path
-                for path in final_dir.iterdir()
-                if path.is_file() and path.name != "SHA256SUMS"
-            )
-            (final_dir / "SHA256SUMS").write_text(
-                "".join(f"{kit.sha256(path)}  {path.name}\n" for path in checksum_files),
-                encoding="utf-8",
+            self.rewrite_evidence(
+                final_dir,
+                lambda evidence: evidence["source"].update(
+                    {"sha256": "0" * 64}
+                ),
             )
 
             def fake_probe(path):
@@ -471,6 +478,50 @@ dead air
                         checkpoint_root=root / "checkpoints",
                     )
             self.assertTrue(checkpoint.is_dir())
+
+    def test_invalid_final_metadata_is_rejected_by_validation_and_resume(self):
+        cases = (
+            ("uploader_id", "SomeoneElse", "not @McCarthy_JT"),
+            ("upload_date", "20261008", "does not match manifest date"),
+        )
+        for field, value, message in cases:
+            with self.subTest(field=field), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                checkpoint = self.create_checkpoint(root)
+                saved_checkpoint = root / "saved-checkpoint"
+                shutil.copytree(checkpoint, saved_checkpoint)
+                final_dir = self.resume_checkpoint(root, checkpoint)
+                self.rewrite_evidence(
+                    final_dir,
+                    lambda evidence, field=field, value=value: evidence["source"]["yt_dlp"].update(
+                        {field: value}
+                    ),
+                )
+
+                def fake_probe(path):
+                    return self.SOURCE_PROBE if path.name == "source.m4a" else self.FINAL_PROBE
+
+                with (
+                    mock.patch.object(kit, "require_dependencies"),
+                    mock.patch.object(kit, "probe_media", side_effect=fake_probe),
+                    mock.patch.object(kit, "run_command"),
+                ):
+                    with self.assertRaisesRegex(kit.KitError, message):
+                        kit.validate_kit(final_dir)
+                    with self.assertRaisesRegex(kit.KitError, message):
+                        kit.resume(
+                            self.resume_args(checkpoint),
+                            output_root=root / "output",
+                            checkpoint_root=root / "checkpoints",
+                        )
+                    shutil.copytree(saved_checkpoint, checkpoint)
+                    with self.assertRaisesRegex(kit.KitError, message):
+                        kit.resume(
+                            self.resume_args(checkpoint),
+                            output_root=root / "output",
+                            checkpoint_root=root / "checkpoints",
+                        )
+                self.assertTrue(checkpoint.is_dir())
 
     def test_missing_checkpoint_cannot_accept_renamed_kit(self):
         with tempfile.TemporaryDirectory() as directory:
