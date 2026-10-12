@@ -684,7 +684,13 @@ def resume(
     require_dependencies(RESUME_TOOLS)
     checkpoint, manifest, source, draft_vtt, source_probe = read_checkpoint(checkpoint_dir)
     if final_dir.exists():
-        validate_kit(final_dir, check_dependencies=False)
+        final_manifest, final_source = validate_kit(final_dir, check_dependencies=False)
+        checkpoint_source = checkpoint["source"]
+        if final_manifest != manifest or any(
+            final_source.get(field) != checkpoint_source.get(field)
+            for field in ("space_url", "space_id", "sha256")
+        ):
+            raise KitError("Existing final kit does not match checkpoint provenance")
         shutil.rmtree(checkpoint_dir)
         return final_dir
     output_root.mkdir(parents=True, exist_ok=True)
@@ -701,10 +707,6 @@ def resume(
         trim_audio(source, final_audio, cut_start, cut_end)
         final_probe = probe_media(final_audio)
         validate_final_probe(final_probe, cut_end - cut_start)
-        run_command(
-            ["ffmpeg", "-v", "error", "-i", str(final_audio), "-f", "null", os.devnull],
-            capture=True,
-        )
 
         url = checkpoint["source"]["space_url"]
         url_id = checkpoint["source"]["space_id"]
@@ -776,7 +778,7 @@ def resume(
             "".join(f"{sha256(path)}  {path.name}\n" for path in checksum_files),
             encoding="utf-8",
         )
-        validate_kit(stage, check_dependencies=False)
+        validate_kit(stage, check_dependencies=False, expected_name=base)
         stage.rename(final_dir)
         shutil.rmtree(checkpoint_dir)
         return final_dir
@@ -785,12 +787,17 @@ def resume(
         raise
 
 
-def validate_kit(kit_dir: Path, *, check_dependencies: bool = True) -> None:
+def validate_kit(
+    kit_dir: Path,
+    *,
+    check_dependencies: bool = True,
+    expected_name: str | None = None,
+) -> tuple[dict[str, Any], dict[str, Any]]:
     kit_dir = kit_dir.expanduser().resolve()
     if not kit_dir.is_dir():
         raise KitError(f"Kit directory does not exist: {kit_dir}")
-    if check_dependencies and shutil.which("ffprobe") is None:
-        raise KitError("Missing dependency: ffprobe")
+    if check_dependencies:
+        require_dependencies(RESUME_TOOLS)
     required_names = {"MANIFEST.json", "SOURCE-EVIDENCE.json", "UPLOAD.txt", "SHA256SUMS"}
     names = {path.name for path in kit_dir.iterdir() if path.is_file()}
     missing = sorted(required_names - names)
@@ -804,6 +811,9 @@ def validate_kit(kit_dir: Path, *, check_dependencies: bool = True) -> None:
     if not isinstance(evidence, dict):
         raise KitError("SOURCE-EVIDENCE.json must contain an object")
     manifest = read_manifest(kit_dir / "MANIFEST.json")
+    manifest_base = f"{manifest['date']}-{manifest['slug']}"
+    if (expected_name or kit_dir.name) != manifest_base:
+        raise KitError("Kit directory name does not match MANIFEST.json date and slug")
     if evidence.get("selection_evidence") != manifest["selection_evidence"]:
         raise KitError("Selection evidence does not match MANIFEST.json")
     if evidence.get("ruled_out_candidates") != manifest["ruled_out_candidates"]:
@@ -828,9 +838,9 @@ def validate_kit(kit_dir: Path, *, check_dependencies: bool = True) -> None:
     filename = final_record.get("filename")
     if not filename:
         raise KitError("SOURCE-EVIDENCE.json lacks final.filename")
-    if Path(filename).name != filename or not filename.endswith(".m4a"):
-        raise KitError("SOURCE-EVIDENCE.json final.filename must be a plain .m4a filename")
-    base = Path(filename).stem
+    if filename != f"{manifest_base}.m4a":
+        raise KitError("SOURCE-EVIDENCE.json final.filename does not match kit identity")
+    base = manifest_base
     audio = kit_dir / filename
     txt = kit_dir / f"{base}.txt"
     vtt = kit_dir / f"{base}.vtt"
@@ -847,6 +857,20 @@ def validate_kit(kit_dir: Path, *, check_dependencies: bool = True) -> None:
         raise KitError("Audio byte count does not match SOURCE-EVIDENCE.json")
     if sha256(audio) != final_record["sha256"]:
         raise KitError("Audio SHA-256 does not match SOURCE-EVIDENCE.json")
+    run_command(
+        [
+            "ffmpeg",
+            "-v",
+            "error",
+            "-xerror",
+            "-i",
+            str(audio),
+            "-f",
+            "null",
+            os.devnull,
+        ],
+        capture=True,
+    )
 
     cues = parse_vtt(vtt.read_text(encoding="utf-8"))
     duration = media_duration(probe)
@@ -888,6 +912,7 @@ def validate_kit(kit_dir: Path, *, check_dependencies: bool = True) -> None:
     ):
         if label not in sheet:
             raise KitError(f"UPLOAD.txt lacks {label}")
+    return manifest, source_record
 
 
 def parser() -> argparse.ArgumentParser:

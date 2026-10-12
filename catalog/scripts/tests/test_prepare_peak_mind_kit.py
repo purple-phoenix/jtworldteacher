@@ -3,6 +3,7 @@
 import argparse
 import importlib.util
 import json
+import shutil
 import sys
 import tempfile
 import unittest
@@ -412,6 +413,79 @@ dead air
                 evidence["transcript_cleanup"]["original_draft_vtt_sha256"],
             )
             self.assertFalse(checkpoint.exists())
+
+    def test_shared_validation_requires_error_fatal_full_decode(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            result = self.resume_checkpoint(root, self.create_checkpoint(root))
+            with (
+                mock.patch.object(kit, "require_dependencies"),
+                mock.patch.object(kit, "probe_media", return_value=self.FINAL_PROBE),
+                mock.patch.object(
+                    kit, "run_command", side_effect=kit.KitError("decode failed")
+                ) as decode,
+            ):
+                with self.assertRaisesRegex(kit.KitError, "decode failed"):
+                    kit.validate_kit(result)
+            command = decode.call_args.args[0]
+            self.assertEqual(command[0], "ffmpeg")
+            self.assertIn("-xerror", command)
+            self.assertEqual(command[-3:], ["-f", "null", kit.os.devnull])
+
+    def test_resume_preserves_checkpoint_when_existing_kit_provenance_differs(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            checkpoint = self.create_checkpoint(root)
+            saved_checkpoint = root / "saved-checkpoint"
+            shutil.copytree(checkpoint, saved_checkpoint)
+            final_dir = self.resume_checkpoint(root, checkpoint)
+            shutil.copytree(saved_checkpoint, checkpoint)
+
+            evidence_path = final_dir / "SOURCE-EVIDENCE.json"
+            evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+            evidence["source"]["space_url"] = "https://x.com/i/spaces/AnotherSpace"
+            evidence["source"]["space_id"] = "AnotherSpace"
+            evidence_path.write_text(json.dumps(evidence, indent=2) + "\n", encoding="utf-8")
+            checksum_files = sorted(
+                path
+                for path in final_dir.iterdir()
+                if path.is_file() and path.name != "SHA256SUMS"
+            )
+            (final_dir / "SHA256SUMS").write_text(
+                "".join(f"{kit.sha256(path)}  {path.name}\n" for path in checksum_files),
+                encoding="utf-8",
+            )
+
+            def fake_probe(path):
+                return self.SOURCE_PROBE if path.name == "source.m4a" else self.FINAL_PROBE
+
+            with (
+                mock.patch.object(kit, "require_dependencies"),
+                mock.patch.object(kit, "probe_media", side_effect=fake_probe),
+                mock.patch.object(kit, "run_command"),
+            ):
+                with self.assertRaisesRegex(kit.KitError, "checkpoint provenance"):
+                    kit.resume(
+                        self.resume_args(checkpoint),
+                        output_root=root / "output",
+                        checkpoint_root=root / "checkpoints",
+                    )
+            self.assertTrue(checkpoint.is_dir())
+
+    def test_missing_checkpoint_cannot_accept_renamed_kit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            result = self.resume_checkpoint(root, self.create_checkpoint(root))
+            renamed = result.with_name("2026-10-08-other-show")
+            result.rename(renamed)
+            missing_checkpoint = root / "checkpoints" / renamed.name
+            with mock.patch.object(kit, "require_dependencies"):
+                with self.assertRaisesRegex(kit.KitError, "directory name"):
+                    kit.resume(
+                        self.resume_args(missing_checkpoint),
+                        output_root=root / "output",
+                        checkpoint_root=root / "checkpoints",
+                    )
 
     def test_resume_rejects_straddling_reviewed_cue_before_trim(self):
         with tempfile.TemporaryDirectory() as directory:
