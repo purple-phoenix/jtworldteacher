@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import os
 import re
 import shlex
@@ -134,6 +135,8 @@ def read_manifest(path: Path) -> dict[str, Any]:
         end = float(data["cut_end_seconds"])
     except (TypeError, ValueError) as exc:
         raise KitError("Manifest cut timestamps must be numbers") from exc
+    if not math.isfinite(start) or not math.isfinite(end):
+        raise KitError("Manifest cut timestamps must be finite numbers")
     if start < 0 or end <= start:
         raise KitError("Manifest cut window must satisfy 0 <= start < end")
     data["cut_start_seconds"] = start

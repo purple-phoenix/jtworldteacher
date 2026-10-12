@@ -73,6 +73,41 @@ class InputValidationTests(unittest.TestCase):
                     with self.assertRaises(kit.KitError):
                         self.read_manifest(root, data)
 
+    def test_prepare_rejects_nonfinite_cut_timestamps_before_work(self):
+        cases = (
+            ("cut_start_seconds", float("nan")),
+            ("cut_start_seconds", float("inf")),
+            ("cut_start_seconds", float("-inf")),
+            ("cut_end_seconds", float("nan")),
+            ("cut_end_seconds", float("inf")),
+            ("cut_end_seconds", float("-inf")),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for field, value in cases:
+                data = self.manifest_data()
+                data[field] = value
+                path = root / f"{field}-{repr(value)}.json"
+                path.write_text(json.dumps(data), encoding="utf-8")
+                with (
+                    self.subTest(field=field, value=value),
+                    mock.patch.object(kit, "require_dependencies") as dependencies,
+                    mock.patch.object(kit, "resolve_space") as resolve_space,
+                ):
+                    with self.assertRaisesRegex(kit.KitError, "finite"):
+                        kit.prepare(
+                            argparse.Namespace(
+                                space_url="https://x.com/i/spaces/1Example",
+                                manifest=path,
+                            ),
+                            output_root=root / "output",
+                            checkpoint_root=root / "checkpoints",
+                        )
+                    dependencies.assert_not_called()
+                    resolve_space.assert_not_called()
+            self.assertFalse((root / "output").exists())
+            self.assertFalse((root / "checkpoints").exists())
+
     def test_space_url_accepts_only_exact_canonical_form(self):
         self.assertEqual(
             kit.canonical_space_url("https://x.com/i/spaces/1Example"),
