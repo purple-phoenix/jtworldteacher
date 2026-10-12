@@ -9,6 +9,7 @@ How to add new material to the catalog. Skim this when you (or future Claude) si
 | Tweet screenshot | `posts/YYYY-MM-DD-slug.md` + image in `media/` | Paste screenshot in chat → Claude writes the entry |
 | X Space (recorded) | `spaces/audio/` + `spaces/transcripts/` + a `posts/` stub | `yt-dlp` → `whisper-cpp` (see below) |
 | X Space (live, capture yourself) | same as above | BlackHole + QuickTime/Audio Hijack → whisper-cpp |
+| Peak Mind manual Spotify upload kit | `~/Downloads/peak-mind-spotify/<date>-<slug>/` (never committed) | See [`PEAK_MIND_SPOTIFY.md`](PEAK_MIND_SPOTIFY.md) |
 
 ---
 
@@ -120,19 +121,23 @@ Alternatives:
 
 ```bash
 cd catalog/spaces
+ffmpeg -y -hide_banner -loglevel error \
+  -i audio/YYYY-MM-DD-slug.m4a \
+  -ar 16000 -ac 1 -c:a pcm_s16le audio/YYYY-MM-DD-slug.wav
 whisper-cli \
   -m ~/.whisper-models/ggml-large-v3-turbo.bin \
-  -f audio/YYYY-MM-DD-slug.m4a \
+  -f audio/YYYY-MM-DD-slug.wav \
   -otxt -ovtt \
   -of transcripts/YYYY-MM-DD-slug \
   --print-progress
+rm audio/YYYY-MM-DD-slug.wav
 ```
 
 - `-otxt` → plain `.txt`
 - `-ovtt` → `.vtt` with timestamps (useful for jumping around the audio)
 - `-of <prefix>` → output filename without extension
 
-Then wrap the `.txt` content in the [transcript frontmatter template](spaces/README.md#transcript-frontmatter) and save as `transcripts/YYYY-MM-DD-slug.md`.
+Keep both generated files as `transcripts/YYYY-MM-DD-slug.txt` and `transcripts/YYYY-MM-DD-slug.vtt`. Record the Space metadata and links in the matching `posts/YYYY-MM-DD-slug-space.md` catalog entry.
 
 ### Speeding it up
 
@@ -168,5 +173,6 @@ catalog/
     ├── audio/            # git-ignored
     │   └── YYYY-MM-DD-slug.m4a
     └── transcripts/      # tracked in git
-        └── YYYY-MM-DD-slug.md
+        ├── YYYY-MM-DD-slug.txt
+        └── YYYY-MM-DD-slug.vtt
 ```

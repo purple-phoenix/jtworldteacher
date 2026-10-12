@@ -5,12 +5,12 @@ Audio recordings and transcripts of JT's X Spaces.
 ## Structure
 
 - `audio/` — raw recordings: `YYYY-MM-DD-slug.m4a` (or `.mp3` / `.wav`). Large files — git-ignored by default.
-- `transcripts/` — text transcripts: `YYYY-MM-DD-slug.md`. These ARE tracked in git — they're the searchable record.
-- One markdown entry per Space lives in `../posts/` alongside the regular posts (the poster announcement post links to the Space; the transcript file is the content).
+- `transcripts/` — plain-text and timed transcripts: `YYYY-MM-DD-slug.txt` and `YYYY-MM-DD-slug.vtt`. These ARE tracked in git — they're the searchable record.
+- One markdown entry per Space lives in `../posts/` alongside the regular posts and links to the audio and transcript.
 
 ## Naming
 
-Match the slug to the corresponding post entry in `catalog/posts/`. Example: poster `posts/2026-05-08-trvxn-defining-remote-viewing.md` ↔ transcript `spaces/transcripts/2026-05-09-trvxn-defining-remote-viewing.md` (note: poster *announces*, transcript date = when Space actually happened).
+Match the slug to the corresponding Space entry in `catalog/posts/`. For example, `posts/2026-09-16-the-world-tree-and-the-eclipse-in-leo-space.md` links to `spaces/transcripts/2026-09-16-the-world-tree-and-the-eclipse-in-leo.txt` and its matching `.vtt` file.
 
 ## Getting audio
 
@@ -33,45 +33,14 @@ Spaces only persist if the **host toggled "record" before going live**. If not, 
 
 ## Transcribing
 
-**MacWhisper** (free, runs locally on Apple Silicon): drag the audio file in, export to `.txt` or `.srt`. Copy into `transcripts/<slug>.md` and wrap with the [frontmatter template](#transcript-frontmatter).
+**MacWhisper** (free, runs locally on Apple Silicon): drag the audio file in and export plain text plus a timed transcript. Save them under `transcripts/` using the naming convention above.
 
-Or via CLI with `whisper.cpp`:
+Or via CLI with `whisper.cpp` (convert first; this `whisper-cli` build requires WAV input):
 
 ```bash
-brew install whisper-cpp
-whisper-cli -m ~/path/to/ggml-large-v3.bin -f audio/<slug>.m4a -otxt
-```
-
-## Transcript frontmatter
-
-```markdown
----
-date: YYYY-MM-DD            # date the Space aired
-space_id: 1XXXXXXXXXX        # X Space ID
-space_url: https://x.com/i/spaces/...
-title: ""
-host: "@McCarthy_JT"
-co_hosts: []
-speakers: []
-duration_minutes:
-source: yt-dlp | live-capture | host-upload
-transcribed_with: macwhisper | whisper-cpp | manual
-related_post: ../posts/YYYY-MM-DD-slug.md   # the announcement post, if cataloged
-topics: []
----
-
-# Title
-
-## Summary
-
-(1-2 paragraph human summary — the part you'll actually re-read)
-
-## Notable quotes
-
-> "…"
-> — JT, 12:34
-
-## Full transcript
-
-…
+brew install whisper-cpp ffmpeg
+ffmpeg -y -i audio/<slug>.m4a -ar 16000 -ac 1 -c:a pcm_s16le audio/<slug>.wav
+whisper-cli -m ~/.whisper-models/ggml-large-v3-turbo.bin \
+  -f audio/<slug>.wav -otxt -ovtt -of transcripts/<slug>
+rm audio/<slug>.wav
 ```
