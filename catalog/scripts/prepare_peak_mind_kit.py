@@ -858,6 +858,32 @@ def validate_kit(
         raise KitError("SOURCE-EVIDENCE.json lacks final.filename")
     if filename != f"{manifest_base}.m4a":
         raise KitError("SOURCE-EVIDENCE.json final.filename does not match kit identity")
+    if "duration_seconds" not in final_record:
+        raise KitError("SOURCE-EVIDENCE.json lacks final.duration_seconds")
+    recorded_duration = final_record["duration_seconds"]
+    if (
+        isinstance(recorded_duration, bool)
+        or not isinstance(recorded_duration, (int, float))
+        or not math.isfinite(recorded_duration)
+        or recorded_duration <= 0
+    ):
+        raise KitError(
+            "SOURCE-EVIDENCE.json final.duration_seconds must be a positive finite JSON number"
+        )
+    if "byte_count" not in final_record:
+        raise KitError("SOURCE-EVIDENCE.json lacks final.byte_count")
+    recorded_byte_count = final_record["byte_count"]
+    if (
+        isinstance(recorded_byte_count, bool)
+        or not isinstance(recorded_byte_count, int)
+        or recorded_byte_count <= 0
+    ):
+        raise KitError("SOURCE-EVIDENCE.json final.byte_count must be a positive JSON integer")
+    if "sha256" not in final_record:
+        raise KitError("SOURCE-EVIDENCE.json lacks final.sha256")
+    recorded_sha256 = final_record["sha256"]
+    if not isinstance(recorded_sha256, str) or not re.fullmatch(r"[0-9a-f]{64}", recorded_sha256):
+        raise KitError("SOURCE-EVIDENCE.json final.sha256 must be a lowercase SHA-256 digest")
     base = manifest_base
     audio = kit_dir / filename
     txt = kit_dir / f"{base}.txt"
@@ -869,11 +895,11 @@ def validate_kit(
     probe = probe_media(audio)
     requested_duration = manifest["cut_end_seconds"] - manifest["cut_start_seconds"]
     validate_final_probe(probe, requested_duration)
-    if media_duration(probe) != float(final_record["duration_seconds"]):
+    if media_duration(probe) != float(recorded_duration):
         raise KitError("Audio duration does not match SOURCE-EVIDENCE.json")
-    if int(probe["format"]["size"]) != int(final_record["byte_count"]):
+    if int(probe["format"]["size"]) != recorded_byte_count:
         raise KitError("Audio byte count does not match SOURCE-EVIDENCE.json")
-    if sha256(audio) != final_record["sha256"]:
+    if sha256(audio) != recorded_sha256:
         raise KitError("Audio SHA-256 does not match SOURCE-EVIDENCE.json")
     run_command(
         [

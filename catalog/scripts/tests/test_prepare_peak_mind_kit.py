@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 import argparse
+import contextlib
 import importlib.util
+import io
 import json
 import os
 import shutil
@@ -560,6 +562,80 @@ dead air
             self.assertEqual(command[0], "ffmpeg")
             self.assertIn("-xerror", command)
             self.assertEqual(command[-3:], ["-f", "null", kit.os.devnull])
+
+    def test_public_validate_reports_malformed_final_evidence(self):
+        cases = (
+            (
+                "missing duration",
+                lambda final: final.pop("duration_seconds"),
+                "lacks final.duration_seconds",
+            ),
+            (
+                "nonfinite duration",
+                lambda final: final.update(duration_seconds=float("nan")),
+                "final.duration_seconds must be a positive finite JSON number",
+            ),
+            (
+                "string duration",
+                lambda final: final.update(duration_seconds="6.0"),
+                "final.duration_seconds must be a positive finite JSON number",
+            ),
+            (
+                "negative duration",
+                lambda final: final.update(duration_seconds=-1),
+                "final.duration_seconds must be a positive finite JSON number",
+            ),
+            (
+                "missing byte count",
+                lambda final: final.pop("byte_count"),
+                "lacks final.byte_count",
+            ),
+            (
+                "nonfinite byte count",
+                lambda final: final.update(byte_count=float("inf")),
+                "final.byte_count must be a positive JSON integer",
+            ),
+            (
+                "string byte count",
+                lambda final: final.update(byte_count="11"),
+                "final.byte_count must be a positive JSON integer",
+            ),
+            (
+                "negative byte count",
+                lambda final: final.update(byte_count=-1),
+                "final.byte_count must be a positive JSON integer",
+            ),
+            (
+                "missing digest",
+                lambda final: final.pop("sha256"),
+                "lacks final.sha256",
+            ),
+            (
+                "numeric digest",
+                lambda final: final.update(sha256=123),
+                "final.sha256 must be a lowercase SHA-256 digest",
+            ),
+            (
+                "malformed digest",
+                lambda final: final.update(sha256="not-a-digest"),
+                "final.sha256 must be a lowercase SHA-256 digest",
+            ),
+        )
+        for name, mutate, message in cases:
+            with self.subTest(name=name), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                final_dir = self.resume_checkpoint(root, self.create_checkpoint(root))
+                self.rewrite_evidence(final_dir, lambda evidence: mutate(evidence["final"]))
+                stderr = io.StringIO()
+                with (
+                    mock.patch.object(kit, "require_dependencies"),
+                    mock.patch.object(kit, "probe_media") as probe,
+                    contextlib.redirect_stderr(stderr),
+                ):
+                    result = kit.main(["validate", str(final_dir)])
+                self.assertEqual(result, 2)
+                self.assertIn(message, stderr.getvalue())
+                probe.assert_not_called()
 
     def test_resume_preserves_checkpoint_when_existing_kit_provenance_differs(self):
         with tempfile.TemporaryDirectory() as directory:
