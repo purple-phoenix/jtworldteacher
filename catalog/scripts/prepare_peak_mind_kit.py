@@ -130,10 +130,14 @@ def read_manifest(path: Path) -> dict[str, Any]:
         canonical_space_url(candidate["space_url"])
         if not isinstance(candidate["reason"], str) or not candidate["reason"].strip():
             raise KitError("Manifest ruled_out_candidates reasons must be non-empty strings")
+    for field in ("cut_start_seconds", "cut_end_seconds"):
+        value = data[field]
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            raise KitError(f"Manifest {field} must be a JSON number")
     try:
         start = float(data["cut_start_seconds"])
         end = float(data["cut_end_seconds"])
-    except (TypeError, ValueError) as exc:
+    except (OverflowError, TypeError, ValueError) as exc:
         raise KitError("Manifest cut timestamps must be numbers") from exc
     if not math.isfinite(start) or not math.isfinite(end):
         raise KitError("Manifest cut timestamps must be finite numbers")

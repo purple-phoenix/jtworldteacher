@@ -108,6 +108,39 @@ class InputValidationTests(unittest.TestCase):
             self.assertFalse((root / "output").exists())
             self.assertFalse((root / "checkpoints").exists())
 
+    def test_prepare_rejects_boolean_and_string_cut_timestamps_before_work(self):
+        cases = (
+            ("cut_start_seconds", True),
+            ("cut_start_seconds", "10.0"),
+            ("cut_end_seconds", False),
+            ("cut_end_seconds", "16.0"),
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for index, (field, value) in enumerate(cases):
+                data = self.manifest_data()
+                data[field] = value
+                path = root / f"invalid-cut-{index}.json"
+                path.write_text(json.dumps(data), encoding="utf-8")
+                with (
+                    self.subTest(field=field, value=value),
+                    mock.patch.object(kit, "require_dependencies") as dependencies,
+                    mock.patch.object(kit, "resolve_space") as resolve_space,
+                ):
+                    with self.assertRaisesRegex(kit.KitError, f"{field} must be a JSON number"):
+                        kit.prepare(
+                            argparse.Namespace(
+                                space_url="https://x.com/i/spaces/1Example",
+                                manifest=path,
+                            ),
+                            output_root=root / "output",
+                            checkpoint_root=root / "checkpoints",
+                        )
+                    dependencies.assert_not_called()
+                    resolve_space.assert_not_called()
+            self.assertFalse((root / "output").exists())
+            self.assertFalse((root / "checkpoints").exists())
+
     def test_space_url_accepts_only_exact_canonical_form(self):
         self.assertEqual(
             kit.canonical_space_url("https://x.com/i/spaces/1Example"),
