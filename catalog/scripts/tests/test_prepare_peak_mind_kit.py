@@ -398,6 +398,30 @@ dead air
             for name in ("source.m4a", "draft.vtt", "draft.original.vtt"):
                 self.assertEqual(stat.S_IMODE((checkpoint / name).stat().st_mode) & 0o111, 0)
 
+    def test_prepare_rejects_symlinked_checkpoint_root_without_touching_target(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            target = root / "unrelated"
+            target.mkdir(mode=0o755)
+            target.chmod(0o755)
+            sentinel = target / "preserve-me"
+            sentinel.write_text("unrelated content", encoding="utf-8")
+            checkpoint_root = root / "checkpoints"
+            checkpoint_root.symlink_to(target, target_is_directory=True)
+
+            with mock.patch.object(kit, "require_dependencies") as dependencies:
+                with self.assertRaisesRegex(kit.KitError, "must not be a symlink"):
+                    kit.prepare(
+                        self.prepare_args(self.manifest(root)),
+                        output_root=root / "output",
+                        checkpoint_root=checkpoint_root,
+                    )
+                dependencies.assert_not_called()
+
+            self.assertEqual(stat.S_IMODE(target.stat().st_mode), 0o755)
+            self.assertEqual(sentinel.read_text(encoding="utf-8"), "unrelated content")
+            self.assertEqual([sentinel], list(target.iterdir()))
+
     def test_prepare_refuses_existing_checkpoint_before_commands(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -462,7 +462,11 @@ def workflow_roots(
     output_root = output_root.expanduser().resolve()
     if checkpoint_root is None:
         checkpoint_root = output_root / ".checkpoints"
-    return output_root, checkpoint_root.expanduser().resolve()
+    checkpoint_root = checkpoint_root.expanduser()
+    checkpoint_root = checkpoint_root.parent.resolve() / checkpoint_root.name
+    if checkpoint_root.is_symlink():
+        raise KitError(f"Checkpoint root must not be a symlink: {checkpoint_root}")
+    return output_root, checkpoint_root
 
 
 def validate_space_metadata(
@@ -511,6 +515,8 @@ def prepare(
 
     require_dependencies()
     checkpoint_root.mkdir(parents=True, exist_ok=True, mode=0o700)
+    if checkpoint_root.is_symlink():
+        raise KitError(f"Checkpoint root must not be a symlink: {checkpoint_root}")
     checkpoint_root.chmod(0o700)
     stage = Path(tempfile.mkdtemp(prefix=f".{base}.work-", dir=checkpoint_root))
     try:
