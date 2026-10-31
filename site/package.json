@@ -8,12 +8,17 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test:pubdate-tz": "TZ=America/New_York node scripts/test-pubdate-tz.mjs"
+    "test": "npm run test:pubdate-tz && npm run test:episode-art",
+    "test:pubdate-tz": "TZ=America/New_York node scripts/test-pubdate-tz.mjs",
+    "test:episode-art": "node scripts/validate-episode-art.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
     "astro": "^5.0.0",
     "marked": "^18.0.4",
     "sanitize-html": "^2.17.4"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
   }
 }

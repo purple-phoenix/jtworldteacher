@@ -12,6 +12,7 @@ explicit: false
 draft: false
 spaceUrl: "https://x.com/i/spaces/1dGYllAYPAvKX"
 spaceId: "1dGYllAYPAvKX"
+image: "episodes/2026-07-04-the-revelation-of-the-hierarchy.jpg"
 ---
 
 ## About this episode

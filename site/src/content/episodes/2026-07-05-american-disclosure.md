@@ -12,6 +12,7 @@ explicit: false
 draft: false
 spaceUrl: "https://x.com/i/spaces/1nxeLLzBvvrJX"
 spaceId: "1nxeLLzBvvrJX"
+image: "episodes/2026-07-05-american-disclosure.jpg"
 ---
 
 ## About this episode

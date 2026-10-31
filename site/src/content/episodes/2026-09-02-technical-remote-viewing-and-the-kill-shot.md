@@ -12,6 +12,7 @@ explicit: false
 draft: false
 spaceUrl: "https://x.com/i/spaces/1pJkOXoDyzyJj"
 spaceId: "1pJkOXoDyzyJj"
+image: "episodes/2026-09-02-technical-remote-viewing-and-the-kill-shot.jpg"
 ---
 
 ## About this episode
