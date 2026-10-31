@@ -23,10 +23,12 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
 
 SPACE_RE = re.compile(r"^https://x\.com/i/spaces/([A-Za-z0-9]+)$")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+SHOW_TZ = ZoneInfo("America/New_York")
 KIT_RE = re.compile(r"^\d{4}-\d{2}-\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*$")
 TIMING_RE = re.compile(
     r"^(?P<start>\d{2}:\d{2}:\d{2}\.\d{3})\s+-->\s+"
@@ -157,7 +159,7 @@ def canonical_space_url(url: str) -> tuple[str, str]:
 
 
 def resolve_space(url: str) -> dict[str, Any]:
-    template = "%(.{id,title,upload_date,timestamp,uploader,uploader_id,webpage_url,ext,acodec})#j"
+    template = "%(.{id,title,upload_date,timestamp,release_timestamp,uploader,uploader_id,webpage_url,ext,acodec})#j"
     result = run_command(
         ["yt-dlp", "--skip-download", "--no-warnings", "--print", template, url],
         capture=True,
@@ -484,12 +486,25 @@ def validate_space_metadata(
         raise KitError(
             f"yt-dlp webpage URL {metadata.get('webpage_url')!r} does not match {url}"
         )
-    expected_upload_date = manifest["date"].replace("-", "")
-    if metadata.get("upload_date") != expected_upload_date:
+    expected_date = manifest["date"].replace("-", "")
+    actual_date = recording_date(metadata)
+    if actual_date != expected_date:
         raise KitError(
-            f"yt-dlp upload date {metadata.get('upload_date')!r} does not match manifest date "
-            f"{expected_upload_date}; resolve this evidence mismatch before preparing"
+            f"yt-dlp recording date {actual_date!r} does not match manifest date "
+            f"{expected_date}; resolve this evidence mismatch before preparing"
         )
+
+
+def recording_date(metadata: dict[str, Any]) -> Any:
+    """Return the Eastern-time date the Space went live.
+
+    yt-dlp's upload_date is when a scheduled Space was created, which can be days before
+    the recording; release_timestamp is the actual start. Older evidence lacks it.
+    """
+    started = metadata.get("release_timestamp")
+    if isinstance(started, (int, float)) and not isinstance(started, bool):
+        return datetime.fromtimestamp(started, SHOW_TZ).strftime("%Y%m%d")
+    return metadata.get("upload_date")
 
 
 def prepare(

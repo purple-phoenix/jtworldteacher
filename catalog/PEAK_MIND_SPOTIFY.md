@@ -28,12 +28,12 @@ Grok is discovery evidence, not authority. Independently query **every candidate
 ```bash
 for url in https://x.com/i/spaces/ID1 https://x.com/i/spaces/ID2; do
   yt-dlp --skip-download --no-warnings \
-    --print 'id=%(id)s|upload_date=%(upload_date)s|timestamp=%(timestamp)s|title=%(title)s|uploader=%(uploader)s|uploader_id=%(uploader_id)s|duration=%(duration)s|webpage_url=%(webpage_url)s' \
+    --print 'id=%(id)s|upload_date=%(upload_date)s|release_date=%(release_date)s|timestamp=%(timestamp)s|title=%(title)s|uploader=%(uploader)s|uploader_id=%(uploader_id)s|duration=%(duration)s|webpage_url=%(webpage_url)s' \
     "$url"
 done
 ```
 
-`yt-dlp` currently reports X Space identity, upload date, title, and host, but may report duration as `NA`. Verify downloaded duration with `ffprobe`; record that limitation instead of inventing a value. Keep the direct evidence that rules out newer candidates.
+`yt-dlp` currently reports X Space identity, upload date, title, and host, but may report duration as `NA`. For a scheduled Space, `upload_date` is the day it was *created*, often days before the show. `release_timestamp` is when it went live. The manifest `date` is the Eastern-time date the Space went live, which can be a day before the UTC `release_date` for 8:30 PM starts. The script checks this. Verify downloaded duration with `ffprobe`; record that limitation instead of inventing a value. Keep the direct evidence that rules out newer candidates.
 
 Proceed only when the selected URL resolves to `uploader_id=McCarthy_JT` and the Wednesday/Matt/show evidence is clear.
 
@@ -66,6 +66,17 @@ ffmpeg -hide_banner -nostats -i "$work/source.m4a" \
 ```
 
 Choose start/end timestamps at pauses or VTT cue boundaries. A repeated phrase over hold music or dead air (for example, Whisper's repeated "We'll be right back") is a demonstrated hallucination only when the audio and cut window establish that; do not apply broad text heuristics.
+
+`catalog/scripts/peak_mind_review.py` collects the evidence for this step without choosing anything:
+
+```bash
+python3 catalog/scripts/peak_mind_review.py markers "$work/source.vtt"            # on-air open/close and Q&A handoff lines
+python3 catalog/scripts/peak_mind_review.py scan "$work/source.vtt" START END     # likely hallucinations in the kept window
+python3 catalog/scripts/peak_mind_review.py check "$work/source.m4a" "$work/source.vtt" START END
+python3 catalog/scripts/peak_mind_review.py clips "$work/source.m4a" START END "$work/clips" SLUG
+```
+
+The episode starts at the on-air open ("I'm JT. This is Matt. This is Peak Mind.") or another natural opener, never partway through an answer. It ends after one of the hosts says the show is ending, before a listener is invited up for Q&A. Whisper cue boundaries are often half a second off, so `check` fails a cut unless it lands between cues in a 50 ms window at or below -40 dB.
 
 ## 3. Write the transcript-grounded manifest
 
@@ -145,6 +156,16 @@ python3 catalog/scripts/prepare_peak_mind_kit.py validate \
 ```
 
 The kit contains final M4A audio, TXT/VTT transcripts, `UPLOAD.txt`, `SOURCE-EVIDENCE.json`, the approved `MANIFEST.json`, and `SHA256SUMS`.
+
+## Episode cover
+
+Episode covers follow the "Oracular Broadside" series in `~/Downloads/peak-mind-spotify/episode-thumbnails/`. Generate text-free square art; the prompts are saved beside each `source/*-source.png`, and the lower ~37% must stay plain parchment. Then set the type programmatically, never with the image model:
+
+```bash
+catalog/scripts/compose_peak_mind_cover.sh source.png out.jpg 'MAIN TITLE' $'AND THE\nSUBTITLE'
+```
+
+The script refuses to overwrite and sizes the titles to fit. Big Caslon only has old-style figures, so digits are set in Baskerville lining figures.
 
 ## Tests
 
