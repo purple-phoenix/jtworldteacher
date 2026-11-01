@@ -14,3 +14,4 @@ __pycache__/
 
 # Rendered social clips: large binaries, not tracked
 catalog/social/clips/audio/
+.upload-tmp/
