@@ -11,3 +11,6 @@ dist/
 .astro/
 __pycache__/
 *.py[cod]
+
+# Rendered social clips: large binaries, not tracked
+catalog/social/clips/audio/
