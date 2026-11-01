@@ -7,14 +7,14 @@
 
 ### 1. If a Martian landed and grabbed a frap
 
-- **Time:** `02:02:25.400` → `02:03:04.240` (39 s)
+- **Time:** `≈02:02:26.650` → `02:03:04.240` (≈38 s)
 - **Speaker:** JT
 - **Why it works:** Funny, concrete image that flips straight into the dark punchline: aliens aren't the scary part of disclosure, being test subjects is.
 - **Caption:** Nobody would panic if a Martian landed, drank a coffee and flew home. JT says the thing that actually scares people is being the subjects of an experiment they can't stop.
 - **Quote card:** "If a Martian landed, drank a frap and went back to Mars, the world would sigh with relief."
 - **Hashtags:** #Disclosure #UFOs #SimulationTheory #NonHumanIntelligence #Podcast
 
-> It's not, you know, no one gives a shit if Martians are visiting the earth at this point. We've been all psyoped out. If a Martian landed, got out of the thing, walked around, drank a frap or a cup of coffee and then went back to Mars, the whole world would breathe a sigh of relief. "Oh shit, that wasn't that bad. What were they making a big deal out of it for?" … What freaks people out is that we are in a powerless situation where we are the subjects of an experiment, a very highly unethical criminal experiment, but nothing we can do about it.
+> No one gives a shit if Martians are visiting the earth at this point. We've been all psyoped out. If a Martian landed, got out of the thing, walked around, drank a frap or a cup of coffee and then went back to Mars, the whole world would breathe a sigh of relief. "Oh shit, that wasn't that bad. What were they making a big deal out of it for?" … What freaks people out is that we are in a powerless situation where we are the subjects of an experiment, a very highly unethical criminal experiment, but nothing we can do about it.
 
 ### 2. The Grim Reaper was a plague doctor in the field
 
@@ -68,6 +68,7 @@
 
 ## Notes
 
+- **Moment 1** opens hard on "No one gives a shit" (≈02:02:26.65, in the 0.4 s pause after "It's not, you know," and just before "No" at ≈02:02:26.80), per Matt's 2026-10-31 listening review. The profanity is the hook, so bleep it rather than trimming it for platforms that need that.
 - **Moment 3:** cut the off-mic "Hold on, let me finish." (`01:50:27.440`–`01:50:28.460`), where someone tries to cut in. Open with a title card along the lines of "Cortical Labs builds computers from human brain cells," because the clip starts at "these organoids." The Melbourne/Singapore data centers and the pod comparison are JT's claims as spoken. Keep captions attributed to him.
 - **Moment 4:** add a title card for context, e.g. "Rep. Tim Burchett told Joe Rogan that Jimmy Carter was told aliens created us." JT sets this up at `00:15:48.580`–`00:16:45.560`, but including it would push the clip past 90 s. Whisper and the episode page both spell it "Burchette". The congressman's name is Burchett.
 - **Moment 5:** the first cue (`01:10:22.280`) is a stray "Right." and the clip begins mid-sentence with "But there are…". Start the cut on "There are the cardboard boxes" (the cue at `01:10:22.500`) and drop the "But."
