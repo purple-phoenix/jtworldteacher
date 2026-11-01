@@ -452,6 +452,17 @@ dead air
                         checkpoint_root=root / "checkpoints",
                     )
 
+    def test_space_date_uses_eastern_start_not_scheduled_creation_date(self):
+        manifest = {"date": "2026-10-07"}
+        url = self.METADATA["webpage_url"]
+        # Scheduled days earlier; went live Wed 2026-10-07 8:28 PM EDT (Oct 8 UTC).
+        scheduled = {**self.METADATA, "upload_date": "20261003", "release_timestamp": 1791419280}
+        kit.validate_space_metadata(scheduled, url, "1Example", manifest)
+        kit.validate_space_metadata(self.METADATA, url, "1Example", manifest)
+        wrong_day = {**self.METADATA, "release_timestamp": 1791419280 + 86400}
+        with self.assertRaisesRegex(kit.KitError, "does not match manifest date"):
+            kit.validate_space_metadata(wrong_day, url, "1Example", manifest)
+
     def test_resume_requires_attestation_and_managed_checkpoint_path(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
