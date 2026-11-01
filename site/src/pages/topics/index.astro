@@ -1,0 +1,173 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { TOPICS } from "../../data/topics";
+
+const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "") + "/";
+const site = Astro.site!;
+const abs = (path: string) => new URL(path, site).href;
+
+const description =
+  "Browse J.T. Worldteacher podcast episodes by topic: the Archons, remote viewing, Saturn–Neptune, eclipses, disclosure, the simulation and more, with timestamps.";
+
+const items = TOPICS.map((t) => ({
+  topic: t,
+  episodes: t.episodes.length,
+  mentions: t.episodes.reduce((n, e) => n + e.mentions.length, 0),
+}));
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Topics — J.T. Worldteacher",
+  description,
+  url: abs(base + "topics/"),
+  isPartOf: { "@type": "WebSite", name: "J.T. Worldteacher", url: abs(base) },
+  mainEntity: {
+    "@type": "ItemList",
+    numberOfItems: items.length,
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: it.topic.name,
+      url: abs(base + `topics/${it.topic.id}/`),
+    })),
+  },
+};
+---
+
+<Layout title="Topics — J.T. Worldteacher" description={description} jsonLd={jsonLd}>
+  <main class="page-in">
+    <section class="hair-b">
+      <div class="container topics__head">
+        <div class="eyebrow">Podcast — By topic</div>
+        <h1 class="topics__h1 font-display">The recurring threads.</h1>
+        <p class="topics__lede">
+          The same few questions keep coming back across the Spaces and the
+          Peak Mind interviews. Each topic page gathers the episodes that take
+          one up, with timestamps that open the episode at the moment it
+          comes up.
+        </p>
+        <a href={base + "podcast/"} class="link-u topics__cta">All episodes, in order →</a>
+      </div>
+    </section>
+
+    <section>
+      <div class="container topics__list-wrap">
+        <ul class="topics__list">
+          {
+            items.map((it) => (
+              <li class="topics__row">
+                <a href={base + `topics/${it.topic.id}/`} class="topics__row-link">
+                  <h2 class="topics__row-title font-display">{it.topic.name}</h2>
+                  <p class="topics__row-blurb">{it.topic.summary}</p>
+                  <div class="topics__row-meta">
+                    <span>{it.episodes} episodes</span>
+                    <span class="topics__sep">·</span>
+                    <span>{it.mentions} moments</span>
+                  </div>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .topics__head {
+    padding-top: 64px;
+    padding-bottom: 48px;
+  }
+  @media (min-width: 768px) {
+    .topics__head {
+      padding-top: 96px;
+    }
+  }
+  .topics__h1 {
+    margin-top: 20px;
+    font-weight: 300;
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    font-size: clamp(48px, 7vw, 88px);
+  }
+  .topics__lede {
+    margin-top: 24px;
+    max-width: 62ch;
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .topics__cta {
+    margin-top: 28px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .topics__list-wrap {
+    padding-top: 32px;
+    padding-bottom: 48px;
+  }
+  @media (min-width: 768px) {
+    .topics__list-wrap {
+      padding-top: 48px;
+      padding-bottom: 64px;
+    }
+  }
+  .topics__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 48px;
+    border-bottom: 1px solid var(--hair);
+  }
+  @media (min-width: 900px) {
+    .topics__list {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .topics__row {
+    border-top: 1px solid var(--hair);
+  }
+  .topics__row-link {
+    display: block;
+    padding: 24px 0;
+  }
+  .topics__row-title {
+    font-size: clamp(24px, 2.8vw, 30px);
+    line-height: 1.1;
+    color: var(--ink);
+    transition: color 200ms ease;
+  }
+  .topics__row-link:hover .topics__row-title {
+    color: var(--accent);
+  }
+  .topics__row-blurb {
+    margin-top: 8px;
+    max-width: 56ch;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .topics__row-meta {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .topics__sep {
+    color: var(--hair-strong);
+  }
+</style>

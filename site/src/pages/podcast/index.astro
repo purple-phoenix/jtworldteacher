@@ -66,6 +66,8 @@ const dateLong = new Intl.DateTimeFormat("en-US", {
             <Icon name="rss" />RSS
           </a>
         </div>
+
+        <a href={base + "topics/"} class="link-u pod__topics">Browse by topic →</a>
       </div>
     </section>
 
@@ -220,6 +222,14 @@ const dateLong = new Intl.DateTimeFormat("en-US", {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+  }
+  .pod__topics {
+    margin-top: 24px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
   }
 
   .pod__featured {

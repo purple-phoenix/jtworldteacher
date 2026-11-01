@@ -5,12 +5,19 @@ import Footer from "../components/Footer.astro";
 interface Props {
   title: string;
   description?: string;
+  /** Structured data (schema.org) emitted as a JSON-LD script. */
+  jsonLd?: Record<string, unknown>;
 }
 
 const {
   title,
   description = "Astrology and simulation theory — a long-form inquiry.",
+  jsonLd,
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+// Escape "<" so data can never close the script tag early.
+const jsonLdHtml = jsonLd && JSON.stringify(jsonLd).replace(/</g, "\\u003c");
 ---
 
 <!doctype html>
@@ -22,7 +29,12 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="J.T. Worldteacher" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="canonical" href={canonical} />
     <title>{title}</title>
+    {jsonLdHtml && <script type="application/ld+json" set:html={jsonLdHtml} />}
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

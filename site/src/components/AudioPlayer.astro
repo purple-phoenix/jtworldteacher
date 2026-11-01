@@ -101,7 +101,7 @@ const playerId = id ?? `ap-${Math.random().toString(36).slice(2, 8)}`;
     return `${m}:${String(sec).padStart(2, "0")}`;
   };
 
-  document.querySelectorAll<HTMLDivElement>("[data-player]").forEach((root) => {
+  document.querySelectorAll<HTMLDivElement>("[data-player]").forEach((root, index) => {
     const audio = root.querySelector<HTMLAudioElement>("[data-ap-audio]");
     const toggle = root.querySelector<HTMLButtonElement>("[data-ap-toggle]");
     const seek = root.querySelector<HTMLInputElement>("[data-ap-seek]");
@@ -142,14 +142,41 @@ const playerId = id ?? `ap-${Math.random().toString(36).slice(2, 8)}`;
       current.textContent = fmt(t);
       remaining.textContent = "−" + fmt(Math.max(0, total - t));
     });
+    // Start position from a #t=<seconds> deep link (see cueFromHash).
+    let pendingStart: number | null = null;
+
     audio.addEventListener("loadedmetadata", () => {
       if (isFinite(audio.duration)) {
         seek.max = String(Math.floor(audio.duration));
         remaining.textContent = "−" + fmt(audio.duration);
       }
+      if (pendingStart !== null) {
+        audio.currentTime = pendingStart;
+        pendingStart = null;
+      }
     });
     seek.addEventListener("input", () => {
+      pendingStart = null;
       audio.currentTime = Number(seek.value);
     });
+
+    // Deep links like /podcast/<slug>/#t=754 (used by the topic pages) cue
+    // the page's first player to that second. Playback still waits for the
+    // listener to press play; audio is preload="none", so the position is
+    // applied again once metadata loads.
+    const cueFromHash = () => {
+      const m = location.hash.match(/^#t=(\d+)$/);
+      if (!m) return;
+      const t = Math.min(Number(m[1]), Number(seek.max) || duration);
+      seek.value = String(t);
+      current.textContent = fmt(t);
+      remaining.textContent = "−" + fmt(Math.max(0, duration - t));
+      pendingStart = audio.readyState >= 1 ? null : t;
+      audio.currentTime = t;
+    };
+    if (index === 0) {
+      cueFromHash();
+      window.addEventListener("hashchange", cueFromHash);
+    }
   });
 </script>

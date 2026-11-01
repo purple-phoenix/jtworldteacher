@@ -1,0 +1,367 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { TOPICS, getTopic, formatTimestamp, type Topic } from "../../data/topics";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const published = await getCollection("episodes", ({ data }) => !data.draft);
+  const byId = new Map(published.map((ep) => [ep.id.replace(/\.md$/, ""), ep]));
+
+  // Fail the build loudly if topics.ts drifts from the episode collection
+  // (renamed slug, unpublished episode, timestamp past the end of the audio).
+  for (const topic of TOPICS) {
+    for (const rel of topic.related) {
+      if (!getTopic(rel)) throw new Error(`topics.ts: "${topic.id}" relates to unknown topic "${rel}"`);
+    }
+    for (const { slug, mentions } of topic.episodes) {
+      const ep = byId.get(slug);
+      if (!ep) throw new Error(`topics.ts: "${topic.id}" lists unknown or draft episode "${slug}"`);
+      for (const { t } of mentions) {
+        if (!Number.isInteger(t) || t < 0 || t >= ep.data.durationSeconds) {
+          throw new Error(`topics.ts: "${topic.id}" → ${slug} timestamp ${t}s is outside the episode`);
+        }
+      }
+    }
+  }
+
+  return TOPICS.map((topic) => ({
+    params: { topic: topic.id },
+    props: {
+      topic,
+      // Newest first, matching the podcast archive.
+      episodes: topic.episodes
+        .map((te) => ({ ...te, ep: byId.get(te.slug)! }))
+        .sort((a, b) => b.ep.data.pubDate.getTime() - a.ep.data.pubDate.getTime()),
+    },
+  }));
+}
+
+interface Props {
+  topic: Topic;
+  episodes: (Topic["episodes"][number] & { ep: CollectionEntry<"episodes"> })[];
+}
+
+const { topic, episodes } = Astro.props;
+const related = topic.related.map((id) => getTopic(id)!);
+const mentionCount = episodes.reduce((n, e) => n + e.mentions.length, 0);
+
+const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "") + "/";
+const episodeHref = (slug: string) => base + `podcast/${slug}/`;
+const site = Astro.site!;
+const abs = (path: string) => new URL(path, site).href;
+
+// Date-only frontmatter is coerced to UTC midnight; format in UTC so the
+// displayed calendar day matches pubDate regardless of server timezone.
+const dateFmt = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+});
+const isoDate = (d: Date) => d.toISOString().slice(0, 10);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      name: `${topic.name} — Topics`,
+      description: topic.description,
+      url: abs(base + `topics/${topic.id}/`),
+      isPartOf: { "@type": "WebSite", name: "J.T. Worldteacher", url: abs(base) },
+      about: topic.name,
+      mainEntity: {
+        "@type": "ItemList",
+        numberOfItems: episodes.length,
+        itemListElement: episodes.map((e, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          item: {
+            "@type": "PodcastEpisode",
+            name: e.ep.data.title,
+            url: abs(episodeHref(e.slug)),
+            datePublished: isoDate(e.ep.data.pubDate),
+          },
+        })),
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: abs(base) },
+        { "@type": "ListItem", position: 2, name: "Topics", item: abs(base + "topics/") },
+        { "@type": "ListItem", position: 3, name: topic.name, item: abs(base + `topics/${topic.id}/`) },
+      ],
+    },
+  ],
+};
+---
+
+<Layout title={`${topic.name} — Topics — J.T. Worldteacher`} description={topic.description} jsonLd={jsonLd}>
+  <main class="page-in">
+    <section class="hair-b">
+      <div class="container topic__head">
+        <a href={base + "topics/"} class="topic__back eyebrow-strong link-u">← All topics</a>
+        <div class="eyebrow">
+          Topic · {episodes.length} episodes · {mentionCount} timestamped moments
+        </div>
+        <h1 class="topic__h1 font-display">{topic.name}</h1>
+        <div class="topic__intro">
+          {topic.intro.map((p) => <p>{p}</p>)}
+        </div>
+        <div class="topic__related-row">
+          <span class="eyebrow">Related</span>
+          {related.map((r) => (
+            <a href={base + `topics/${r.id}/`} class="tag">{r.name}</a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container topic__list-wrap">
+        <ul class="topic__list">
+          {
+            episodes.map((e, i) => (
+              <li class:list={["topic__row", { "topic__row--last": i === episodes.length - 1 }]}>
+                <div class="topic__row-meta">
+                  <span>{dateFmt.format(e.ep.data.pubDate)}</span>
+                  <span class="topic__sep">·</span>
+                  <span>{e.ep.data.duration}</span>
+                </div>
+                <h2 class="topic__row-title font-display">
+                  <a href={episodeHref(e.slug)} class="link-u topic__row-title-link">
+                    {e.ep.data.title}
+                  </a>
+                </h2>
+                <ul class="topic__mentions">
+                  {e.mentions.map((m) => (
+                    <li class="topic__mention">
+                      <a
+                        href={episodeHref(e.slug) + `#t=${m.t}`}
+                        class="topic__ts font-mono"
+                        aria-label={`Play ${e.ep.data.title} from ${formatTimestamp(m.t)}`}
+                      >
+                        {formatTimestamp(m.t)}
+                      </a>
+                      <span class="topic__note">{m.note}</span>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="topic__fine">
+          Timestamps point into the published audio and open the episode cued to
+          that moment. Notes summarize what was said on air and are not
+          endorsements or statements of fact.
+        </p>
+      </div>
+    </section>
+
+    <section class="hair-t">
+      <div class="container topic__more">
+        <div class="eyebrow">Related topics</div>
+        <ul class="topic__cards">
+          {related.map((r) => (
+            <li>
+              <a href={base + `topics/${r.id}/`} class="topic__card">
+                <span class="topic__card-name font-display">{r.name}</span>
+                <span class="topic__card-blurb">{r.summary}</span>
+                <span class="topic__card-count">{r.episodes.length} episodes →</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .topic__head {
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  @media (min-width: 768px) {
+    .topic__head {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+  }
+  .topic__back {
+    display: inline-block;
+    margin-bottom: 32px;
+    color: var(--ink-soft);
+  }
+  .topic__h1 {
+    margin-top: 16px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-size: clamp(40px, 6vw, 72px);
+  }
+  .topic__intro {
+    margin-top: 24px;
+    max-width: 66ch;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    font-size: 16.5px;
+    line-height: 1.68;
+    color: var(--ink-soft);
+  }
+  .topic__related-row {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  .topic__related-row .eyebrow {
+    margin-right: 6px;
+  }
+  .topic__related-row .tag {
+    transition: color 200ms ease, border-color 200ms ease;
+  }
+  .topic__related-row .tag:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .topic__list-wrap {
+    padding-top: 32px;
+    padding-bottom: 48px;
+  }
+  @media (min-width: 768px) {
+    .topic__list-wrap {
+      padding-top: 48px;
+      padding-bottom: 64px;
+    }
+  }
+  .topic__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .topic__row {
+    padding: 28px 0;
+    border-top: 1px solid var(--hair);
+  }
+  .topic__row--last {
+    border-bottom: 1px solid var(--hair);
+  }
+  .topic__row-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .topic__sep {
+    color: var(--hair-strong);
+  }
+  .topic__row-title {
+    margin-top: 6px;
+    font-size: clamp(22px, 2.6vw, 26px);
+    line-height: 1.12;
+  }
+  .topic__row-title-link {
+    color: var(--ink);
+    transition: color 200ms ease;
+  }
+  .topic__row-title-link:hover {
+    color: var(--accent);
+  }
+  .topic__mentions {
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+    max-width: 76ch;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .topic__mention {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    gap: 16px;
+    align-items: baseline;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .topic__ts {
+    justify-self: start;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    border-bottom: 1px solid var(--hair-strong);
+    transition: border-color 200ms ease;
+  }
+  .topic__ts:hover {
+    border-bottom-color: var(--accent);
+  }
+  .topic__fine {
+    margin-top: 24px;
+    max-width: 66ch;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--ink-mute);
+  }
+
+  .topic__more {
+    padding-top: 48px;
+    padding-bottom: 16px;
+  }
+  .topic__cards {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 768px) {
+    .topic__cards {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+  }
+  .topic__card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px;
+    border: 1px solid var(--hair);
+    background: var(--bg-elev);
+    transition: border-color 200ms ease;
+  }
+  .topic__card:hover {
+    border-color: var(--accent);
+  }
+  .topic__card-name {
+    font-size: 21px;
+    line-height: 1.15;
+    color: var(--ink);
+  }
+  .topic__card-blurb {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .topic__card-count {
+    margin-top: auto;
+    padding-top: 8px;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+</style>
