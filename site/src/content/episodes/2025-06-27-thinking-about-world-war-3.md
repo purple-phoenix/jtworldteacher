@@ -1,7 +1,7 @@
 ---
 title: "Thinking about World War 3"
 pubDate: 2025-06-27
-description: "Originally aired as an X Space on June 27, 2025. Detailed show notes coming."
+description: "JT and Morgan Farrell treat World War III as a real scenario: Saturn-Neptune toward zero Aries, the Russian escalation playbook, Intuitive Underground's Putin and U.S.-China sessions, and why community beats prepping."
 audioUrl: "https://media.jtworldteacher.com/episodes/2025-06-27-thinking-about-world-war-3.m4a"
 audioLength: 178848280
 audioType: "audio/mp4"

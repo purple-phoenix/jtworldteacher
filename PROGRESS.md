@@ -51,7 +51,7 @@ Two-track repo:
 | 2026-04-02 | The Against the Archons emergent archetype in media | ✅ enriched | ✅ | ✅ |
 | 2026-04-05 | Astro RV Alert! | ✅ enriched | ✅ | ✅ |
 | 2026-04-22 | Suck it, Dan Waites | ✅ enriched | ✅ | ✅ |
-| **2026-04-25** | **Technical Remote Viewing** | ⏳ **stub — transcript ready (365K, 7-hour audio); needs agent enrichment** | ✅ | ✅ (as stub) |
+| 2026-04-25 | Technical Remote Viewing | ✅ enriched (7-hour Space) | ✅ | ✅ |
 | 2026-04-29 | Oriental Archons! | ✅ enriched | ✅ | ✅ |
 | 2026-05-02 | Final Feedback... Intuitive Underground were right about everything | ✅ enriched | ✅ | ✅ |
 | 2026-05-07 | UFOx: THE CRUSADE WITHIN UFOLOGY | ✅ enriched | ✅ | ✅ |
@@ -59,7 +59,7 @@ Two-track repo:
 
 ## Open todos
 
-1. **Enrich the Technical Remote Viewing (Apr 25) episode** — its transcript exists at `catalog/spaces/transcripts/2026-04-25-technical-remote-viewing.txt` (365 KB, the 7-hour episode). Needs a dispatched agent to read it and produce show notes in the same format as the other 13. Then update `site/src/content/episodes/2026-04-25-technical-remote-viewing.md` (currently still has the "Detailed show notes coming" stub), commit + push.
+1. ~~**Enrich the Technical Remote Viewing (Apr 25) episode**~~ — done (2026-10-31): full About / Show notes / Notable quotes written from the 7-hour transcript. The same pass replaced the leftover "Detailed show notes coming" `description:` on five 2025 episodes whose bodies were already enriched. Still open: the Apr 25 audio is untrimmed (about 3.5 minutes of pre-show dead air plus whisper hallucination loops at the start); trimming would mean a re-upload to R2, per the AGENTS.md trim convention.
 2. **Submit RSS feed to podcast directories** — likely already done by Matt, but worth confirming. The feed URL is `https://jtworldteacher.com/feed.xml`. Owner email in the feed is `josephtimothymccarthy@gmail.com` (for Apple verification).
    - Apple Podcasts Connect: <https://podcastsconnect.apple.com/>
    - Spotify for Podcasters: <https://podcasters.spotify.com/>

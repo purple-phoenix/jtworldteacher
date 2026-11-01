@@ -1,7 +1,7 @@
 ---
 title: "THE ASTRO RV PROJECT with remote viewer Morgan Farrell"
 pubDate: 2025-05-31
-description: "Originally aired as an X Space on May 31, 2025. Detailed show notes coming."
+description: "The foundational Astro RV Project Space: JT and Morgan Farrell lay out astrology as an analog simulation model for timing and Technical Remote Viewing for the event, and dissect their first joint experiment."
 audioUrl: "https://media.jtworldteacher.com/episodes/2025-05-31-astro-rv-project-morgan-farrell.m4a"
 audioLength: 231262775
 audioType: "audio/mp4"
