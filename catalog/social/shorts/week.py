@@ -102,7 +102,7 @@ def kit(week, week_path):
         ]
     out = os.path.splitext(week_path)[0] + "-kit.md"
     text = "\n".join(lines)
-    assert "—" not in text, "kit must not contain em dashes"
+    assert "\u2014" not in text, "kit must not contain em dashes"
     open(out, "w", encoding="utf-8").write(text)
     os.makedirs(OUT, exist_ok=True)
     shutil.copy(out, os.path.join(OUT, os.path.basename(out)))
