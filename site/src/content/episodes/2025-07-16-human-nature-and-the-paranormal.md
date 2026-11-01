@@ -1,7 +1,7 @@
 ---
 title: "Human nature and the paranormal"
 pubDate: 2025-07-16
-description: "Originally aired as an X Space on July 16, 2025. Detailed show notes coming."
+description: "JT and Morgan Farrell argue the paranormal only makes sense inside a reality overlay and a domesticated, eusocial humanity, from UFOs and cryptids to E. O. Wilson, the Soviet fox experiment and the bicameral mind."
 audioUrl: "https://media.jtworldteacher.com/episodes/2025-07-16-human-nature-and-the-paranormal.m4a"
 audioLength: 190443378
 audioType: "audio/mp4"

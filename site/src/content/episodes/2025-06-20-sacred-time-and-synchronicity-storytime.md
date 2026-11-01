@@ -1,7 +1,7 @@
 ---
 title: "Sacred time and synchronicity storytime"
 pubDate: 2025-06-20
-description: "Originally aired as an X Space on June 20, 2025. Detailed show notes coming."
+description: "An eight-minute pre-show fragment: JT tries to get Morgan in as co-host before a planned storytime on sacred time and synchronicity, and the technology never quite cooperates."
 audioUrl: "https://media.jtworldteacher.com/episodes/2025-06-20-sacred-time-and-synchronicity-storytime.m4a"
 audioLength: 5934059
 audioType: "audio/mp4"

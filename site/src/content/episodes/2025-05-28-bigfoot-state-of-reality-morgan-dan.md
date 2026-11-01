@@ -1,7 +1,7 @@
 ---
 title: "BIGFOOT presents the state of reality with remote viewers Morgan Farrell & Dan Mann"
 pubDate: 2025-05-28
-description: "Originally aired as an X Space on May 28, 2025. Detailed show notes coming."
+description: "Morgan Farrell and Dan Mann of Intuitive Underground walk JT through the Canon Project: a decade of TRV sessions that, as they tell it, converge on engineered humans, a hijacked reality overlay, and an ongoing harvest cycle."
 audioUrl: "https://media.jtworldteacher.com/episodes/2025-05-28-bigfoot-state-of-reality-morgan-dan.m4a"
 audioLength: 210966887
 audioType: "audio/mp4"
