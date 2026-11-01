@@ -10,12 +10,12 @@ Files are in `~/Downloads/JT social clips/Shorts/`. X gets the uncensored file a
 - **X file:** `01 - If a Martian landed (X).mp4`
 - **YouTube file:** `01 - If a Martian landed (YouTube, bleeped).mp4`
 
-**X post** (229/280):
+**X post** (237/280):
 
 ```text
 Nobody would panic if a Martian landed, drank a coffee and flew home. JT says the thing that actually scares people is being the subjects of an experiment they can't stop.
 
-Full episode: https://jtworldteacher.com/podcast/2026-05-08-disclosure-and-technical-remote-viewing/
+Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
 #Disclosure #UFOs
 ```
@@ -31,8 +31,8 @@ Disclosure isn't the scary part
 ```text
 Nobody would panic if a Martian landed, drank a coffee and flew home. JT says the thing that actually scares people is being the subjects of an experiment they can't stop.
 
-Full episode: https://jtworldteacher.com/podcast/2026-05-08-disclosure-and-technical-remote-viewing/
-Peak Mind: JT and Matt McCarthy, live on X every Wednesday at 7 PM ET. Listen on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+JT and Matt McCarthy, live on X every Wednesday at 7 PM ET.
 
 #Disclosure #UFOs #SimulationTheory #NonHumanIntelligence #Podcast
 ```
@@ -43,14 +43,14 @@ Peak Mind: JT and Matt McCarthy, live on X every Wednesday at 7 PM ET. Listen on
 - **X file:** `06 - Disclosure won't collapse society (X).mp4`
 - **YouTube file:** `06 - Disclosure won't collapse society (YouTube, bleeped).mp4`
 
-**X post** (266/280):
+**X post** (274/280):
 
 ```text
 "If we tell you the truth, society collapses." JT's answer: people will still go to work, still buy food for their kids, still pray to the same God. That excuse has propped up the whole UFO secrecy game.
 
 Live tonight, 7 PM ET.
 
-Full episode: https://jtworldteacher.com/podcast/2026-05-07-ufox-the-crusade-within-ufology/
+Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 ```
 
 **YouTube title** (41/100):
@@ -64,8 +64,8 @@ Would disclosure really collapse society?
 ```text
 "If we tell you the truth, society collapses." JT's answer: people will still go to work, still buy food for their kids, still pray to the same God. That excuse has propped up the whole UFO secrecy game.
 
-Full episode: https://jtworldteacher.com/podcast/2026-05-07-ufox-the-crusade-within-ufology/
-Peak Mind: JT and Matt McCarthy, live on X every Wednesday at 7 PM ET. Listen on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+JT and Matt McCarthy, live on X every Wednesday at 7 PM ET.
 
 #UFODisclosure #Psyop #UAP #Ufology #Truth
 ```
@@ -76,14 +76,14 @@ Peak Mind: JT and Matt McCarthy, live on X every Wednesday at 7 PM ET. Listen on
 - **X file:** `05 - Be different enough to be conserved.mp4`
 - **YouTube file:** `05 - Be different enough to be conserved.mp4`
 
-**X post** (274/280):
+**X post** (270/280):
 
 ```text
 If we're in a simulation, the idea goes, the most interesting outcome is the one that gets conserved. JT's take on how to stand out: most people right now are kind of being scumbags, so just don't be one.
 
-Full episode: https://jtworldteacher.com/podcast/2026-01-20-thunderdome-saturn-neptune-and-the-archons/
+Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
-#SimulationTheory #Gnosticism
+#SimulationTheory
 ```
 
 **YouTube title** (32/100):
@@ -97,8 +97,8 @@ How to stand out in a simulation
 ```text
 If we're in a simulation, the idea goes, the most interesting outcome is the one that gets conserved. JT's take on how to stand out: most people right now are kind of being scumbags, so just don't be one.
 
-Full episode: https://jtworldteacher.com/podcast/2026-01-20-thunderdome-saturn-neptune-and-the-archons/
-Peak Mind: JT and Matt McCarthy, live on X every Wednesday at 7 PM ET. Listen on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+JT and Matt McCarthy, live on X every Wednesday at 7 PM ET.
 
 #SimulationTheory #Gnosticism #Archons #Philosophy
 ```
@@ -109,12 +109,12 @@ Peak Mind: JT and Matt McCarthy, live on X every Wednesday at 7 PM ET. Listen on
 - **X file:** `07 - The day a warlord almost got the nukes.mp4`
 - **YouTube file:** `07 - The day a warlord almost got the nukes.mp4`
 
-**X post** (234/280):
+**X post** (242/280):
 
 ```text
 Everyone laughed off Prigozhin's march on Moscow as a clown show. JT argues it was the most dangerous day in years: a warlord near nuclear weapons leaves the US no choice.
 
-Full episode: https://jtworldteacher.com/podcast/2025-05-31-astro-rv-project-morgan-farrell/
+Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
 #NuclearWar #Prigozhin
 ```
@@ -130,8 +130,8 @@ The day a warlord almost got the nukes
 ```text
 Everyone laughed off Prigozhin's march on Moscow as a clown show. JT argues it was the most dangerous day in years: a warlord near nuclear weapons leaves the US no choice.
 
-Full episode: https://jtworldteacher.com/podcast/2025-05-31-astro-rv-project-morgan-farrell/
-Peak Mind: JT and Matt McCarthy, live on X every Wednesday at 7 PM ET. Listen on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+JT and Matt McCarthy, live on X every Wednesday at 7 PM ET.
 
 #NuclearWar #Prigozhin #Russia #Geopolitics
 ```
@@ -142,14 +142,14 @@ Peak Mind: JT and Matt McCarthy, live on X every Wednesday at 7 PM ET. Listen on
 - **X file:** `09 - You remember remembering.mp4`
 - **YouTube file:** `09 - You remember remembering.mp4`
 
-**X post** (270/280):
+**X post** (278/280):
 
 ```text
 JT's theory: the brain doesn't store memories, it perceives them. Every time you recall something you're remote viewing the last time you remembered it, which would explain why memories drift.
 
 Peak Mind is live tonight at 7 PM ET.
 
-Full episode: https://jtworldteacher.com/podcast/2025-07-16-human-nature-and-the-paranormal/
+Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 ```
 
 **YouTube title** (52/100):
@@ -163,8 +163,8 @@ You don't remember things. You remember remembering.
 ```text
 JT's theory: the brain doesn't store memories, it perceives them. Every time you recall something you're remote viewing the last time you remembered it, which would explain why memories drift.
 
-Full episode: https://jtworldteacher.com/podcast/2025-07-16-human-nature-and-the-paranormal/
-Peak Mind: JT and Matt McCarthy, live on X every Wednesday at 7 PM ET. Listen on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+JT and Matt McCarthy, live on X every Wednesday at 7 PM ET.
 
 #RemoteViewing #Consciousness #Memory #Intuition
 ```
@@ -175,12 +175,12 @@ Peak Mind: JT and Matt McCarthy, live on X every Wednesday at 7 PM ET. Listen on
 - **X file:** `10 - I wouldn't get on that ship.mp4`
 - **YouTube file:** `10 - I wouldn't get on that ship.mp4`
 
-**X post** (227/280):
+**X post** (235/280):
 
 ```text
 Everyone's waiting for the aliens to show up and welcome us. JT's take: nobody out there wants us, and if they land tomorrow saying "come with us," don't get on the ship.
 
-Full episode: https://jtworldteacher.com/podcast/2026-04-25-technical-remote-viewing/
+Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
 #UFO #Disclosure
 ```
@@ -196,8 +196,8 @@ If aliens land, don't get on the ship
 ```text
 Everyone's waiting for the aliens to show up and welcome us. JT's take: nobody out there wants us, and if they land tomorrow saying "come with us," don't get on the ship.
 
-Full episode: https://jtworldteacher.com/podcast/2026-04-25-technical-remote-viewing/
-Peak Mind: JT and Matt McCarthy, live on X every Wednesday at 7 PM ET. Listen on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+JT and Matt McCarthy, live on X every Wednesday at 7 PM ET.
 
 #UFO #Disclosure #Gnosticism #SimulationTheory #Aliens
 ```
@@ -208,12 +208,12 @@ Peak Mind: JT and Matt McCarthy, live on X every Wednesday at 7 PM ET. Listen on
 - **X file:** `12 - Free energy won't save you (X).mp4`
 - **YouTube file:** `12 - Free energy won't save you (YouTube, bleeped).mp4`
 
-**X post** (271/280):
+**X post** (279/280):
 
 ```text
 Even if someone released unlimited free energy tomorrow, you can't eat it and you can't make medicine out of it. JT on why an oil shock is a different kind of crisis, and what happened the last time the U.S. cut a country's oil off.
 
-Full episode: https://jtworldteacher.com/podcast/2026-03-19-the-long-emergency/
+Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 ```
 
 **YouTube title** (26/100):
@@ -227,8 +227,8 @@ Free energy won't save you
 ```text
 Even if someone released unlimited free energy tomorrow, you can't eat it and you can't make medicine out of it. JT on why an oil shock is a different kind of crisis, and what happened the last time the U.S. cut a country's oil off.
 
-Full episode: https://jtworldteacher.com/podcast/2026-03-19-the-long-emergency/
-Peak Mind: JT and Matt McCarthy, live on X every Wednesday at 7 PM ET. Listen on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+JT and Matt McCarthy, live on X every Wednesday at 7 PM ET.
 
 #OilShock #StraitOfHormuz #LongEmergency #PeakOil #Geopolitics
 ```

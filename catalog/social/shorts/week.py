@@ -79,16 +79,15 @@ def kit(week, week_path):
     for c in week:
         title, caption, tags = moment(c)
         x_file, yt_file = files_for(c)
-        link = f"{SITE}/{c['episode']}/"
         day = dt.date.fromisoformat(c["post_on"])
         wed = day.weekday() == 2
         live = ["\n\nPeak Mind is live tonight at 7 PM ET.", "\n\nLive tonight, 7 PM ET."] if wed else [""]
-        variants = [caption + lv + lead + link + ("\n\n" + " ".join(tags[:n]) if n else "")
-                    for lead in ("\n\nFull episode: ", "\n\n") for lv in live for n in (2, 1, 0)]
+        variants = [caption + lv + lead + SPOTIFY + ("\n\n" + " ".join(tags[:n]) if n else "")
+                    for lead in ("\n\nPeak Mind on Spotify: ", "\n\nSpotify: ", "\n\n") for lv in live for n in (2, 1, 0)]
         x_text = next((v for v in variants if x_len(v) <= 280), None)
         assert x_text, f"#{c['n']}: caption too long for X even without extras"
-        yt_desc = (f"{caption}\n\nFull episode: {link}\nPeak Mind: JT and Matt McCarthy, live on X every Wednesday "
-                   f"at 7 PM ET. Listen on Spotify: {SPOTIFY}\n\n" + " ".join(tags[:5]))
+        yt_desc = (f"{caption}\n\nListen to Peak Mind on Spotify: {SPOTIFY}\nJT and Matt McCarthy, live on X every "
+                   f"Wednesday at 7 PM ET.\n\n" + " ".join(tags[:5]))
         lines += [
             f"## {day.strftime('%a %b %-d')}: #{c['n']} {c['headline']}\n",
             f"- **From:** {title} (recorded {c['recorded']})",

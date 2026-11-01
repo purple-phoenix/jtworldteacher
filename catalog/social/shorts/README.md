@@ -7,7 +7,7 @@ Each video has a headline, word-by-word captions with the spoken word highlighte
 
 - `align_words.py`: word timings from whisper.cpp DTW, shifted 0.05 s earlier and snapped out of pauses. The default timestamps drifted, putting 18 of 119 words inside pauses on clip #1.
 - `render_short.py`: draws frames with Pillow and pipes them to ffmpeg, because the Homebrew ffmpeg has no libass or drawtext. `--bleep` puts a tone over swears and masks them in the captions. Filler words stay in the audio but are left out of the captions.
-- `week.py render|kit <week-NN.json>`: renders a week's clips into `~/Downloads/JT social clips/Shorts/` and writes `week-NN-kit.md`, which holds the X post text, YouTube title and description, and post date for each clip.
+- `week.py render|kit <week-NN.json>`: renders a week's clips into `~/Downloads/JT social clips/Shorts/` and writes `week-NN-kit.md`, which holds the X post text, YouTube title and description, and post date for each clip. Every link points to the Peak Mind Spotify show (Matt, 2026-11-01).
 
 Clips that swear get two files: an uncensored one for X and a bleeped one for YouTube.
 Nothing posts automatically. Each week's kit is approved by Matt before anything is scheduled.
@@ -24,3 +24,4 @@ Run `week.py stage <week.json>`, then from the repo root `source catalog/social/
 - **X:** the composer's **Schedule post** panel (`data-testid=scheduleOption`) has six selects (Month, Day, Year, Hour, Minute, AM/PM). Set them with the native value setter and a `change` event.
   - Only click the button when it reads **Schedule** and the panel says "Will send on <date> at 12:00 PM". Never click it while it says **Post**.
   - Check the result at `x.com/compose/post/unsent/scheduled`.
+  - Editing a scheduled post doesn't save, so to change one, make a new scheduled post and delete the old one (Edit, tick it, Delete). X drops a typed opening quotation mark; `xtype` puts it back.
