@@ -9,7 +9,7 @@ How "JT — Astrology & Simulation Theory" gets from a downloaded X Space → pu
 GitHub Pages can't serve large media files at scale. Audio lives on R2.
 
 1. Sign up at <https://dash.cloudflare.com/> (free).
-2. R2 → Create bucket → name it `jtworld-podcast` (or similar).
+2. R2 → Create bucket. The live bucket is named `jtworldteacher-podcast`. Always address it by that exact name: the local token can't list buckets, so a wrong name fails with misleading errors (see AGENTS.md).
 3. Settings → "Public access" → "Connect custom domain" → enter `media.jtworldteacher.com`. (Cloudflare will give you a CNAME target to add at Porkbun — already covered in §4 below.) The audio URL pattern becomes `https://media.jtworldteacher.com/episodes/<slug>.m4a`.
 4. Generate an API token (R2 → Manage R2 API Tokens → "Object Read & Write" on this bucket). Save the **Access Key ID** + **Secret** somewhere safe (1Password). You'll only need these locally to upload — they don't go in the repo.
 5. After uploading the first audio file, update `audioUrl` in each `site/src/content/episodes/*.md` to point at `https://media.jtworldteacher.com/episodes/<slug>.m4a`.
@@ -24,7 +24,7 @@ Apple Podcasts requires square JPG/PNG, **3000 × 3000 px**, sRGB, < 500 KB.
 
 ### 3. Owner email + show metadata
 
-Edit `site/src/pages/feed.xml.ts` — the `SHOW` constant at the top has placeholders for `ownerEmail`, category, etc. Apple Podcasts will email this address for verification.
+Show metadata lives in the `SHOW` constant at the top of `site/src/pages/feed.xml.ts` (title, `ownerEmail`, category, etc.). It's already filled in; `ownerEmail` is currently `josephtimothymccarthy@gmail.com`. Apple Podcasts emails this address for verification.
 
 ### 4. Custom domain
 
@@ -32,7 +32,7 @@ Site domain: **`jtworldteacher.com`** (registered at Porkbun).
 
 The site URL is configured in `site/astro.config.mjs` (`site: 'https://jtworldteacher.com'`) and a `CNAME` file lives at `site/public/CNAME` so GitHub Pages picks it up on deploy.
 
-**DNS records to add at Porkbun** (Dashboard → jtworldteacher.com → DNS):
+**DNS is managed at Cloudflare.** The domain is still registered at Porkbun, but its nameservers were switched to Cloudflare during setup, so add or edit records in the Cloudflare dashboard. Today the apex and `media` resolve to Cloudflare (proxied), and `www` is a CNAME to `purple-phoenix.github.io`. The records used at setup were:
 
 | Type | Host | Answer | TTL |
 |------|------|--------|-----|
@@ -40,7 +40,7 @@ The site URL is configured in `site/astro.config.mjs` (`site: 'https://jtworldte
 | CNAME | `www` | `purple-phoenix.github.io` | 600 |
 | CNAME | `media` | `<R2 bucket public hostname>` (set after R2 setup, see step 1) | 600 |
 
-If Porkbun's ALIAS doesn't work cleanly, use 4 A records on apex instead:
+If an apex ALIAS/CNAME doesn't work cleanly, use 4 A records on apex instead:
 - `185.199.108.153`
 - `185.199.109.153`
 - `185.199.110.153`
@@ -60,9 +60,11 @@ For each Space you want to publish:
 
 ### 1. Download + transcribe
 
-See [`catalog/WORKFLOW.md`](catalog/WORKFLOW.md). You'll end up with:
+See [`catalog/WORKFLOW.md`](catalog/WORKFLOW.md). Whisper needs a 16 kHz mono WAV, not the `.m4a`. You'll end up with:
 - `catalog/spaces/audio/YYYY-MM-DD-slug.m4a`
-- `catalog/spaces/transcripts/YYYY-MM-DD-slug.txt`
+- `catalog/spaces/transcripts/YYYY-MM-DD-slug.txt` and `.vtt`
+
+Then trim the audio to the show (hold music and pre-show chatter at the start, dead air at the end, nothing inside), and shift the transcript to match. The procedure is in AGENTS.md, "Episodes are edited to the show". Every later step uses the edited file.
 
 ### 2. Upload audio to R2
 
@@ -72,27 +74,27 @@ Easiest is the dashboard: R2 → bucket → Upload → drop the `.m4a` into an `
 # one-time rclone config
 rclone config   # follow prompts: New remote → name "r2" → S3 → Cloudflare R2 → paste keys
 
-# upload
-rclone copy catalog/spaces/audio/YYYY-MM-DD-slug.m4a r2:jtworld-podcast/episodes/
+# upload (keep the MP4 MIME type; rclone on macOS would otherwise send audio/mp4a-latm)
+rclone copy catalog/spaces/audio/YYYY-MM-DD-slug.m4a r2:jtworldteacher-podcast/episodes/ \
+  --metadata --metadata-set content-type=audio/mp4
 ```
 
-The final URL will be `<R2_DOMAIN>/episodes/YYYY-MM-DD-slug.m4a`.
+The final URL will be `https://media.jtworldteacher.com/episodes/YYYY-MM-DD-slug.m4a`. Check that it serves `Content-Type: audio/mp4`, the right `Content-Length`, and a `206` for a range request.
 
 ### 3. Create the episode markdown
 
-Create `site/src/content/episodes/YYYY-MM-DD-slug.md`:
+`bash catalog/scripts/generate-episode-pages.sh` creates a stub page for every audio file that doesn't have one yet; it never overwrites. Or create `site/src/content/episodes/YYYY-MM-DD-slug.md` by hand. Follow the existing episodes:
 
 ```markdown
 ---
 title: "Episode title"
 pubDate: 2026-04-01
 description: "Short one-line description for the RSS feed."
-audioUrl: "https://<R2_DOMAIN>/episodes/YYYY-MM-DD-slug.m4a"
-audioLength: 64460131   # exact bytes — `stat -f "%z" file.m4a` on macOS
+audioUrl: "https://media.jtworldteacher.com/episodes/YYYY-MM-DD-slug.m4a"
+audioLength: 64460131   # exact bytes of the edited file — `stat -f "%z" file.m4a` on macOS
 audioType: "audio/mp4"   # m4a / aac is audio/mp4; mp3 is audio/mpeg
 duration: "1:30:22"     # hh:mm:ss
 durationSeconds: 5422
-episode: 2              # episode number (optional but recommended)
 episodeType: "full"     # full | trailer | bonus
 explicit: false
 draft: false            # set to true to keep it out of the feed while drafting
@@ -102,17 +104,24 @@ spaceId: "1XXXXXXXXXX"
 
 ## About this episode
 
-Show notes go here. Use multiple paragraphs.
+A few paragraphs on what the episode is about.
 
-## Transcript
+## Show notes
 
-(Paste cleaned transcript here, or include it via a separate markdown chunk.)
+- Bulleted rundown of the segments
+
+## Notable quotes
+
+> "A line from the transcript."
 ```
+
+The house style omits `episode:` and `summary:` in the frontmatter, even though the schema allows them. Don't embed the transcript in the page; it stays committed under `catalog/spaces/transcripts/`. To list the episode on the topic hubs, add it to `site/src/data/topics.ts`. Timestamps there are seconds into the edited audio.
 
 ### 4. Build + preview locally
 
 ```bash
 cd site
+npm run build   # validates frontmatter against src/content.config.ts and the topic map; regenerates dist/feed.xml
 npm run dev
 # open http://localhost:4321/podcast/ to verify the episode appears
 # open http://localhost:4321/feed.xml to verify the RSS is valid
@@ -127,12 +136,13 @@ curl -s http://localhost:4321/feed.xml > /tmp/feed.xml
 
 ### 5. Deploy
 
-Commit + push to `main`. The GH Actions workflow at `.github/workflows/deploy.yml` builds and deploys to GitHub Pages automatically.
+Commit on a branch and open a PR. Merging to `main` (any change under `site/**`) runs `.github/workflows/deploy.yml`, which builds the site and deploys it to GitHub Pages.
 
 ```bash
-git add site/src/content/episodes/YYYY-MM-DD-slug.md
+git switch -c add-episode-YYYY-MM-DD
+git add site/src/content/episodes/YYYY-MM-DD-slug.md catalog/
 git commit -m "Add episode: <title>"
-git push
+git push -u origin HEAD   # then open the PR
 ```
 
 ## First-time directory submission
@@ -148,30 +158,40 @@ Do this **once**, after the first non-draft episode is live and the feed validat
 | **iHeartRadio** | <https://www.iheart.com/content/submit-your-podcast/> | Variable |
 | **Overcast, Pocket Casts, Castro, Castbox** | Auto-discovered once Apple accepts | — |
 
-Save the public Spotify / Apple URLs after submission and paste them into:
-- `site/src/pages/index.astro` (the "Spotify" / "Apple Podcasts" `<li>`s)
-- `site/src/pages/podcast/index.astro` (same)
+Save the public Spotify / Apple / YouTube URLs after submission and paste them into the platform links in:
+- `site/src/pages/index.astro`
+- `site/src/pages/podcast/index.astro`
+- `site/src/pages/podcast/[slug].astro`
+- `site/src/components/Footer.astro`
+
+Spotify is already wired (`https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC`). Apple and YouTube are still `#` placeholders with the "soon" treatment.
 
 ## File layout
 
 ```
 site/
-├── astro.config.mjs           # site URL + base path
+├── astro.config.mjs           # site URL (https://jtworldteacher.com)
 ├── src/
 │   ├── content.config.ts      # episode schema
 │   ├── content/
 │   │   └── episodes/
 │   │       └── YYYY-MM-DD-slug.md     # one per episode
+│   ├── data/
+│   │   └── topics.ts                   # topic hubs: topic → episodes + timestamps
 │   ├── layouts/
 │   │   └── Layout.astro
 │   └── pages/
 │       ├── index.astro                 # home
 │       ├── feed.xml.ts                 # RSS feed (the podcast feed)
-│       └── podcast/
-│           ├── index.astro             # episode list
-│           └── [slug].astro            # episode detail page
+│       ├── podcast/
+│       │   ├── index.astro             # episode list
+│       │   └── [slug].astro            # episode detail page (#t=<seconds> cues the player)
+│       └── topics/
+│           ├── index.astro             # /topics/ index
+│           └── [topic].astro           # one page per topic
 └── public/
-    └── podcast-cover.jpg               # 3000×3000 cover art (you need to add this)
+    ├── CNAME                           # custom domain for GH Pages
+    └── podcast-cover.jpg               # 3000×3000 cover art
 ```
 
 ## Notes & gotchas
@@ -180,4 +200,4 @@ site/
 - **m4a/AAC mimetype is `audio/mp4`**, not `audio/m4a`. Don't change this.
 - **Don't move audio URLs after publishing** — clients cache enclosure URLs; a moved file = no episode for some listeners.
 - **Don't change the feed URL after submitting** — same reason, but worse: total subscriber loss. Use a custom domain from day one.
-- **Episode `draft: true`** keeps an episode in the repo but out of the RSS feed and the site episode list. Useful for staging.
+- **Episode `draft: true`** keeps an episode in the repo but out of the RSS feed and the site episode list. Useful for staging. A draft episode that is still listed in `site/src/data/topics.ts` fails the build, so remove it there first.
