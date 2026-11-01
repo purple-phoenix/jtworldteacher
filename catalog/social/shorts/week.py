@@ -3,6 +3,7 @@
 usage (from the repo root):
   python3 -I catalog/social/shorts/week.py render catalog/social/shorts/week-01.json
   python3 -I catalog/social/shorts/week.py kit catalog/social/shorts/week-01.json
+  python3 -I catalog/social/shorts/week.py stage catalog/social/shorts/week-01.json   # after approval
 
 The week file lists clips (episode slug, moment number in catalog/social/clips/<slug>.md, post date,
 headline, recording date, source audio name). Audio comes from ~/Downloads/JT social clips/Ready to post/
@@ -109,7 +110,24 @@ def kit(week, week_path):
     print("wrote", out)
 
 
+def stage(week, week_path):
+    """Copy the week's files into .upload-tmp/ (chrome-devtools-axi only uploads from inside the repo) and write posts.json."""
+    kit_text = open(os.path.splitext(week_path)[0] + "-kit.md", encoding="utf-8").read()
+    os.makedirs(os.path.join(REPO, ".upload-tmp"), exist_ok=True)
+    posts = []
+    for section in re.split(r"\n## ", kit_text)[1:]:
+        n = int(re.search(r"#(\d+)", section).group(1))
+        x_text, title, desc = re.findall(r"```text\n(.*?)\n```", section, re.S)
+        c = next(c for c in week if c["n"] == n)
+        x_file, yt_file = files_for(c)
+        shutil.copy(x_file, os.path.join(REPO, ".upload-tmp", f"x-{n:02d}.mp4"))
+        shutil.copy(yt_file, os.path.join(REPO, ".upload-tmp", f"yt-{n:02d}.mp4"))
+        posts.append({"n": n, "post_on": c["post_on"], "x": x_text, "title": title, "desc": desc})
+    json.dump(posts, open(os.path.join(REPO, ".upload-tmp", "posts.json"), "w"), indent=1, ensure_ascii=False)
+    print(f"staged {len(posts)} posts in .upload-tmp/ (delete it when done)")
+
+
 if __name__ == "__main__":
     cmd, path = sys.argv[1], sys.argv[2]
     week = json.load(open(path, encoding="utf-8"))
-    {"render": lambda: render(week), "kit": lambda: kit(week, path)}[cmd]()
+    {"render": lambda: render(week), "kit": lambda: kit(week, path), "stage": lambda: stage(week, path)}[cmd]()
