@@ -15,6 +15,10 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 - **Topic hubs key on episode slug + seconds into the *edited* audio.** `site/src/data/topics.ts` drives `/topics/` and the episode-page topic tags; mentions link to `/podcast/<slug>/#t=<seconds>`, which `AudioPlayer` cues. The build fails if a listed episode is renamed, drafted, or a timestamp passes `durationSeconds`. If you re-trim an episode, shift its topic timestamps by the start cut, just like the `.vtt`.
 - **Peak Mind's manual Spotify upload-kit workflow is separate from publication.** Follow `catalog/PEAK_MIND_SPOTIFY.md`; `catalog/scripts/prepare_peak_mind_kit.py` prepares and validates only the local kit after the Space and cut window have been approved. It never uploads or publishes.
 
+## Peak Mind Studio
+
+- Peak Mind Studio is the local app in `studio/`; private data lives in `~/peak-mind-studio/data`, never in git. Do not use Claude artifacts for Peak Mind documents (Matt, 2026-11-11). The weekly run writes its review with `studio/studioctl.py put-review`; Matt approves in Studio. See `studio/README.md`.
+
 ## Pull requests
 
 - **Every PR gives Matt a clickable preview that opens on the change, plus 2–4 numbered steps to see it.** The site deploys from `main` to GitHub Pages, so there are no branch previews: run `cd site && npm run build && npm run preview`, share it on the tailnet with Tailscale Serve, and link the `https://<machine>.tailebcf61.ts.net…` URL of the changed page (e.g. `/podcast/<slug>/`), not the home page and not `localhost`. Open the link yourself first. For catalog-only PRs with no site change, link the changed files on GitHub instead.
