@@ -307,8 +307,8 @@ JT and Matt McCarthy.
 ## Mon Dec 14: #63 Why Neanderthal skeletons look like rodeo clowns
 
 - **From:** Human nature and the paranormal (recorded July 16, 2025)
-- **Length:** 69.63 seconds
-- **Why:** Replaces the dropped MacBook story (Matt, 2026-11-16). A surprising, self-contained idea: it opens by naming Neanderthals, contrasts endurance hunting with ambush hunting, and lands on the rodeo-clown image. Space not otherwise used in week 4.
+- **Length:** 69.31 seconds
+- **Why:** Replaces the dropped MacBook story (Matt, 2026-11-16). A surprising, self-contained idea: it opens by naming Neanderthals, contrasts endurance hunting with ambush hunting, and lands on the rodeo-clown image. Space not otherwise used in week 4. Trimmed (Matt, 2026-11-16): now ends before JT's next sentence starts ("However, we do know they experienced empathy..."). A longer version that finishes that thought (89.7 s) is in /Users/mtmccarthy/peak-mind-shorts/week-04-dropped/.
 - **X file:** `week-04/63 - Why Neanderthal skeletons look like rodeo clowns.mp4`
 - **YouTube file:** `week-04/63 - Why Neanderthal skeletons look like rodeo clowns.mp4`
 
