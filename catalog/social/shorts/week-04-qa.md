@@ -16,7 +16,6 @@ Each isolated final cut was transcribed again with Whisper DTW after trimming th
 | 50 | 2026-12-11 | There are a lot of | emphasis is on the experiment. | 56.54 |
 | 51 | 2026-12-12 | If we were viewing a | I were in that position. | 31.66 |
 | 52 | 2026-12-13 | A Tibetan sand mandala. If | it up in a pile. | 70.62 |
-| 53 | 2026-12-14 | i have a macbook air | i think it's pretty good | 76.73 |
 | 54 | 2026-12-15 | We read a book and | as solid as that book. | 42.74 |
 | 55 | 2026-12-16 | A lot of us would | more than 10 to 1. | 70.40 |
 | 56 | 2026-12-17 | A lot of us clutter. | it out into the ocean. | 71.53 |
@@ -35,7 +34,7 @@ Started with the new-source top 15. Dated picks favor stories, humor and thought
 - Dropped constant reinvention from this batch: its ranked cue ends in an unfinished thought; shortening to the main payoff misses the 30-second requirement. Replaced with the book-and-time analogy.
 - Added dolphin/UN lore, the fictional game-world history thought experiment and the alien-population/whale analogy for surprise and variety.
 - Excluded all previously used, held and dropped moments; no vaccine content, guest-led selections, estimated ranges or repeated Edison, zombie, challenge-rating or score-chasing stories.
-- Kept the accident and memory context in the MacBook story. Its source episode title is sanitized in the kit; the source slug remains unchanged for traceability.
+- Dropped #53 (the MacBook story, Dec 14) at Matt's request on 2026-11-16. It is kept in `week-04-dropped.json`; its videos moved to `/Users/mtmccarthy/peak-mind-shorts/week-04-dropped/`.
 - Lilly stories are attributed accounts, not endorsements or verified contact. The game-world clip retains the explicit qualification that JT is not saying this happened.
 
 ## Platform files

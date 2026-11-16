@@ -304,45 +304,6 @@ JT and Matt McCarthy.
 #SandMandala #Impermanence #Buddhism #Art
 ```
 
-## Mon Dec 14: #53 The MacBook he could never get back into
-
-- **From:** This Simulation Is Fake (Sep 18 Space) (recorded September 18, 2025)
-- **Length:** 76.73 seconds
-- **Why:** A relatable lost-password problem escalates into a self-deprecating story with a clean Android punchline.
-- **X file:** `week-04/53 - The MacBook he could never get back into (X).mp4`
-- **YouTube file:** `week-04/53 - The MacBook he could never get back into (YouTube, bleeped).mp4`
-
-- **Review:** [Play this short](https://matts-mac-mini.tailebcf61.ts.net:5490/week-04/53%20-%20The%20MacBook%20he%20could%20never%20get%20back%20into%20%28X%29.mp4)
-
-- **YouTube review:** [Play the bleeped version](https://matts-mac-mini.tailebcf61.ts.net:5490/week-04/53%20-%20The%20MacBook%20he%20could%20never%20get%20back%20into%20%28YouTube%2C%20bleeped%29.mp4)
-
-**X post** (212/280):
-
-```text
-A gift, a forgotten password and hours on the phone. JT tells the story of the MacBook that defeated him, and why he stuck with Android.
-
-Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-
-#TechFrustration #Passwords
-```
-
-**YouTube title** (40/100):
-
-```text
-The MacBook he could never get back into
-```
-
-**YouTube description:**
-
-```text
-A gift, a forgotten password and hours on the phone. JT tells the story of the MacBook that defeated him, and why he stuck with Android.
-
-Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-JT and Matt McCarthy.
-
-#TechFrustration #Passwords #Storytime #PeakMind
-```
-
 ## Tue Dec 15: #54 The character changes, but the book was already whole
 
 - **From:** Synchronicity and Sacred time (recorded June 26, 2025)
