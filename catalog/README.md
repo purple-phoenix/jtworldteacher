@@ -34,6 +34,7 @@ Source: manual screenshots from X (X blocks scraping), and `yt-dlp` for Space au
 | 2026-08-27 | [margaritas-nachos-and-drama-space](posts/2026-08-27-margaritas-nachos-and-drama-space.md) | **Space (audio + transcript)** | spaces, astrology, cognitive bias, ethics, X Spaces, remote viewing |
 | 2026-07-05 | [american-disclosure-space](posts/2026-07-05-american-disclosure-space.md) | **Space (audio + transcript)** | Peak Mind, disclosure, eschatology, 3I/ATLAS, simulation |
 | 2026-07-04 | [the-revelation-of-the-hierarchy-space](posts/2026-07-04-the-revelation-of-the-hierarchy-space.md) | **Space (audio + transcript)** | Peak Mind, Theosophy, Kalki, archons, Pitris, simulation |
+| 2026-06-25 | [double-reverse-engineering-space](posts/2026-06-25-double-reverse-engineering-space.md) | **Space (audio + transcript)** | spaces, UFOs, reverse engineering, technology transfer, assumptions, experiments |
 | 2026-06-18 | [ufox-jt-vs-doom-space](posts/2026-06-18-ufox-jt-vs-doom-space.md) | **Space (audio + transcript)** | spaces, UFOx, discernment, collective blame, listening, synchronicity |
 | 2026-05-08 | [trvxn-defining-remote-viewing](posts/2026-05-08-trvxn-defining-remote-viewing.md) | quote-tweet (Space promo) | ufology, TRV, TRvXN |
 | 2026-05-07 | [ufox-crusade](posts/2026-05-07-ufox-crusade.md) | quote-tweet (Space promo) | UFOx, psyop, crusade |
@@ -50,6 +51,7 @@ Source: manual screenshots from X (X blocks scraping), and `yt-dlp` for Space au
 | 2026-04-01 | [the-return-of-the-king-space](posts/2026-04-01-the-return-of-the-king-space.md) | **Space (audio + transcript)** | spaces, Vedic astrology, Ketu, Magha Nakshatra |
 | 2026-01-10 | [floods-and-revelations-space](posts/2026-01-10-floods-and-revelations-space.md) | **Space (audio + transcript)** | spaces, Jung, collective unconscious, synchronicity, flood symbolism, Saturn Neptune |
 | 2025-10-25 | [time-lords-space](posts/2025-10-25-time-lords-space.md) | **Space (audio + transcript)** | spaces, astrology, remote viewing, prediction, hostile marketing, historical transmission |
+| 2025-10-24 | [escaping-the-simulation-update-take-2-space](posts/2025-10-24-escaping-the-simulation-update-take-2-space.md) | **Space (audio + transcript)** | spaces, simulation, critical thinking, remote viewing, duplicate retellings |
 | 2025-10-23 | [escaping-the-simulation-space](posts/2025-10-23-escaping-the-simulation-space.md) | **Space (audio + transcript)** | spaces, X Spaces, algorithms, audience, online communities |
 | 2025-09-18 | [this-simulation-is-fake-as-fuck-space](posts/2025-09-18-this-simulation-is-fake-as-fuck-space.md) | **Space (audio + transcript)** | spaces, simulation, remote viewing, technology, information access, discernment |
 | 2025-09-04 | [john-lilly-ecco-and-solid-state-intelligence-space](posts/2025-09-04-john-lilly-ecco-and-solid-state-intelligence-space.md) | **Space (audio + transcript)** | spaces, John Lilly, ECCO, solid-state intelligence, AI, UFO lore |
