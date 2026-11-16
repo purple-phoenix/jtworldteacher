@@ -38,3 +38,11 @@ Run `week.py stage <week.json>`, then from the repo root `source catalog/social/
   - The first file pick sometimes doesn't attach; wait for "Uploaded" and pick again. If the Mac sleeps mid-run the schedule is lost silently, so keep it awake (`caffeinate`).
   - The content list is virtualised (about nine rows render at a time). Scroll its container in steps to see every row.
 - **Instagram:** instagram.com's composer has no scheduling for Reels (Advanced settings has only hide counts and comments), only **Share**, which posts at once. Meta Business Suite would schedule, but it needs a separate Meta login, which is Matt's call. Nothing is scheduled on Instagram yet.
+
+## Mac mini review batches
+
+Set `PEAK_MIND_SHORTS_DIR=/Users/mtmccarthy/peak-mind-shorts` for both `week.py render` and `week.py kit`. Output subfolders and word caches then stay on the mini. The mini's existing renderer environment is `/Users/mtmccarthy/astroai-social-studio/venv/bin/python` (Pillow and NumPy); use that Python for `week.py`.
+
+Week 4 lives in `/Users/mtmccarthy/peak-mind-shorts/week-04/`. The read-only `review_server.py` supports byte ranges for seeking and listens only on `127.0.0.1:5490`. Its installed copy is `/Users/mtmccarthy/peak-mind-shorts/.server/review_server.py`, started by `~/Library/LaunchAgents/com.peakmind.shorts-review.plist` at login and restarted on failure. Restart it with `launchctl kickstart -k gui/$(id -u)/com.peakmind.shorts-review`. After a cold reboot, the user's GUI login is required for LaunchAgents.
+
+Tailscale Serve exposes only port 5490 to the tailnet at <https://matts-mac-mini.tailebcf61.ts.net:5490/>. Existing Serve and Funnel routes are left alone. Nothing in this workflow posts or schedules clips.
