@@ -267,36 +267,36 @@ JT and Matt McCarthy.
 #CriticalThinking #SelectiveReporting #Predictions #RemoteViewing
 ```
 
-## Sun Dec 13: #52 Weeks of work, then a broom
+## Sun Dec 13: #52 Weeks of work on a sand mandala, then a broom
 
 - **From:** The Kalachakra Tantric Sand Mandala... a metaphor for life (recorded August 9, 2025)
-- **Length:** 68.00 seconds
-- **Why:** A vivid scene builds from painstaking colored-sand artwork to its deliberate destruction, with a surprising ending that works without the political discussion.
-- **X file:** `week-04/52 - Weeks of work, then a broom.mp4`
-- **YouTube file:** `week-04/52 - Weeks of work, then a broom.mp4`
+- **Length:** 70.62 seconds
+- **Why:** Re-cut (Matt, 2026-11-16): the first cut never said what was being made. It now opens by naming the Tibetan sand mandala, then the weeks of work and the broom.
+- **X file:** `week-04/52 - Weeks of work on a sand mandala, then a broom.mp4`
+- **YouTube file:** `week-04/52 - Weeks of work on a sand mandala, then a broom.mp4`
 
-- **Review:** [Play this short](https://matts-mac-mini.tailebcf61.ts.net:5490/week-04/52%20-%20Weeks%20of%20work%2C%20then%20a%20broom.mp4)
+- **Review:** [Play this short](https://matts-mac-mini.tailebcf61.ts.net:5490/week-04/52%20-%20Weeks%20of%20work%20on%20a%20sand%20mandala%2C%20then%20a%20broom.mp4)
 
-**X post** (249/280):
+**X post** (237/280):
 
 ```text
-Hundreds of hours of painstaking work, then a broom. JT describes the sand-mandala practice he watched and the striking moment when the finished artwork is swept into a pile.
+Weeks of painstaking work on a Tibetan sand mandala, then a broom. JT describes the ritual and the striking moment when the finished artwork is swept into a pile.
 
 Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
 #SandMandala #Impermanence
 ```
 
-**YouTube title** (27/100):
+**YouTube title** (45/100):
 
 ```text
-Weeks of work, then a broom
+Weeks of work on a sand mandala, then a broom
 ```
 
 **YouTube description:**
 
 ```text
-Hundreds of hours of painstaking work, then a broom. JT describes the sand-mandala practice he watched and the striking moment when the finished artwork is swept into a pile.
+Weeks of painstaking work on a Tibetan sand mandala, then a broom. JT describes the ritual and the striking moment when the finished artwork is swept into a pile.
 
 Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 JT and Matt McCarthy.

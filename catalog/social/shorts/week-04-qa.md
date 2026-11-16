@@ -15,7 +15,7 @@ Each isolated final cut was transcribed again with Whisper DTW after trimming th
 | 49 | 2026-12-10 | there was an article about | for the people around us | 82.65 |
 | 50 | 2026-12-11 | an experiment, right, where the | emphasis is on the experiment. | 44.30 |
 | 51 | 2026-12-12 | If we were viewing a | I were in that position. | 31.66 |
-| 52 | 2026-12-13 | If you are all familiar, | it up in a pile. | 68.00 |
+| 52 | 2026-12-13 | A Tibetan sand mandala. If | it up in a pile. | 70.62 |
 | 53 | 2026-12-14 | i have a macbook air | i think it's pretty good | 76.73 |
 | 54 | 2026-12-15 | We read a book and | as solid as that book. | 42.74 |
 | 55 | 2026-12-16 | If you've ever been visibly | more than 10 to 1. | 62.11 |
