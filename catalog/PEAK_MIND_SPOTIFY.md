@@ -2,6 +2,8 @@
 
 This runbook prepares a **local** kit for the captain's manual Spotify for Creators upload. It never uploads to Spotify, R2, or the public site/feed.
 
+This runs on the Mac mini (Matt, 2026-11-16); the weekly agent run is `.claude/skills/peak-mind-weekly/SKILL.md`. Use `python3.13` for the scripts below, since the mini's `/usr/bin/python3` is 3.9.
+
 Peak Mind is the Wednesday show with JT and his brother Matt. It is not JT's Thursday BoomRoom, a casual Space, or a Space hosted by another account.
 
 ## The two judgment gates
@@ -70,10 +72,10 @@ Choose start/end timestamps at pauses or VTT cue boundaries. A repeated phrase o
 `catalog/scripts/peak_mind_review.py` collects the evidence for this step without choosing anything:
 
 ```bash
-python3 catalog/scripts/peak_mind_review.py markers "$work/source.vtt"            # on-air open/close and Q&A handoff lines
-python3 catalog/scripts/peak_mind_review.py scan "$work/source.vtt" START END     # likely hallucinations in the kept window
-python3 catalog/scripts/peak_mind_review.py check "$work/source.m4a" "$work/source.vtt" START END
-python3 catalog/scripts/peak_mind_review.py clips "$work/source.m4a" START END "$work/clips" SLUG
+python3.13 catalog/scripts/peak_mind_review.py markers "$work/source.vtt"            # on-air open/close and Q&A handoff lines
+python3.13 catalog/scripts/peak_mind_review.py scan "$work/source.vtt" START END     # likely hallucinations in the kept window
+python3.13 catalog/scripts/peak_mind_review.py check "$work/source.m4a" "$work/source.vtt" START END
+python3.13 catalog/scripts/peak_mind_review.py clips "$work/source.m4a" START END "$work/clips" SLUG
 ```
 
 The episode starts at the on-air open ("I'm JT. This is Matt. This is Peak Mind.") or another natural opener, never partway through an answer. It ends after one of the hosts says the show is ending, before a listener is invited up for Q&A. Whisper cue boundaries are often half a second off, so `check` fails a cut unless it lands between cues in a 50 ms window at or below -40 dB.
@@ -113,7 +115,7 @@ The final directory is always `~/Downloads/peak-mind-spotify/<date>-<slug>/`. Th
 Pass the approved canonical Space URL. The script independently downloads that Space again so the final kit cannot accidentally combine a URL with another candidate's scratch audio or transcript. It transcribes the uncut source, writes a hash-bound checkpoint under `~/Downloads/peak-mind-spotify/.checkpoints/`, prints the exact next command, and stops without creating a kit:
 
 ```bash
-python3 catalog/scripts/prepare_peak_mind_kit.py prepare "$url" \
+python3.13 catalog/scripts/prepare_peak_mind_kit.py prepare "$url" \
   --manifest "$work/manifest.json"
 ```
 
@@ -133,7 +135,7 @@ Open the checkpoint's `source.m4a` and `draft.vtt`. Remove only whole cues demon
 After that review, run the exact command printed by phase 1 and stored in `NEXT-STEPS.txt`:
 
 ```bash
-python3 catalog/scripts/prepare_peak_mind_kit.py resume \
+python3.13 catalog/scripts/prepare_peak_mind_kit.py resume \
   ~/Downloads/peak-mind-spotify/.checkpoints/YYYY-MM-DD-slug \
   --attest-cleanup
 ```
@@ -151,7 +153,7 @@ Repeating the same resume command is safe: it validates and returns the complete
 Validate again at any time:
 
 ```bash
-python3 catalog/scripts/prepare_peak_mind_kit.py validate \
+python3.13 catalog/scripts/prepare_peak_mind_kit.py validate \
   ~/Downloads/peak-mind-spotify/YYYY-MM-DD-slug
 ```
 
