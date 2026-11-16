@@ -14,7 +14,7 @@
    "#DungeonsAndDragons",
    "#PeakMind"
   ],
-  "promote_live": false,
+  "promote_live": true,
   "spare": false,
   "source_audio": "/Users/mattmccarthy/Downloads/peak-mind-spotify/2026-10-07-proof-of-work-and-the-simulations-challenge-rating/2026-10-07-proof-of-work-and-the-simulations-challenge-rating.m4a",
   "start_seconds": 1386.21,
@@ -86,7 +86,7 @@
    "#Technology",
    "#PeakMind"
   ],
-  "promote_live": false,
+  "promote_live": true,
   "spare": false,
   "source_audio": "/Users/mattmccarthy/Downloads/peak-mind-spotify/2026-10-28-head-in-a-jar-and-the-dead-on-the-throne/2026-10-28-head-in-a-jar-and-the-dead-on-the-throne.m4a",
   "start_seconds": 2013.7,
@@ -158,7 +158,7 @@
    "#Influencers",
    "#PeakMind"
   ],
-  "promote_live": false,
+  "promote_live": true,
   "spare": false,
   "source_audio": "/Users/mattmccarthy/github/jtworldteacher/catalog/spaces/audio/2026-03-27-you-re-screwed-astrology-questions-answered.m4a",
   "start_seconds": 7396.6,
