@@ -990,7 +990,7 @@ export const TOPICS: Topic[] = [
           { t: 3380, note: "A speaker argues any government disclosure of alien technology would likely be deception, since it would also inform China and Russia." },
           { t: 3528, note: "A speaker relays Brian Johnson's theory that the government's psyop has shifted from stigmatizing UFOs to acknowledging them, so adversaries who see craft assume aliens." },
           { t: 5190, note: "A speaker warns against adopting an 'angels and demons' overlay for the phenomenon, saying it will be weaponized." },
-          { t: 6634, note: "JT reads a social-media post claiming 600 to 700 UAP documents would be released that Friday, and cites David Grusch's 'next 60 to 90 days'." },
+          { t: 6634, note: "A speaker reads a social-media post claiming 600 to 700 UAP documents would be released that Friday, and cites David Grusch's 'next 60 to 90 days'." },
         ],
       },
       {
