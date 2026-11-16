@@ -14,10 +14,12 @@ Files are in `~/Downloads/JT social clips/Shorts/`. X gets the uncensored file a
 
 - **Review:** [Play this short](https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-02/21%20-%20Challenge%20rating.mp4)
 
-**X post** (197/280):
+**X post** (236/280):
 
 ```text
 JT compares life's challenges to Dungeons & Dragons: your character gets stronger, and the opponents level up with you.
+
+Peak Mind is live tonight at 7 PM ET.
 
 Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
@@ -36,7 +38,7 @@ As you level up, so do the challenges
 JT compares life's challenges to Dungeons & Dragons: your character gets stronger, and the opponents level up with you.
 
 Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-JT and Matt McCarthy.
+JT and Matt McCarthy, live on X every Wednesday at 7 PM ET.
 
 #DungeonsAndDragons #PeakMind
 ```
@@ -125,10 +127,12 @@ JT and Matt McCarthy.
 
 - **Review:** [Play this short](https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-02/24%20-%20Technology%20as%20a%20mirror.mp4)
 
-**X post** (178/280):
+**X post** (217/280):
 
 ```text
 JT sees technology as a mirror: something we build that helps us examine our own nature. From Head in a Jar.
+
+Peak Mind is live tonight at 7 PM ET.
 
 Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
@@ -147,7 +151,7 @@ Technology as a mirror
 JT sees technology as a mirror: something we build that helps us examine our own nature. From Head in a Jar.
 
 Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-JT and Matt McCarthy.
+JT and Matt McCarthy, live on X every Wednesday at 7 PM ET.
 
 #Technology #PeakMind
 ```
@@ -236,10 +240,12 @@ JT and Matt McCarthy.
 
 - **Review:** [Play this short](https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-02/17%20-%20Influencers%20and%20aristocrats.mp4)
 
-**X post** (184/280):
+**X post** (223/280):
 
 ```text
 JT calls influencers the "petty aristocrats of our time" and argues that displays of luxury can breed resentment.
+
+Peak Mind is live tonight at 7 PM ET.
 
 Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
@@ -258,7 +264,7 @@ Influencers are the new aristocrats
 JT calls influencers the "petty aristocrats of our time" and argues that displays of luxury can breed resentment.
 
 Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-JT and Matt McCarthy.
+JT and Matt McCarthy, live on X every Wednesday at 7 PM ET.
 
 #Influencers #PeakMind
 ```
@@ -321,3 +327,5 @@ Deferred candidates:
 - INDEX 14, vaccine content: excluded as directed. Week 1 clips, cut picks 3 and 4, and Morgan-led picks 8 and 11 were excluded as directed.
 
 Studio also holds each rendered short under its matching episode's Clips tab. Open an episode, tap Clips, then tap Open on the rendered clip. Older catalog episodes were added as recorded entries for this review, without marking them approved or published in Studio. The four already-published episodes kept their existing episode status.
+
+Live-show line: Matt approved it on Wednesday posts on 2026-11-16, so Wed Nov 18, Wed Nov 25 and Wed Dec 2 now set `promote_live` and carry the generated "live tonight at 7 PM ET" X line and the "live on X every Wednesday at 7 PM ET" YouTube line. The scheduled X posts were replaced and the YouTube descriptions edited in place.
