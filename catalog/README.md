@@ -37,6 +37,7 @@ Source: manual screenshots from X (X blocks scraping), and `yt-dlp` for Space au
 | 2026-06-25 | [double-reverse-engineering-space](posts/2026-06-25-double-reverse-engineering-space.md) | **Space (audio + transcript)** | spaces, UFOs, reverse engineering, technology transfer, assumptions, experiments |
 | 2026-06-18 | [ufox-jt-vs-doom-space](posts/2026-06-18-ufox-jt-vs-doom-space.md) | **Space (audio + transcript)** | spaces, UFOx, discernment, collective blame, listening, synchronicity |
 | 2026-05-30 | [defining-remote-viewing-june-and-the-video-space](posts/2026-05-30-defining-remote-viewing-june-and-the-video-space.md) | **Space (audio + transcript)** | spaces, remote viewing, ethics, conformity, simulation, animal welfare |
+| 2026-05-21 | [why-they-troll-space](posts/2026-05-21-why-they-troll-space.md) | **Space (audio + transcript)** | spaces, trolling, social media, assumptions, social change, resilience |
 | 2026-05-08 | [trvxn-defining-remote-viewing](posts/2026-05-08-trvxn-defining-remote-viewing.md) | quote-tweet (Space promo) | ufology, TRV, TRvXN |
 | 2026-05-07 | [ufox-crusade](posts/2026-05-07-ufox-crusade.md) | quote-tweet (Space promo) | UFOx, psyop, crusade |
 | 2026-05-04 | [iran-ceasefire-commentary](posts/2026-05-04-iran-ceasefire-commentary.md) | quote-tweet | geopolitics, Iran, media-criticism |
@@ -54,6 +55,7 @@ Source: manual screenshots from X (X blocks scraping), and `yt-dlp` for Space au
 | 2025-10-25 | [time-lords-space](posts/2025-10-25-time-lords-space.md) | **Space (audio + transcript)** | spaces, astrology, remote viewing, prediction, hostile marketing, historical transmission |
 | 2025-10-24 | [escaping-the-simulation-update-take-2-space](posts/2025-10-24-escaping-the-simulation-update-take-2-space.md) | **Space (audio + transcript)** | spaces, simulation, critical thinking, remote viewing, duplicate retellings |
 | 2025-10-23 | [escaping-the-simulation-space](posts/2025-10-23-escaping-the-simulation-space.md) | **Space (audio + transcript)** | spaces, X Spaces, algorithms, audience, online communities |
+| 2025-09-25 | [what-is-the-intuitive-underground-space](posts/2025-09-25-what-is-the-intuitive-underground-space.md) | **Space (audio + transcript)** | spaces, Intuitive Underground, branding, synchronicity, community, learning |
 | 2025-09-20 | [comet-3i-atlas-test-for-mankind-or-the-remote-viewing-community-space](posts/2025-09-20-comet-3i-atlas-test-for-mankind-or-the-remote-viewing-community-space.md) | **Space (audio + transcript)** | spaces, 3I ATLAS, selective reporting, science fiction, expectations, gaming |
 | 2025-09-18 | [this-simulation-is-fake-as-fuck-space](posts/2025-09-18-this-simulation-is-fake-as-fuck-space.md) | **Space (audio + transcript)** | spaces, simulation, remote viewing, technology, information access, discernment |
 | 2025-09-13 | [what-remote-viewers-say-about-3i-atlas-space](posts/2025-09-13-what-remote-viewers-say-about-3i-atlas-space.md) | **Space (audio + transcript)** | spaces, 3I ATLAS, conversation, sharing knowledge, uncertainty, accountability |
