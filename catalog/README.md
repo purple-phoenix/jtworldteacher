@@ -26,14 +26,18 @@ Source: manual screenshots from X (X blocks scraping), and `yt-dlp` for Space au
 
 | Date | Slug | Type | Topics |
 |------|------|------|--------|
+| 2026-09-25 | [sound-light-and-frequency-recording-space](posts/2026-09-25-sound-light-and-frequency-recording-space.md) | **Space (audio + transcript)** | spaces, esotericism, sound light frequency, metaphor, primary sources, social conformity |
 | 2026-09-16 | [the-world-tree-and-the-eclipse-in-leo-space](posts/2026-09-16-the-world-tree-and-the-eclipse-in-leo-space.md) | **Space (audio + transcript)** | Peak Mind, Maya pyramids, world tree, demiurge, Leo eclipse, Regulus |
 | 2026-09-09 | [intuitive-underground-and-the-power-of-remote-viewing-space](posts/2026-09-09-intuitive-underground-and-the-power-of-remote-viewing-space.md) | **Space (audio + transcript)** | Peak Mind, remote viewing, Intuitive Underground, Morgan Farrell, prediction, simulation |
+| 2026-09-03 | [boomroom-what-i-would-ask-gene-sticco-space](posts/2026-09-03-boomroom-what-i-would-ask-gene-sticco-space.md) | **Space (audio + transcript)** | spaces, Gene Sticco, UFOs, foreign propaganda, technology, communication |
 | 2026-09-02 | [technical-remote-viewing-and-the-kill-shot-space](posts/2026-09-02-technical-remote-viewing-and-the-kill-shot-space.md) | **Space (audio + transcript)** | Peak Mind, remote viewing, TRV, Morgan Farrell, Ed Dames, Kill Shot |
+| 2026-08-27 | [margaritas-nachos-and-drama-space](posts/2026-08-27-margaritas-nachos-and-drama-space.md) | **Space (audio + transcript)** | spaces, astrology, cognitive bias, ethics, X Spaces, remote viewing |
 | 2026-07-05 | [american-disclosure-space](posts/2026-07-05-american-disclosure-space.md) | **Space (audio + transcript)** | Peak Mind, disclosure, eschatology, 3I/ATLAS, simulation |
 | 2026-07-04 | [the-revelation-of-the-hierarchy-space](posts/2026-07-04-the-revelation-of-the-hierarchy-space.md) | **Space (audio + transcript)** | Peak Mind, Theosophy, Kalki, archons, Pitris, simulation |
 | 2026-05-08 | [trvxn-defining-remote-viewing](posts/2026-05-08-trvxn-defining-remote-viewing.md) | quote-tweet (Space promo) | ufology, TRV, TRvXN |
 | 2026-05-07 | [ufox-crusade](posts/2026-05-07-ufox-crusade.md) | quote-tweet (Space promo) | UFOx, psyop, crusade |
 | 2026-05-04 | [iran-ceasefire-commentary](posts/2026-05-04-iran-ceasefire-commentary.md) | quote-tweet | geopolitics, Iran, media-criticism |
+| 2026-04-XX | [astro-rv-update](posts/2026-04-XX-astro-rv-update.md) | space-poster | Astro RV, monthly update |
 | 2026-04-30 | [oriental-archons](posts/2026-04-30-oriental-archons.md) | poster post | archons, ancient-aliens, simulation |
 | 2026-04-25 | [technical-remote-viewing-ed-dames](posts/2026-04-25-technical-remote-viewing-ed-dames.md) | space-poster | TRV, Ed Dames, AI, context engineering |
 | 2026-04-24 | [ufox-inevitable-ruin](posts/2026-04-24-ufox-inevitable-ruin.md) | space-poster | UFOx, community-critique, NHI |
@@ -42,8 +46,10 @@ Source: manual screenshots from X (X blocks scraping), and `yt-dlp` for Space au
 | 2026-04-11 | [into-darkness-killshot](posts/2026-04-11-into-darkness-killshot.md) | space-poster | TRV, Ed Dames, Killshot, eschatology |
 | 2026-04-08 | [mars-aries-tipping-point](posts/2026-04-08-mars-aries-tipping-point.md) | quote-tweet | astrology, Iran, mundane forecasting |
 | 2026-04-06 | [shadow-projection-ai-portals](posts/2026-04-06-shadow-projection-ai-portals.md) | quote-tweet | AI, Jung, shadow projection, teaching |
-| 2026-04-XX | [astro-rv-update](posts/2026-04-XX-astro-rv-update.md) | space-poster | Astro RV, monthly update |
 | 2026-04-01 | [the-return-of-the-king-space](posts/2026-04-01-the-return-of-the-king-space.md) | **Space (audio + transcript)** | spaces, Vedic astrology, Ketu, Magha Nakshatra |
+| 2026-01-10 | [floods-and-revelations-space](posts/2026-01-10-floods-and-revelations-space.md) | **Space (audio + transcript)** | spaces, Jung, collective unconscious, synchronicity, flood symbolism, Saturn Neptune |
+| 2025-10-23 | [escaping-the-simulation-space](posts/2025-10-23-escaping-the-simulation-space.md) | **Space (audio + transcript)** | spaces, X Spaces, algorithms, audience, online communities |
+| 2025-09-04 | [john-lilly-ecco-and-solid-state-intelligence-space](posts/2025-09-04-john-lilly-ecco-and-solid-state-intelligence-space.md) | **Space (audio + transcript)** | spaces, John Lilly, ECCO, solid-state intelligence, AI, UFO lore |
 
 ## Adding new material
 
