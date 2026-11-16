@@ -37,6 +37,7 @@ Source: manual screenshots from X (X blocks scraping), and `yt-dlp` for Space au
 | 2026-06-25 | [double-reverse-engineering-space](posts/2026-06-25-double-reverse-engineering-space.md) | **Space (audio + transcript)** | spaces, UFOs, reverse engineering, technology transfer, assumptions, experiments |
 | 2026-06-18 | [ufox-jt-vs-doom-space](posts/2026-06-18-ufox-jt-vs-doom-space.md) | **Space (audio + transcript)** | spaces, UFOx, discernment, collective blame, listening, synchronicity |
 | 2026-05-30 | [defining-remote-viewing-june-and-the-video-space](posts/2026-05-30-defining-remote-viewing-june-and-the-video-space.md) | **Space (audio + transcript)** | spaces, remote viewing, ethics, conformity, simulation, animal welfare |
+| 2026-05-23 | [when-the-tailspin-ends-space](posts/2026-05-23-when-the-tailspin-ends-space.md) | **Space (audio + transcript)** | spaces, podcasting, reported experiences, habits, learning, uncertainty |
 | 2026-05-21 | [why-they-troll-space](posts/2026-05-21-why-they-troll-space.md) | **Space (audio + transcript)** | spaces, trolling, social media, assumptions, social change, resilience |
 | 2026-05-08 | [trvxn-defining-remote-viewing](posts/2026-05-08-trvxn-defining-remote-viewing.md) | quote-tweet (Space promo) | ufology, TRV, TRvXN |
 | 2026-05-07 | [ufox-crusade](posts/2026-05-07-ufox-crusade.md) | quote-tweet (Space promo) | UFOx, psyop, crusade |

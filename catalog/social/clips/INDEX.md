@@ -114,7 +114,7 @@ Nov 11 uses the uncut source. Its planned Permadeath and Peers Doing It moments 
 
 ## New sources (Nov 2026)
 
-Provisional ranking from 25 of the 26 new recordings mined so far. Ranked for a clear cold opening, a complete payoff, novelty against the posted stories, and JT-led delivery in 30 to 90 seconds. Duplicate retellings are explicitly marked in source files and excluded from this ranking and the usable count. The three creator-discussion picks from the aborted Escaping the Simulation Space are lower-priority reserves. All source recordings are whole and untrimmed, so these times do not match any edited podcast. Nothing from this batch is rendered or published.
+Ranking across all 26 new recordings. Ranked for a clear cold opening, a complete payoff, novelty against the posted stories, and JT-led delivery in 30 to 90 seconds. Duplicate retellings are explicitly marked in source files and excluded from this ranking and the usable count. The three creator-discussion picks from the aborted Escaping the Simulation Space are lower-priority reserves. All source recordings are whole and untrimmed, so these times do not match any edited podcast. Nothing from this batch is rendered or published.
 
 | # | Moment | Episode | Time | Len | Speaker | Quote card | Review | Audio |
 |---|---|---|---|---|---|---|---|---|
