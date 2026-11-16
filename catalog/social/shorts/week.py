@@ -4,10 +4,12 @@ usage (from the repo root):
   python3 -I catalog/social/shorts/week.py render catalog/social/shorts/week-01.json
   python3 -I catalog/social/shorts/week.py kit catalog/social/shorts/week-01.json
   python3 -I catalog/social/shorts/week.py stage catalog/social/shorts/week-01.json   # after approval
+  python3 -I catalog/social/shorts/week.py stage catalog/social/shorts/week-04.json --dated-only   # drop undated spares
 
 The week file lists clips (episode slug, moment number in catalog/social/clips/<slug>.md, post date,
 headline, recording date, source audio name). Audio comes from ~/Downloads/JT social clips/Ready to post/
-and videos go to ~/Downloads/JT social clips/Shorts/. Clips that swear get an uncensored X file and a
+(or $PEAK_MIND_CLIPS_SRC) unless a clip gives an absolute path, and videos go to ~/Downloads/JT social clips/Shorts/
+(or $PEAK_MIND_SHORTS_DIR, for example /Users/mtmccarthy/peak-mind-shorts on the Mac mini). Clips that swear get an uncensored X file and a
 bleeped YouTube file. The kit is written next to the week file and copied to the Shorts folder.
 """
 import datetime as dt
@@ -20,7 +22,7 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
-SRC = os.path.expanduser("~/Downloads/JT social clips/Ready to post")
+SRC = os.path.expanduser(os.environ.get("PEAK_MIND_CLIPS_SRC", "~/Downloads/JT social clips/Ready to post"))
 OUT = os.path.expanduser(os.environ.get("PEAK_MIND_SHORTS_DIR", "~/Downloads/JT social clips/Shorts"))
 WORK = os.path.join(OUT, ".words")
 SITE = "https://jtworldteacher.com/podcast"
@@ -124,10 +126,14 @@ def kit(week, week_path):
     print("wrote", out)
 
 
-def stage(week, week_path):
-    """Copy the week's files into .upload-tmp/ (chrome-devtools-axi only uploads from inside the repo) and write posts.json."""
+def stage(week, week_path, dated_only=False):
+    """Copy the week's files into .upload-tmp/ (chrome-devtools-axi only uploads from inside the repo) and write posts.json.
+
+    dated_only drops undated spares, for when Matt approved exactly the dated slots."""
+    if dated_only:
+        week = [c for c in week if not c.get("spare")]
     if any(c.get("spare") for c in week):
-        raise ValueError("Choose the approved dated clips and remove spares before staging")
+        raise ValueError("Choose the approved dated clips and remove spares before staging (or pass --dated-only)")
     kit_text = open(os.path.splitext(week_path)[0] + "-kit.md", encoding="utf-8").read()
     os.makedirs(os.path.join(REPO, ".upload-tmp"), exist_ok=True)
     posts = []
@@ -147,5 +153,7 @@ def stage(week, week_path):
 
 if __name__ == "__main__":
     cmd, path = sys.argv[1], sys.argv[2]
+    dated_only = "--dated-only" in sys.argv[3:]
     week = json.load(open(path, encoding="utf-8"))
-    {"render": lambda: render(week), "kit": lambda: kit(week, path), "stage": lambda: stage(week, path)}[cmd]()
+    {"render": lambda: render(week), "kit": lambda: kit(week, path),
+     "stage": lambda: stage(week, path, dated_only)}[cmd]()

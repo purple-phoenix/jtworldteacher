@@ -18,7 +18,7 @@ Week files may include `caption`, `episode_title` and `hashtags` for transcript-
 
 ## Scheduling (after Matt approves the week's kit)
 
-Run `week.py stage <week.json>`, then from the repo root `source catalog/social/shorts/browser/x.sh` (it also loads `youtube.sh`). The Peak Mind Chrome profile is already signed in to both sites. Delete `.upload-tmp/` when finished. Week 1 was scheduled this way on 2026-11-01: 7 YouTube Shorts and 7 X posts, Mon/Wed/Fri at 12:00 PM ET. Week 2 was scheduled the same way on 2026-11-16: 8 YouTube Shorts and 8 X posts from Nov 18 to Dec 4 (Letting go of resentment held while Matt checks with JT). Week 3 (eleven daily slots from Nov 17 to Dec 6, Dec 5 left empty) was scheduled on 2026-11-15: all 11 on X, but only 2 on YouTube before the daily upload limit stopped it.
+Run `week.py stage <week.json>` (on the mini, see "Scheduling from the Mac mini" below), then from the repo root `source catalog/social/shorts/browser/x.sh` (it also loads `youtube.sh`). The Peak Mind Chrome profile is already signed in to both sites. Delete `.upload-tmp/` when finished. Week 1 was scheduled this way on 2026-11-01: 7 YouTube Shorts and 7 X posts, Mon/Wed/Fri at 12:00 PM ET. Week 2 was scheduled the same way on 2026-11-16: 8 YouTube Shorts and 8 X posts from Nov 18 to Dec 4 (Letting go of resentment held while Matt checks with JT). Week 3 (eleven daily slots from Nov 17 to Dec 6, Dec 5 left empty) was scheduled on 2026-11-15: all 11 on X, but only 2 on YouTube before the daily upload limit stopped it.
 
 - **YouTube Studio:** upload, then fill in title, description and "not made for kids". Click Next three times, open **Schedule**, then set the date and time.
   - The time options use a narrow no-break space ("12:00 PM"), so typing a time doesn't work.
@@ -46,3 +46,15 @@ Set `PEAK_MIND_SHORTS_DIR=/Users/mtmccarthy/peak-mind-shorts` for both `week.py 
 Week 4 lives in `/Users/mtmccarthy/peak-mind-shorts/week-04/`. The read-only `review_server.py` supports byte ranges for seeking and listens only on `127.0.0.1:5490`. Its installed copy is `/Users/mtmccarthy/peak-mind-shorts/.server/review_server.py`, started by `~/Library/LaunchAgents/com.peakmind.shorts-review.plist` at login and restarted on failure. Restart it with `launchctl kickstart -k gui/$(id -u)/com.peakmind.shorts-review`. After a cold reboot, the user's GUI login is required for LaunchAgents.
 
 Tailscale Serve exposes only port 5490 to the tailnet at <https://matts-mac-mini.tailebcf61.ts.net:5490/>. Existing Serve and Funnel routes are left alone. Nothing in this workflow posts or schedules clips.
+
+## Scheduling from the Mac mini
+
+Scheduling moved to the mini on 2026-11-16 because it never sleeps. The helpers have no per-machine paths: they use `$HOME`, `$PWD` and the env vars below, so the same commands work on both Macs.
+
+- Home is `/Users/mtmccarthy` (the MacBook's is `/Users/mattmccarthy`). Videos live in `/Users/mtmccarthy/peak-mind-shorts/`: week 2 at its top level, weeks 3 and 4 in `week-03/` and `week-04/`. Week 2 and 3 were copied there on 2026-11-16 from the MacBook's `~/Downloads/JT social clips/Shorts/` with Taildrop (`tailscale file cp` on the MacBook, `tailscale file get <dir>` on the mini, then sorted into folders by clip number). Taildrop is flat, so check sizes and move files by hand. SSH from the mini to the MacBook is refused, and the MacBook does not yet trust the mini's host key, so rsync was not used.
+- Run `week.py` with the renderer venv and the Shorts folder set, from the repo root:
+  `PEAK_MIND_SHORTS_DIR=/Users/mtmccarthy/peak-mind-shorts /Users/mtmccarthy/astroai-social-studio/venv/bin/python -I catalog/social/shorts/week.py stage catalog/social/shorts/week-NN.json`. `PEAK_MIND_CLIPS_SRC` overrides the source-audio folder for `render`, though recent week files give absolute audio paths.
+- A week file with undated spares (week 4 has three) needs `stage ... --dated-only` once Matt has approved exactly the dated slots. Without the flag `stage` still refuses, so a spare is never staged by accident.
+- The Peak Mind Chrome profile on the mini is `~/.peak-mind-social-chrome`, session `peak-mind-social`, headed. It is signed in separately from the MacBook's profile; if a site shows a sign-in or 2FA screen, stop and ask Matt (Screen Sharing to the mini).
+- Wrap long runs in `caffeinate -dimsu` so the display and disk stay awake while Chrome uploads.
+- `xpost` now reads the zero-padded staged file (`x-02.mp4`), matching what `stage` writes, so single-digit clip numbers work.

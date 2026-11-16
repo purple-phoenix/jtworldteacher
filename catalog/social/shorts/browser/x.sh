@@ -26,7 +26,7 @@ xfinish(){ N=$1; DAY=$2; EXPECT="$3"; MONTH=${4:-11}
   echo "#$N: $m"; }
 xpost(){ N=$1
   $A open "https://x.com/compose/post" >/dev/null 2>&1; r=$(W 'button "Add photos or video"' 20) || { echo "#$N no composer"; return 1; }
-  ok=0; for try in 1 2 3; do r=$($A snapshot 2>&1 | grep -E 'button "Add photos or video"' | tail -1 | grep -o 'g[0-9]*:[0-9_]*'); $A upload @$r $PWD/.upload-tmp/x-$N.mp4 >/dev/null 2>&1
+  ok=0; for try in 1 2 3; do r=$($A snapshot 2>&1 | grep -E 'button "Add photos or video"' | tail -1 | grep -o 'g[0-9]*:[0-9_]*'); $A upload @$r "$PWD/.upload-tmp/x-$(printf %02d $N).mp4" >/dev/null 2>&1
     W 'slider "video time scrubber"' 30 >/dev/null && { ok=1; break; }; done
   [ $ok = 1 ] || { echo "#$N video did not attach"; return 1; }
   xtype $N || return 1; xfinish "$@"; }
