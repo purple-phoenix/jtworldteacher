@@ -51,6 +51,7 @@ Source: manual screenshots from X (X blocks scraping), and `yt-dlp` for Space au
 | 2026-01-10 | [floods-and-revelations-space](posts/2026-01-10-floods-and-revelations-space.md) | **Space (audio + transcript)** | spaces, Jung, collective unconscious, synchronicity, flood symbolism, Saturn Neptune |
 | 2025-10-25 | [time-lords-space](posts/2025-10-25-time-lords-space.md) | **Space (audio + transcript)** | spaces, astrology, remote viewing, prediction, hostile marketing, historical transmission |
 | 2025-10-23 | [escaping-the-simulation-space](posts/2025-10-23-escaping-the-simulation-space.md) | **Space (audio + transcript)** | spaces, X Spaces, algorithms, audience, online communities |
+| 2025-09-18 | [this-simulation-is-fake-as-fuck-space](posts/2025-09-18-this-simulation-is-fake-as-fuck-space.md) | **Space (audio + transcript)** | spaces, simulation, remote viewing, technology, information access, discernment |
 | 2025-09-04 | [john-lilly-ecco-and-solid-state-intelligence-space](posts/2025-09-04-john-lilly-ecco-and-solid-state-intelligence-space.md) | **Space (audio + transcript)** | spaces, John Lilly, ECCO, solid-state intelligence, AI, UFO lore |
 
 ## Adding new material
