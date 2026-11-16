@@ -126,7 +126,8 @@ def stage(week, week_path):
     kit_text = open(os.path.splitext(week_path)[0] + "-kit.md", encoding="utf-8").read()
     os.makedirs(os.path.join(REPO, ".upload-tmp"), exist_ok=True)
     posts = []
-    for section in re.split(r"\n## ", kit_text)[1:]:
+    # only the dated slot sections ("Wed Nov 18: #21 ..."); hand-written notes after them are skipped
+    for section in [s for s in re.split(r"\n## ", kit_text)[1:] if re.match(r"\w{3} \w{3} \d{1,2}: #\d+ ", s)]:
         n = int(re.search(r"#(\d+)", section).group(1))
         x_text, title, desc = re.findall(r"```text\n(.*?)\n```", section, re.S)
         c = next(c for c in week if c["n"] == n)
@@ -134,6 +135,7 @@ def stage(week, week_path):
         shutil.copy(x_file, os.path.join(REPO, ".upload-tmp", f"x-{n:02d}.mp4"))
         shutil.copy(yt_file, os.path.join(REPO, ".upload-tmp", f"yt-{n:02d}.mp4"))
         posts.append({"n": n, "post_on": c["post_on"], "x": x_text, "title": title, "desc": desc})
+    assert sorted(p["n"] for p in posts) == sorted(c["n"] for c in week), "kit and week file list different clips"
     json.dump(posts, open(os.path.join(REPO, ".upload-tmp", "posts.json"), "w"), indent=1, ensure_ascii=False)
     print(f"staged {len(posts)} posts in .upload-tmp/ (delete it when done)")
 
