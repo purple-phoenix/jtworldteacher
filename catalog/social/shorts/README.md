@@ -16,12 +16,12 @@ Week files may include `caption`, `episode_title` and `hashtags` for transcript-
 
 ## Scheduling (after Matt approves the week's kit)
 
-Run `week.py stage <week.json>`, then from the repo root `source catalog/social/shorts/browser/x.sh` (it also loads `youtube.sh`). The Peak Mind Chrome profile is already signed in to both sites. Delete `.upload-tmp/` when finished. Week 1 was scheduled this way on 2026-11-01: 7 YouTube Shorts and 7 X posts, Mon/Wed/Fri at 12:00 PM ET.
+Run `week.py stage <week.json>`, then from the repo root `source catalog/social/shorts/browser/x.sh` (it also loads `youtube.sh`). The Peak Mind Chrome profile is already signed in to both sites. Delete `.upload-tmp/` when finished. Week 1 was scheduled this way on 2026-11-01: 7 YouTube Shorts and 7 X posts, Mon/Wed/Fri at 12:00 PM ET. Week 2 was scheduled the same way on 2026-11-16: 8 YouTube Shorts and 8 X posts from Nov 18 to Dec 4 (Letting go of resentment held while Matt checks with JT).
 
 - **YouTube Studio:** upload, then fill in title, description and "not made for kids". Click Next three times, open **Schedule**, then set the date and time.
   - The time options use a narrow no-break space ("12:00 PM"), so typing a time doesn't work.
   - On some screens the time list saves one slot off from the option clicked. `set_noon` keeps trying until the field reads 12:00 PM.
-  - Confirm success with the "will be set to public on …" message, not by reading the page summary, which gets cut off when the Shorts list is behind the dialog.
+  - Confirm success with the "will be set to public on …" message (it also has a narrow no-break space before PM, and may end "after the standard definition (SD) finishes processing"), not by reading the page summary, which gets cut off when the Shorts list is behind the dialog.
   - If a run leaves drafts, finish them from the video's own page (`studio.youtube.com/video/<id>/edit` → **Edit draft**).
 - **X:** the composer's **Schedule post** panel (`data-testid=scheduleOption`) has six selects (Month, Day, Year, Hour, Minute, AM/PM). Set them with the native value setter and a `change` event. `xpost <n> <day> '<expected date text>' [month]` uploads, types and schedules one post; month defaults to 11, so pass 12 for December slots.
   - Only click the button when it reads **Schedule** and the panel says "Will send on <date> at 12:00 PM". Never click it while it says **Post**.
