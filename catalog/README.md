@@ -48,6 +48,7 @@ Source: manual screenshots from X (X blocks scraping), and `yt-dlp` for Space au
 | 2026-04-06 | [shadow-projection-ai-portals](posts/2026-04-06-shadow-projection-ai-portals.md) | quote-tweet | AI, Jung, shadow projection, teaching |
 | 2026-04-01 | [the-return-of-the-king-space](posts/2026-04-01-the-return-of-the-king-space.md) | **Space (audio + transcript)** | spaces, Vedic astrology, Ketu, Magha Nakshatra |
 | 2026-01-10 | [floods-and-revelations-space](posts/2026-01-10-floods-and-revelations-space.md) | **Space (audio + transcript)** | spaces, Jung, collective unconscious, synchronicity, flood symbolism, Saturn Neptune |
+| 2025-10-25 | [time-lords-space](posts/2025-10-25-time-lords-space.md) | **Space (audio + transcript)** | spaces, astrology, remote viewing, prediction, hostile marketing, historical transmission |
 | 2025-10-23 | [escaping-the-simulation-space](posts/2025-10-23-escaping-the-simulation-space.md) | **Space (audio + transcript)** | spaces, X Spaces, algorithms, audience, online communities |
 | 2025-09-04 | [john-lilly-ecco-and-solid-state-intelligence-space](posts/2025-09-04-john-lilly-ecco-and-solid-state-intelligence-space.md) | **Space (audio + transcript)** | spaces, John Lilly, ECCO, solid-state intelligence, AI, UFO lore |
 
