@@ -58,6 +58,8 @@ def render(week):
 
 
 def moment(c):
+    if "caption" in c:
+        return c["episode_title"], c["caption"], c["hashtags"]
     text = open(os.path.join(REPO, "catalog/social/clips", c["episode"] + ".md"), encoding="utf-8").read()
     title = re.match(r"# (.+): social clips", text).group(1)
     block = re.split(r"\n(?=### \d+\. )", text)[c["moment"]]
@@ -79,20 +81,28 @@ def kit(week, week_path):
     for c in week:
         title, caption, tags = moment(c)
         x_file, yt_file = files_for(c)
-        day = dt.date.fromisoformat(c["post_on"])
-        wed = day.weekday() == 2
+        spare = c.get("spare", False)
+        day = None if spare else dt.date.fromisoformat(c["post_on"])
+        wed = day is not None and day.weekday() == 2 and c.get("promote_live", True)
         live = ["\n\nPeak Mind is live tonight at 7 PM ET.", "\n\nLive tonight, 7 PM ET."] if wed else [""]
         variants = [caption + lv + lead + SPOTIFY + ("\n\n" + " ".join(tags[:n]) if n else "")
                     for lead in ("\n\nPeak Mind on Spotify: ", "\n\nSpotify: ", "\n\n") for lv in live for n in (2, 1, 0)]
         x_text = next((v for v in variants if x_len(v) <= 280), None)
         assert x_text, f"#{c['n']}: caption too long for X even without extras"
-        yt_desc = (f"{caption}\n\nListen to Peak Mind on Spotify: {SPOTIFY}\nJT and Matt McCarthy, live on X every "
-                   f"Wednesday at 7 PM ET.\n\n" + " ".join(tags[:5]))
+        show_line = "JT and Matt McCarthy."
+        if c.get("promote_live", True):
+            show_line = "JT and Matt McCarthy, live on X every Wednesday at 7 PM ET."
+        yt_desc = (f"{caption}\n\nListen to Peak Mind on Spotify: {SPOTIFY}\n{show_line}\n\n" + " ".join(tags[:5]))
+        slot = "SPARE (no posting date)" if spare else day.strftime('%a %b %-d')
         lines += [
-            f"## {day.strftime('%a %b %-d')}: #{c['n']} {c['headline']}\n",
+            f"## {slot}: #{c['n']} {c['headline']}\n",
             f"- **From:** {title} (recorded {c['recorded']})",
+            *([f"- **Length:** {c['duration_seconds']:.2f} seconds",
+               f"- **Why:** {c['why']}"] if "duration_seconds" in c else []),
             f"- **X file:** `{os.path.basename(x_file)}`",
             f"- **YouTube file:** `{os.path.basename(yt_file)}`\n",
+            *([f"- **Review:** [Play this short]({c['review_url']})\n"] if c.get("review_url") else []),
+            *([f"- **YouTube review:** [Play the bleeped version]({c['youtube_review_url']})\n"] if c.get("youtube_review_url") else []),
             f"**X post** ({x_len(x_text)}/280):\n",
             "```text\n" + x_text + "\n```\n",
             f"**YouTube title** ({len(c['headline'])}/100):\n",
@@ -111,6 +121,8 @@ def kit(week, week_path):
 
 def stage(week, week_path):
     """Copy the week's files into .upload-tmp/ (chrome-devtools-axi only uploads from inside the repo) and write posts.json."""
+    if any(c.get("spare") for c in week):
+        raise ValueError("Choose the approved dated clips and remove spares before staging")
     kit_text = open(os.path.splitext(week_path)[0] + "-kit.md", encoding="utf-8").read()
     os.makedirs(os.path.join(REPO, ".upload-tmp"), exist_ok=True)
     posts = []
