@@ -56,6 +56,9 @@ Source: manual screenshots from X (X blocks scraping), and `yt-dlp` for Space au
 | 2025-10-23 | [escaping-the-simulation-space](posts/2025-10-23-escaping-the-simulation-space.md) | **Space (audio + transcript)** | spaces, X Spaces, algorithms, audience, online communities |
 | 2025-09-18 | [this-simulation-is-fake-as-fuck-space](posts/2025-09-18-this-simulation-is-fake-as-fuck-space.md) | **Space (audio + transcript)** | spaces, simulation, remote viewing, technology, information access, discernment |
 | 2025-09-04 | [john-lilly-ecco-and-solid-state-intelligence-space](posts/2025-09-04-john-lilly-ecco-and-solid-state-intelligence-space.md) | **Space (audio + transcript)** | spaces, John Lilly, ECCO, solid-state intelligence, AI, UFO lore |
+| 2025-07-12 | [ufox-drama-story-hour-are-you-on-the-list-space](posts/2025-07-12-ufox-drama-story-hour-are-you-on-the-list-space.md) | **Space (audio + transcript)** | spaces, UFOx, community conflict, privacy, evidence, escalation |
+| 2025-06-30 | [a-letter-from-a-critic-read-with-commentary-space](posts/2025-06-30-a-letter-from-a-critic-read-with-commentary-space.md) | **Space (audio + transcript)** | spaces, criticism, remote viewing, compensation, community, resilience |
+| 2025-06-26 | [synchronicity-and-sacred-time-space](posts/2025-06-26-synchronicity-and-sacred-time-space.md) | **Space (audio + transcript)** | spaces, synchronicity, sacred time, regret, Jung, perception |
 
 ## Adding new material
 
