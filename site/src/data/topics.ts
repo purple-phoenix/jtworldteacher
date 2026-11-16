@@ -312,9 +312,20 @@ export const TOPICS: Topic[] = [
       {
         slug: "2026-09-02-technical-remote-viewing-and-the-kill-shot",
         mentions: [
+          { t: 478, note: "Morgan Farrell says Ed Dames started a private consulting and training company in 1989 and worked as a government contractor until the program's declassification in the mid-1990s." },
+          { t: 579, note: "Morgan says he found remote viewing in 2011 while recovering from a workplace injury, and bought a home-study course to test it for himself." },
           { t: 880, note: "Morgan Farrell explains remote viewing as both protocol and method, describing tasker, blind viewer, target reference numbers and feedback." },
+          { t: 1280, note: "Morgan describes Stanford scientists reverse-engineering Ingo Swann's natural psychic process into a teachable set of stages, the start of controlled remote viewing." },
           { t: 1383, note: "Morgan describes how Ed Dames refined controlled remote viewing into TRV, a staged, rapid-fire prompt-and-response method." },
+          { t: 1898, note: "Morgan describes TRV targeting as working with the syntax and grammar of the unconscious mind, balancing an open query against one so broad the viewer flounders." },
+          { t: 2243, note: "JT, flagging it as his own speculation, says Dames thought about remote viewing the way a context engineer thinks about AI: streamlined and in the right syntax." },
+          { t: 2789, note: "Morgan explains bilocation, splitting attention between your surroundings and the target, and calls remote viewing an attention-management skill." },
+          { t: 3094, note: "Morgan says he prefers TRV because the more experiential a session becomes, the more likely the viewer is to drift off task and turn subjective." },
           { t: 3400, note: "Morgan recounts the Kill Shot, an Earth-facing X-class solar flare seen by Dames' viewers, citing the 1859 Carrington event." },
+          { t: 3800, note: "JT recalls Dames on Coast to Coast AM, where he was called Dr. Doom, and says he strongly believed in the Kill Shot data." },
+          { t: 3938, note: "JT says Dames' preparation videos and viewers hired to find the best place to be during the event led critics to call TRV a grift." },
+          { t: 4271, note: "JT argues the Kill Shot prediction has not failed, because the global-conflict conditions its viewers saw have never existed until now." },
+          { t: 5071, note: "JT closes by calling the Kill Shot material an extremely important transmission from the collective unconscious." },
         ],
       },
       {
@@ -977,7 +988,9 @@ export const TOPICS: Topic[] = [
         mentions: [
           { t: 2860, note: "JT recounts evangelical pastors claiming intelligence insiders said disclosure would reveal demonic UFOs, then argues the government's own story is physical aliens." },
           { t: 3380, note: "A speaker argues any government disclosure of alien technology would likely be deception, since it would also inform China and Russia." },
+          { t: 3528, note: "A speaker relays Brian Johnson's theory that the government's psyop has shifted from stigmatizing UFOs to acknowledging them, so adversaries who see craft assume aliens." },
           { t: 5190, note: "A speaker warns against adopting an 'angels and demons' overlay for the phenomenon, saying it will be weaponized." },
+          { t: 6634, note: "JT reads a social-media post claiming 600 to 700 UAP documents would be released that Friday, and cites David Grusch's 'next 60 to 90 days'." },
         ],
       },
       {
@@ -1000,6 +1013,12 @@ export const TOPICS: Topic[] = [
           { t: 2431, note: "JT argues UFO disclosure is really eschatology, end-times belief shaped by Puritan theology, with aliens cast as judging angels." },
           { t: 2957, note: "JT says Southern Baptist culture reads the whole UFO phenomenon as demonic deception, citing the Collins Elite inside the Pentagon." },
           { t: 3651, note: "JT and Matt speculate about 3I/ATLAS passing close to Mars and Jupiter, and about amphibious beings and Europa." },
+        ],
+      },
+      {
+        slug: "2026-09-02-technical-remote-viewing-and-the-kill-shot",
+        mentions: [
+          { t: 455, note: "Morgan Farrell says the Fort Meade operational remote-viewing unit emerged publicly after full declassification in August 1995, though much on the operations side is still classified." },
         ],
       },
       {
@@ -1066,8 +1085,13 @@ export const TOPICS: Topic[] = [
         slug: "2026-05-07-ufox-the-crusade-within-ufology",
         mentions: [
           { t: 608, note: "JT opens by noting two words, 'interdimensional' and 'Catholic', suddenly recurring in UFOX and ufology spaces, and sets up the thesis." },
+          { t: 1273, note: "JT says there is a psychological-operation, or marketing, aspect heavily present in ufology and in UFOX, though he thinks accusations of being a fed are overestimated." },
+          { t: 1543, note: "JT asks, as a thought exercise, why the Catholic Church might be pivoting to the extraterrestrial question now, and ties it to a story he tells about the Vatican and the Epstein emails." },
+          { t: 2741, note: "JT says the space's title should really be 'the crusade coming into ufology', and adds that he believes Mav and Gene Stickle are here in good faith." },
           { t: 2825, note: "JT argues Mav's and Gene Stickle's spaces now eclipse UFOX, which he calls mostly drama at present." },
+          { t: 3044, note: "JT sets the Catholic position (other worlds are possible, and arrivals would be baptized) as a dark-horse view against the 'aliens or demons' storyline." },
           { t: 3900, note: "JT describes newcomers being 'cocooned' by the same handful of UFOX hosts, who co-host and spin the narrative, citing the pastor example." },
+          { t: 5588, note: "A speaker calls the Catholic Church probably the largest intelligence agency in the world, with every priest reporting back through the hierarchy to Rome." },
           { t: 11226, note: "The panel debates whether a few prominent UFOX hosts act as gatekeepers, with guests on both sides." },
         ],
       },

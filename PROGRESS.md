@@ -33,15 +33,15 @@ Two-track repo:
 
 ## Episode status
 
-24 episodes total (all published, all in the RSS feed), oldest first. "Stub" means the page still says "Detailed show notes coming":
+24 episodes total (all published, all in the RSS feed), oldest first. Every page has written show notes. The five 2025 episodes use the older `## About this episode` + `## Topics` + `## Quotes` layout; the rest use `## Show notes` + `## Notable quotes`:
 
 | Date | Title | Show notes | Audio on R2 | Live |
 |---|---|---|---|---|
-| 2025-05-28 | BIGFOOT presents the state of reality with remote viewers Morgan Farrell & Dan Mann | ⏳ stub — transcript ready | ✅ | ✅ (as stub) |
-| 2025-05-31 | THE ASTRO RV PROJECT with remote viewer Morgan Farrell | ⏳ stub — transcript ready | ✅ | ✅ (as stub) |
-| 2025-06-20 | Sacred time and synchronicity storytime | ⏳ stub (pre-show fragment, 8 min) | ✅ | ✅ (as stub) |
-| 2025-06-27 | Thinking about World War 3 | ⏳ stub — transcript ready | ✅ | ✅ (as stub) |
-| 2025-07-16 | Human nature and the paranormal | ⏳ stub — transcript ready | ✅ | ✅ (as stub) |
+| 2025-05-28 | BIGFOOT presents the state of reality with remote viewers Morgan Farrell & Dan Mann | ✅ enriched (older layout) | ✅ | ✅ |
+| 2025-05-31 | THE ASTRO RV PROJECT with remote viewer Morgan Farrell | ✅ enriched (older layout) | ✅ | ✅ |
+| 2025-06-20 | Sacred time and synchronicity storytime | ✅ enriched (older layout; pre-show fragment, 8 min) | ✅ | ✅ |
+| 2025-06-27 | Thinking about World War 3 | ✅ enriched (older layout) | ✅ | ✅ |
+| 2025-07-16 | Human nature and the paranormal | ✅ enriched (older layout) | ✅ | ✅ |
 | 2026-01-11 | Karmic Deep Impact | ✅ enriched | ✅ | ✅ |
 | 2026-01-20 | Thunderdome: #SaturnNeptune and the Archons | ✅ enriched | ✅ | ✅ |
 | 2026-01-27 | The Empire Never Ended: Secret of the "Psychic Gene" | ✅ enriched | ✅ | ✅ |
