@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test:pubdate-tz": "TZ=America/New_York node scripts/test-pubdate-tz.mjs"
+    "test:pubdate-tz": "TZ=America/New_York node scripts/test-pubdate-tz.mjs",
+    "test:topics": "node scripts/test-topic-timestamps.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
