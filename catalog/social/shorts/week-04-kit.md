@@ -457,17 +457,17 @@ JT and Matt McCarthy.
 ## Fri Dec 18: #57 John Lilly's dolphin mission
 
 - **From:** John Lilly, E C.C.O, and Solid State Intelligence (recorded September 4, 2025)
-- **Length:** 58.90 seconds
-- **Why:** Starts with an extraordinary historical claim and builds through increasingly strange instructions to a memorable UN payoff.
+- **Length:** 69.75 seconds
+- **Why:** Expanded (Matt, 2026-11-16): the first cut stopped at the UN line. It now carries on to the entities' reason: dolphins are the way to talk to aliens, because the universe is full of intelligence that is often not friendly to humans.
 - **X file:** `week-04/57 - Dolphins at the United Nations.mp4`
 - **YouTube file:** `week-04/57 - Dolphins at the United Nations.mp4`
 
 - **Review:** [Play this short](https://matts-mac-mini.tailebcf61.ts.net:5490/week-04/57%20-%20Dolphins%20at%20the%20United%20Nations.mp4)
 
-**X post** (224/280):
+**X post** (247/280):
 
 ```text
-Quit your job, move to St. Thomas, learn to speak dolphin. JT recounts the extraordinary mission John Lilly attributed to the Earth Coincidence Control Office.
+Quit your job, move to St. Thomas, learn to speak dolphin. JT recounts the mission John Lilly said the Earth Coincidence Control Office gave him, and the unsettling reason behind it.
 
 Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
@@ -483,7 +483,7 @@ John Lilly's dolphin mission
 **YouTube description:**
 
 ```text
-Quit your job, move to St. Thomas, learn to speak dolphin. JT recounts the extraordinary mission John Lilly attributed to the Earth Coincidence Control Office.
+Quit your job, move to St. Thomas, learn to speak dolphin. JT recounts the mission John Lilly said the Earth Coincidence Control Office gave him, and the unsettling reason behind it.
 
 Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 JT and Matt McCarthy.

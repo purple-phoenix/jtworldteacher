@@ -20,7 +20,7 @@ Each isolated final cut was transcribed again with Whisper DTW after trimming th
 | 54 | 2026-12-15 | I think that our unconscious | past, present, and the future. | 87.70 |
 | 55 | 2026-12-16 | A lot of us would | more than 10 to 1. | 70.40 |
 | 56 | 2026-12-17 | A lot of us clutter. | it out into the ocean. | 71.53 |
-| 57 | 2026-12-18 | What happened was Lily started | never hear about this anymore. | 58.90 |
+| 57 | 2026-12-18 | What happened was, Lilly started | not friendly to human beings. | 69.75 |
 | 58 | 2026-12-19 | you create a game right | without ever having dinosaurs exist | 42.92 |
 | 59 | 2026-12-20 | Here's another assumption. Exponential growth. | right whales in the ocean. | 72.81 |
 | 60 | Spare | And there's a big ethical | want to fuel escapist behaviors. | 30.97 |
