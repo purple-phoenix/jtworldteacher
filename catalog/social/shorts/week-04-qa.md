@@ -13,16 +13,16 @@ Each isolated final cut was transcribed again with Whisper DTW after trimming th
 | 47 | 2026-12-08 | My first job, I was | We weren't serious about it. | 77.45 |
 | 48 | 2026-12-09 | But the real secret of | persistent predatory personality traits. | 70.91 |
 | 49 | 2026-12-10 | there was an article about | for the people around us | 82.65 |
-| 50 | 2026-12-11 | an experiment, right, where the | emphasis is on the experiment. | 44.30 |
+| 50 | 2026-12-11 | There are a lot of | emphasis is on the experiment. | 56.54 |
 | 51 | 2026-12-12 | If we were viewing a | I were in that position. | 31.66 |
 | 52 | 2026-12-13 | A Tibetan sand mandala. If | it up in a pile. | 70.62 |
 | 53 | 2026-12-14 | i have a macbook air | i think it's pretty good | 76.73 |
 | 54 | 2026-12-15 | We read a book and | as solid as that book. | 42.74 |
-| 55 | 2026-12-16 | If you've ever been visibly | more than 10 to 1. | 62.11 |
-| 56 | 2026-12-17 | people are pretty good with | it out into the ocean. | 62.57 |
+| 55 | 2026-12-16 | A lot of us would | more than 10 to 1. | 70.40 |
+| 56 | 2026-12-17 | A lot of us clutter. | it out into the ocean. | 71.53 |
 | 57 | 2026-12-18 | What happened was Lily started | never hear about this anymore. | 58.90 |
 | 58 | 2026-12-19 | you create a game right | without ever having dinosaurs exist | 42.92 |
-| 59 | 2026-12-20 | That assumption is another one | right whales in the ocean. | 33.53 |
+| 59 | 2026-12-20 | Here's another assumption. Exponential growth. | right whales in the ocean. | 72.81 |
 | 60 | Spare | And there's a big ethical | want to fuel escapist behaviors. | 30.97 |
 | 61 | Spare | When you have a question, | listen to what they say. | 51.66 |
 | 62 | Spare | The danger in this thinking, | of person to do it. | 62.42 |

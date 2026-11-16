@@ -193,36 +193,36 @@ JT and Matt McCarthy.
 #Interdependence #Community #Philosophy #Food
 ```
 
-## Fri Dec 11: #50 Who is reverse engineering whom?
+## Fri Dec 11: #50 What if the UFO crashes were an experiment on us?
 
 - **From:** Double-reverse Engineering (recorded June 25, 2026)
-- **Length:** 44.30 seconds
-- **Why:** Flips the familiar UFO-recovery story into an experimental-design question and ends on the episode's central reversal.
-- **X file:** `week-04/50 - Who is reverse engineering whom.mp4`
-- **YouTube file:** `week-04/50 - Who is reverse engineering whom.mp4`
+- **Length:** 56.54 seconds
+- **Why:** Re-cut (Matt, 2026-11-16): the first cut opened mid-sentence on "an experiment" with no setup. It now opens on the idea that the crashes were intentional, to watch what we did, then flips to who is reverse engineering whom.
+- **X file:** `week-04/50 - What if the UFO crashes were an experiment on us.mp4`
+- **YouTube file:** `week-04/50 - What if the UFO crashes were an experiment on us.mp4`
 
-- **Review:** [Play this short](https://matts-mac-mini.tailebcf61.ts.net:5490/week-04/50%20-%20Who%20is%20reverse%20engineering%20whom.mp4)
+- **Review:** [Play this short](https://matts-mac-mini.tailebcf61.ts.net:5490/week-04/50%20-%20What%20if%20the%20UFO%20crashes%20were%20an%20experiment%20on%20us.mp4)
 
-**X post** (231/280):
+**X post** (246/280):
 
 ```text
-What if the point was to see what humans would do differently? JT turns a familiar technology-transfer story around: who would actually be learning from whom?
+What if the crashed craft were left on purpose, to watch what we would do with them? JT turns the reverse-engineering story around: who would actually be learning from whom?
 
 Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
 #UFO #ReverseEngineering
 ```
 
-**YouTube title** (32/100):
+**YouTube title** (49/100):
 
 ```text
-Who is reverse engineering whom?
+What if the UFO crashes were an experiment on us?
 ```
 
 **YouTube description:**
 
 ```text
-What if the point was to see what humans would do differently? JT turns a familiar technology-transfer story around: who would actually be learning from whom?
+What if the crashed craft were left on purpose, to watch what we would do with them? JT turns the reverse-engineering story around: who would actually be learning from whom?
 
 Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 JT and Matt McCarthy.
@@ -383,8 +383,8 @@ JT and Matt McCarthy.
 ## Wed Dec 16: #55 What surprised him about using a wheelchair
 
 - **From:** Are you evil? (recorded August 7, 2025)
-- **Length:** 62.11 seconds
-- **Why:** A direct personal story challenges an easy assumption about compassion and gives a stranger a reason to reconsider everyday interactions.
+- **Length:** 70.40 seconds
+- **Why:** Re-cut (Matt, 2026-11-16): the first cut opened on "that's not what happens" without saying what. It now starts on the hope that people feel compassion for the sick, then the wheelchair years that showed otherwise.
 - **X file:** `week-04/55 - What surprised him about using a wheelchair.mp4`
 - **YouTube file:** `week-04/55 - What surprised him about using a wheelchair.mp4`
 
@@ -422,17 +422,17 @@ JT and Matt McCarthy, live on X every Wednesday at 7 PM ET.
 ## Thu Dec 17: #56 The spiritual benefit of a spare light bulb
 
 - **From:** The Kalachakra Tantric Sand Mandala... a metaphor for life (recorded August 9, 2025)
-- **Length:** 62.57 seconds
-- **Why:** A spare light bulb gives an abstract letting-go discussion a useful, funny limit: keep things that serve a purpose and reconsider what no longer does.
+- **Length:** 71.53 seconds
+- **Why:** Re-cut (Matt, 2026-11-16): the first cut opened on "people are pretty good with that" with no subject. It now opens on clutter and attachment, then the light bulb line and the mission.
 - **X file:** `week-04/56 - The spiritual benefit of a spare light bulb.mp4`
 - **YouTube file:** `week-04/56 - The spiritual benefit of a spare light bulb.mp4`
 
 - **Review:** [Play this short](https://matts-mac-mini.tailebcf61.ts.net:5490/week-04/56%20-%20The%20spiritual%20benefit%20of%20a%20spare%20light%20bulb.mp4)
 
-**X post** (236/280):
+**X post** (257/280):
 
 ```text
-Decluttering does not require throwing away useful things. JT's example: the spiritual benefit of a spare light bulb is being able to use it when you need one.
+The root of clutter is attachment, but letting go does not mean throwing out useful things. JT's example: the spiritual benefit of a spare light bulb is using it when you need one.
 
 Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
@@ -448,7 +448,7 @@ The spiritual benefit of a spare light bulb
 **YouTube description:**
 
 ```text
-Decluttering does not require throwing away useful things. JT's example: the spiritual benefit of a spare light bulb is being able to use it when you need one.
+The root of clutter is attachment, but letting go does not mean throwing out useful things. JT's example: the spiritual benefit of a spare light bulb is using it when you need one.
 
 Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 JT and Matt McCarthy.
@@ -533,8 +533,8 @@ JT and Matt McCarthy.
 ## Sun Dec 20: #59 Why assume an alien civilization has billions of people?
 
 - **From:** Double-reverse Engineering (recorded June 25, 2026)
-- **Length:** 33.53 seconds
-- **Why:** A simple whale analogy challenges the habit of projecting human population growth onto every hypothetical civilization.
+- **Length:** 72.81 seconds
+- **Why:** Re-cut (Matt, 2026-11-16): the first cut opened on "That assumption" without saying which. It now starts on the assumption itself, exponential population growth, then the right-whale comparison.
 - **X file:** `week-04/59 - Why assume an alien civilization has billions of people.mp4`
 - **YouTube file:** `week-04/59 - Why assume an alien civilization has billions of people.mp4`
 
