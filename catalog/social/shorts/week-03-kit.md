@@ -4,11 +4,48 @@ Post time for every slot: 12:00 PM ET, on X and YouTube Shorts the same day. Not
 
 Files are in `~/Downloads/JT social clips/Shorts/`. X gets the uncensored file and YouTube gets the bleeped one when a clip has both.
 
+## Tue Nov 17: #43 Edison at the edge of sleep
+
+- **From:** Hugging Face and the Source Code of Reality (recorded November 11, 2026)
+- **Length:** 29.40 seconds
+- **Why:** A vivid invention story, distinct from the driving and synchronicity cuts. Opens the daily run.
+- **X file:** `week-03/43 - Edison at the edge of sleep.mp4`
+- **YouTube file:** `week-03/43 - Edison at the edge of sleep.mp4`
+
+- **Review:** [Play this short](https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-03/43%20-%20Edison%20at%20the%20edge%20of%20sleep.mp4)
+
+**X post** (214/280):
+
+```text
+JT recounts the story of Thomas Edison napping with ball bearings in his hand, hoping to wake at the edge of sleep and bring ideas back from dreams.
+
+Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+
+#Dreams #PeakMind
+```
+
+**YouTube title** (27/100):
+
+```text
+Edison at the edge of sleep
+```
+
+**YouTube description:**
+
+```text
+JT recounts the story of Thomas Edison napping with ball bearings in his hand, hoping to wake at the edge of sleep and bring ideas back from dreams.
+
+Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+JT and Matt McCarthy.
+
+#Dreams #PeakMind
+```
+
 ## Thu Nov 19: #31 Ever arrive and forget the drive?
 
 - **From:** Hugging Face and the Source Code of Reality (recorded November 11, 2026)
 - **Length:** 47.00 seconds
-- **Why:** A familiar everyday experience opens the new daily run.
+- **Why:** A familiar everyday experience.
 - **X file:** `week-03/31 - Driving on autopilot.mp4`
 - **YouTube file:** `week-03/31 - Driving on autopilot.mp4`
 
@@ -189,41 +226,41 @@ JT and Matt McCarthy.
 #SocialMedia #PeakMind
 ```
 
-## Sat Nov 28: #36 Reading bias into the same article
+## Sat Nov 28: #42 A collective dream and time travel
 
-- **From:** The Big 51 and the Naming Taboo (recorded October 21, 2026)
-- **Length:** 32.80 seconds
-- **Why:** A compact social observation, cut before the dated Canada discussion.
-- **X file:** `week-03/36 - Reading bias into a post.mp4`
-- **YouTube file:** `week-03/36 - Reading bias into a post.mp4`
+- **From:** Proof of Work and the Simulation's Challenge Rating (recorded October 7, 2026)
+- **Length:** 54.35 seconds
+- **Why:** Simulation speculation, with the conditional premise in the audio. Former spare.
+- **X file:** `week-03/42 - Dreams and time travel.mp4`
+- **YouTube file:** `week-03/42 - Dreams and time travel.mp4`
 
-- **Review:** [Play this short](https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-03/36%20-%20Reading%20bias%20into%20a%20post.mp4)
+- **Review:** [Play this short](https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-03/42%20-%20Dreams%20and%20time%20travel.mp4)
 
-**X post** (217/280):
+**X post** (207/280):
 
 ```text
-JT describes how people can read opposing political biases into the same article, and project their own assumptions onto another person's words.
+JT explores a speculative idea: if reality were a collective dream, what might that imply about parallel timelines and time travel?
 
 Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
-#MediaLiteracy #PeakMind
+#SimulationTheory #PeakMind
 ```
 
 **YouTube title** (34/100):
 
 ```text
-Reading bias into the same article
+A collective dream and time travel
 ```
 
 **YouTube description:**
 
 ```text
-JT describes how people can read opposing political biases into the same article, and project their own assumptions onto another person's words.
+JT explores a speculative idea: if reality were a collective dream, what might that imply about parallel timelines and time travel?
 
 Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 JT and Matt McCarthy.
 
-#MediaLiteracy #PeakMind
+#SimulationTheory #PeakMind
 ```
 
 ## Sun Nov 29: #37 Listen to enjoy it and learn something
@@ -300,78 +337,41 @@ JT and Matt McCarthy.
 #Synchronicity #PeakMind
 ```
 
-## Thu Dec 3: #39 Remember the pets in your emergency plan
+## Thu Dec 3: #44 The head in a jar urban myth
 
-- **From:** Black October and the Age of Blackouts (recorded November 4, 2026)
-- **Length:** 38.30 seconds
-- **Why:** A concrete pet-owner concern, kept separate from the medication and heating discussion.
-- **X file:** `week-03/39 - Remember the pets.mp4`
-- **YouTube file:** `week-03/39 - Remember the pets.mp4`
+- **From:** Head in a Jar and the Dead on the Throne (recorded October 28, 2026)
+- **Length:** 64.80 seconds
+- **Why:** Body horror for viewers who like the darker material, with the urban-myth label retained. Former spare.
+- **X file:** `week-03/44 - The head in a jar urban myth.mp4`
+- **YouTube file:** `week-03/44 - The head in a jar urban myth.mp4`
 
-- **Review:** [Play this short](https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-03/39%20-%20Remember%20the%20pets.mp4)
+- **Review:** [Play this short](https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-03/44%20-%20The%20head%20in%20a%20jar%20urban%20myth.mp4)
 
-**X post** (216/280):
+**X post** (210/280):
 
 ```text
-JT adds pets to the blackout conversation: being unable to feed an animal you love would add another source of stress to an already difficult situation.
+JT recounts an unsettling urban myth about heads kept alive in jars and phantom thirst. He explicitly presents it as a myth and speculation.
 
 Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
-#Pets #PeakMind
+#BodyHorror #PeakMind
 ```
 
-**YouTube title** (40/100):
+**YouTube title** (28/100):
 
 ```text
-Remember the pets in your emergency plan
+The head in a jar urban myth
 ```
 
 **YouTube description:**
 
 ```text
-JT adds pets to the blackout conversation: being unable to feed an animal you love would add another source of stress to an already difficult situation.
+JT recounts an unsettling urban myth about heads kept alive in jars and phantom thirst. He explicitly presents it as a myth and speculation.
 
 Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 JT and Matt McCarthy.
 
-#Pets #PeakMind
-```
-
-## Sat Dec 5: #40 Why JT keeps speaking live
-
-- **From:** Hugging Face and the Source Code of Reality (recorded November 11, 2026)
-- **Length:** 75.85 seconds
-- **Why:** A personal, vulnerable moment that gives viewers a reason to connect with the speaker.
-- **X file:** `week-03/40 - Why JT speaks live.mp4`
-- **YouTube file:** `week-03/40 - Why JT speaks live.mp4`
-
-- **Review:** [Play this short](https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-03/40%20-%20Why%20JT%20speaks%20live.mp4)
-
-**X post** (222/280):
-
-```text
-JT talks openly about his fear of public speaking and why he keeps doing the show live: time with his brother, conversation and a chance to improve.
-
-Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-
-#PublicSpeaking #PeakMind
-```
-
-**YouTube title** (26/100):
-
-```text
-Why JT keeps speaking live
-```
-
-**YouTube description:**
-
-```text
-JT talks openly about his fear of public speaking and why he keeps doing the show live: time with his brother, conversation and a chance to improve.
-
-Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-JT and Matt McCarthy.
-
-#PublicSpeaking #PeakMind
+#BodyHorror #PeakMind
 ```
 
 ## Sun Dec 6: #41 What your mind fills in
@@ -411,113 +411,10 @@ JT and Matt McCarthy.
 #RemoteViewing #PeakMind
 ```
 
-## SPARE (no posting date): #42 A collective dream and time travel
+## Review notes
 
-- **From:** Proof of Work and the Simulation's Challenge Rating (recorded October 7, 2026)
-- **Length:** 54.35 seconds
-- **Why:** Undated spare: simulation speculation, with the conditional premise in the audio.
-- **X file:** `week-03/42 - Dreams and time travel.mp4`
-- **YouTube file:** `week-03/42 - Dreams and time travel.mp4`
+Matt approved these eleven slots on 2026-11-16, at 12:00 PM America/New_York on X and YouTube Shorts. The three former spares took Tue Nov 17 (Edison), Sat Nov 28 (Dreams and time travel) and Thu Dec 3 (Head in a jar). Sat Dec 5 is left empty for the next batch.
 
-- **Review:** [Play this short](https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-03/42%20-%20Dreams%20and%20time%20travel.mp4)
+Dropped by Matt, not scheduled: #36 Reading bias into the same article (was Sat Nov 28), #39 Remember the pets in your emergency plan (was Thu Dec 3) and #40 Why JT keeps speaking live (was Sat Dec 5). Their manifest entries are kept in `week-03-dropped.json`.
 
-**X post** (207/280):
-
-```text
-JT explores a speculative idea: if reality were a collective dream, what might that imply about parallel timelines and time travel?
-
-Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-
-#SimulationTheory #PeakMind
-```
-
-**YouTube title** (34/100):
-
-```text
-A collective dream and time travel
-```
-
-**YouTube description:**
-
-```text
-JT explores a speculative idea: if reality were a collective dream, what might that imply about parallel timelines and time travel?
-
-Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-JT and Matt McCarthy.
-
-#SimulationTheory #PeakMind
-```
-
-## SPARE (no posting date): #43 Edison at the edge of sleep
-
-- **From:** Hugging Face and the Source Code of Reality (recorded November 11, 2026)
-- **Length:** 30.21 seconds
-- **Why:** Undated spare: a vivid invention story, distinct from the driving and synchronicity cuts.
-- **X file:** `week-03/43 - Edison at the edge of sleep.mp4`
-- **YouTube file:** `week-03/43 - Edison at the edge of sleep.mp4`
-
-- **Review:** [Play this short](https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-03/43%20-%20Edison%20at%20the%20edge%20of%20sleep.mp4)
-
-**X post** (214/280):
-
-```text
-JT recounts the story of Thomas Edison napping with ball bearings in his hand, hoping to wake at the edge of sleep and bring ideas back from dreams.
-
-Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-
-#Dreams #PeakMind
-```
-
-**YouTube title** (27/100):
-
-```text
-Edison at the edge of sleep
-```
-
-**YouTube description:**
-
-```text
-JT recounts the story of Thomas Edison napping with ball bearings in his hand, hoping to wake at the edge of sleep and bring ideas back from dreams.
-
-Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-JT and Matt McCarthy.
-
-#Dreams #PeakMind
-```
-
-## SPARE (no posting date): #44 The head in a jar urban myth
-
-- **From:** Head in a Jar and the Dead on the Throne (recorded October 28, 2026)
-- **Length:** 64.80 seconds
-- **Why:** Undated spare: body horror for viewers who like the darker material, with the urban-myth label retained.
-- **X file:** `week-03/44 - The head in a jar urban myth.mp4`
-- **YouTube file:** `week-03/44 - The head in a jar urban myth.mp4`
-
-- **Review:** [Play this short](https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-03/44%20-%20The%20head%20in%20a%20jar%20urban%20myth.mp4)
-
-**X post** (210/280):
-
-```text
-JT recounts an unsettling urban myth about heads kept alive in jars and phantom thirst. He explicitly presents it as a myth and speculation.
-
-Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-
-#BodyHorror #PeakMind
-```
-
-**YouTube title** (28/100):
-
-```text
-The head in a jar urban myth
-```
-
-**YouTube description:**
-
-```text
-JT recounts an unsettling urban myth about heads kept alive in jars and phantom thirst. He explicitly presents it as a myth and speculation.
-
-Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-JT and Matt McCarthy.
-
-#BodyHorror #PeakMind
-```
+Edison trim: Matt asked for the trailing "um" to go. The cut now ends in the 1.0 s pause after "dreams." with a 0.25 s fade, 29.40 s instead of 30.21 s (source window 2797.30 to 2826.70 s of the Nov 11 recording). A fresh Whisper DTW transcript of the new cut ends on "dreams.", the video was re-rendered with the same renderer settings, fully decoded, and the Studio review link serves the trimmed file.
