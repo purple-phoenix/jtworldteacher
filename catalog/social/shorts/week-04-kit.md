@@ -344,8 +344,8 @@ JT and Matt McCarthy.
 ## Tue Dec 15: #54 The character changes, but the book was already whole
 
 - **From:** Synchronicity and Sacred time (recorded June 26, 2025)
-- **Length:** 87.70 seconds
-- **Why:** Expanded (Matt, 2026-11-16): now opens with why JT reaches for the book (our deeper mind sees our life like one) and ends on the payoff that past, present and future are one connected narrative. Captions now read "Unus Mundi" instead of whisper's "doing this Monday".
+- **Length:** 75.50 seconds
+- **Why:** Expanded (Matt, 2026-11-16): now opens with why JT reaches for the book (our deeper mind sees our life like one). Ends on "as solid as that book" at Matt's pick. Captions now read "Unus Mundi" instead of whisper's "doing this Monday".
 - **X file:** `week-04/54 - The character changes, but the book was already whole.mp4`
 - **YouTube file:** `week-04/54 - The character changes, but the book was already whole.mp4`
 
