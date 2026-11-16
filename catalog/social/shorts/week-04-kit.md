@@ -304,20 +304,57 @@ JT and Matt McCarthy.
 #SandMandala #Impermanence #Buddhism #Art
 ```
 
+## Mon Dec 14: #63 Why Neanderthal skeletons look like rodeo clowns
+
+- **From:** Human nature and the paranormal (recorded July 16, 2025)
+- **Length:** 69.63 seconds
+- **Why:** Replaces the dropped MacBook story (Matt, 2026-11-16). A surprising, self-contained idea: it opens by naming Neanderthals, contrasts endurance hunting with ambush hunting, and lands on the rodeo-clown image. Space not otherwise used in week 4.
+- **X file:** `week-04/63 - Why Neanderthal skeletons look like rodeo clowns.mp4`
+- **YouTube file:** `week-04/63 - Why Neanderthal skeletons look like rodeo clowns.mp4`
+
+- **Review:** [Play this short](https://matts-mac-mini.tailebcf61.ts.net:5490/week-04/63%20-%20Why%20Neanderthal%20skeletons%20look%20like%20rodeo%20clowns.mp4)
+
+**X post** (253/280):
+
+```text
+Humans hunted by chasing animals until they tired. Neanderthals, JT says, hid among the herd and jumped them, and their skeletons show the same damage as a career rodeo clown.
+
+Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+
+#Neanderthals #HumanEvolution
+```
+
+**YouTube title** (48/100):
+
+```text
+Why Neanderthal skeletons look like rodeo clowns
+```
+
+**YouTube description:**
+
+```text
+Humans hunted by chasing animals until they tired. Neanderthals, JT says, hid among the herd and jumped them, and their skeletons show the same damage as a career rodeo clown.
+
+Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
+JT and Matt McCarthy.
+
+#Neanderthals #HumanEvolution #Anthropology #PeakMind
+```
+
 ## Tue Dec 15: #54 The character changes, but the book was already whole
 
 - **From:** Synchronicity and Sacred time (recorded June 26, 2025)
-- **Length:** 42.74 seconds
-- **Why:** Uses a familiar novel to distinguish a reader's experience of change from a book that already contains its entire story.
+- **Length:** 87.70 seconds
+- **Why:** Expanded (Matt, 2026-11-16): now opens with why JT reaches for the book (our deeper mind sees our life like one) and ends on the payoff that past, present and future are one connected narrative. Captions now read "Unus Mundi" instead of whisper's "doing this Monday".
 - **X file:** `week-04/54 - The character changes, but the book was already whole.mp4`
 - **YouTube file:** `week-04/54 - The character changes, but the book was already whole.mp4`
 
 - **Review:** [Play this short](https://matts-mac-mini.tailebcf61.ts.net:5490/week-04/54%20-%20The%20character%20changes%2C%20but%20the%20book%20was%20already%20whole.mp4)
 
-**X post** (223/280):
+**X post** (242/280):
 
 ```text
-A character grows as you read, but every page was there before you opened the book. JT uses that contrast as a philosophical analogy for time and experience.
+JT's take on Jung's Unus Mundi: a deeper part of your mind may see your life the way you see a finished book. The character grows as you read, but every page was already there.
 
 Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
@@ -333,7 +370,7 @@ The character changes, but the book was already whole
 **YouTube description:**
 
 ```text
-A character grows as you read, but every page was there before you opened the book. JT uses that contrast as a philosophical analogy for time and experience.
+JT's take on Jung's Unus Mundi: a deeper part of your mind may see your life the way you see a finished book. The character grows as you read, but every page was already there.
 
 Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 JT and Matt McCarthy.

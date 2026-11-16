@@ -16,7 +16,8 @@ Each isolated final cut was transcribed again with Whisper DTW after trimming th
 | 50 | 2026-12-11 | There are a lot of | emphasis is on the experiment. | 56.54 |
 | 51 | 2026-12-12 | If we were viewing a | I were in that position. | 31.66 |
 | 52 | 2026-12-13 | A Tibetan sand mandala. If | it up in a pile. | 70.62 |
-| 54 | 2026-12-15 | We read a book and | as solid as that book. | 42.74 |
+| 63 | 2026-12-14 | I know with Neanderthals particularly, | very long for that reason. | 69.63 |
+| 54 | 2026-12-15 | I think that our unconscious | past, present, and the future. | 87.70 |
 | 55 | 2026-12-16 | A lot of us would | more than 10 to 1. | 70.40 |
 | 56 | 2026-12-17 | A lot of us clutter. | it out into the ocean. | 71.53 |
 | 57 | 2026-12-18 | What happened was Lily started | never hear about this anymore. | 58.90 |
