@@ -31,8 +31,12 @@ sys.path.insert(0, HERE)
 from render_short import is_profane, read_words  # noqa: E402
 
 
+def output_base(c):
+    return os.path.join(OUT, c.get("output_subdir", ""), f"{c['n']:02d} - {c['title']}")
+
+
 def files_for(c):
-    base = os.path.join(OUT, f"{c['n']:02d} - {c['title']}")
+    base = output_base(c)
     if os.path.exists(base + ".mp4"):
         return base + ".mp4", base + ".mp4"
     return base + " (X).mp4", base + " (YouTube, bleeped).mp4"
@@ -46,7 +50,8 @@ def render(week):
         if not os.path.exists(vtt):
             subprocess.run([sys.executable, "-I", os.path.join(HERE, "align_words.py"), audio, vtt], check=True)
         swears = [w for _, _, w in read_words(vtt) if is_profane(w)]
-        base = os.path.join(OUT, f"{c['n']:02d} - {c['title']}")
+        base = output_base(c)
+        os.makedirs(os.path.dirname(base), exist_ok=True)
         cmd = [sys.executable, "-I", os.path.join(HERE, "render_short.py"), "--audio", audio, "--words", vtt,
                "--headline", c["headline"], "--speaker", c.get("speaker", "JT McCarthy"),
                "--tag", f"Recorded live on X · {c['recorded']}", "--art", "none"]
@@ -99,8 +104,8 @@ def kit(week, week_path):
             f"- **From:** {title} (recorded {c['recorded']})",
             *([f"- **Length:** {c['duration_seconds']:.2f} seconds",
                f"- **Why:** {c['why']}"] if "duration_seconds" in c else []),
-            f"- **X file:** `{os.path.basename(x_file)}`",
-            f"- **YouTube file:** `{os.path.basename(yt_file)}`\n",
+            f"- **X file:** `{os.path.relpath(x_file, OUT)}`",
+            f"- **YouTube file:** `{os.path.relpath(yt_file, OUT)}`\n",
             *([f"- **Review:** [Play this short]({c['review_url']})\n"] if c.get("review_url") else []),
             *([f"- **YouTube review:** [Play the bleeped version]({c['youtube_review_url']})\n"] if c.get("youtube_review_url") else []),
             f"**X post** ({x_len(x_text)}/280):\n",
