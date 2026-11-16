@@ -11,7 +11,7 @@ Each isolated final cut was transcribed again with Whisper DTW after trimming th
 | 45 | 2026-12-05 | When you look at what | using way too much ketamine. | 31.70 |
 | 46 | 2026-12-07 | You can't say, if I | the way that it is. | 39.17 |
 | 47 | 2026-12-08 | My first job, I was | We weren't serious about it. | 77.45 |
-| 48 | 2026-12-09 | one level they'll you know | no no consistent moral center | 35.36 |
+| 48 | 2026-12-09 | But the real secret of | persistent predatory personality traits. | 70.91 |
 | 49 | 2026-12-10 | there was an article about | for the people around us | 82.65 |
 | 50 | 2026-12-11 | an experiment, right, where the | emphasis is on the experiment. | 44.30 |
 | 51 | 2026-12-12 | If we were viewing a | I were in that position. | 31.66 |

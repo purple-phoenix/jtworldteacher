@@ -117,43 +117,43 @@ JT and Matt McCarthy.
 #StrangeStories #Synchronicity #NightShift #PeakMind
 ```
 
-## Wed Dec 9: #48 Would you change your answer just to move up?
+## Wed Dec 9: #48 What secret societies are really filtering for
 
 - **From:** Defining Remote Viewing:  June, and the video (recorded May 30, 2026)
-- **Length:** 35.36 seconds
-- **Why:** A simple blue-red-yellow lesson makes the cost of trading consistency for advancement immediately understandable.
-- **X file:** `week-04/48 - Would you change your answer just to move up.mp4`
-- **YouTube file:** `week-04/48 - Would you change your answer just to move up.mp4`
+- **Length:** 70.91 seconds
+- **Why:** Re-cut (Matt, 2026-11-16): the first cut started mid-thought. It now opens on the secret-society setup and ends on the filter payoff, so the blue-red-yellow lesson makes sense on its own.
+- **X file:** `week-04/48 - What secret societies are really filtering for.mp4`
+- **YouTube file:** `week-04/48 - What secret societies are really filtering for.mp4`
 
-- **Review:** [Play this short](https://matts-mac-mini.tailebcf61.ts.net:5490/week-04/48%20-%20Would%20you%20change%20your%20answer%20just%20to%20move%20up.mp4)
+- **Review:** [Play this short](https://matts-mac-mini.tailebcf61.ts.net:5490/week-04/48%20-%20What%20secret%20societies%20are%20really%20filtering%20for.mp4)
 
-**X post** (260/280):
+**X post** (277/280):
 
 ```text
-Blue is best. Now red is best. Now yellow. JT uses an imaginary lesson to ask what a hierarchy rewards when moving up requires contradicting yourself.
+Blue is the best color. Next level, red. Then yellow. JT on why some secret societies make members contradict themselves at every level, and who that filters for.
 
 Peak Mind is live tonight at 7 PM ET.
 
 Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 
-#Integrity #Conformity
+#SecretSocieties #Integrity
 ```
 
-**YouTube title** (45/100):
+**YouTube title** (46/100):
 
 ```text
-Would you change your answer just to move up?
+What secret societies are really filtering for
 ```
 
 **YouTube description:**
 
 ```text
-Blue is best. Now red is best. Now yellow. JT uses an imaginary lesson to ask what a hierarchy rewards when moving up requires contradicting yourself.
+Blue is the best color. Next level, red. Then yellow. JT on why some secret societies make members contradict themselves at every level, and who that filters for.
 
 Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
 JT and Matt McCarthy, live on X every Wednesday at 7 PM ET.
 
-#Integrity #Conformity #CriticalThinking #PeakMind
+#SecretSocieties #Integrity #Psychology #PeakMind
 ```
 
 ## Thu Dec 10: #49 Could you make a chicken sandwich entirely by yourself?
