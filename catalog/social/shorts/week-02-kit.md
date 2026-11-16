@@ -226,48 +226,11 @@ JT and Matt McCarthy.
 #Astrology #PeakMind
 ```
 
-## SPARE (no posting date): #16 Letting go of resentment
-
-- **From:** The Return of the King (recorded April 1, 2026)
-- **Length:** 64.48 seconds
-- **Why:** Spare: a personal family story with an explicit question at the close. INDEX pick 16.
-- **X file:** `16 - Letting go of resentment.mp4`
-- **YouTube file:** `16 - Letting go of resentment.mp4`
-
-- **Review:** [Play this short](https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-02/16%20-%20Letting%20go%20of%20resentment.mp4)
-
-**X post** (177/280):
-
-```text
-JT describes how seeing his father as someone acting out an inherited role helped him let go of resentment.
-
-Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-
-#Resentment #PeakMind
-```
-
-**YouTube title** (24/100):
-
-```text
-Letting go of resentment
-```
-
-**YouTube description:**
-
-```text
-JT describes how seeing his father as someone acting out an inherited role helped him let go of resentment.
-
-Listen to Peak Mind on Spotify: https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC
-JT and Matt McCarthy.
-
-#Resentment #PeakMind
-```
-
-## SPARE (no posting date): #17 Influencers are the new aristocrats
+## Wed Dec 2: #17 Influencers are the new aristocrats
 
 - **From:** You're Screwed. Astrology Questions Answered (recorded March 27, 2026)
 - **Length:** 49.55 seconds
-- **Why:** Spare: social commentary, ending before the later speculation about roundups. INDEX pick 17.
+- **Why:** Social commentary, ending before the later speculation about roundups. INDEX pick 17.
 - **X file:** `17 - Influencers and aristocrats.mp4`
 - **YouTube file:** `17 - Influencers and aristocrats.mp4`
 
@@ -300,11 +263,11 @@ JT and Matt McCarthy.
 #Influencers #PeakMind
 ```
 
-## SPARE (no posting date): #15 Zombie stories and the collective unconscious
+## Fri Dec 4: #15 Zombie stories and the collective unconscious
 
 - **From:** The Revelation of the Hierarchy (recorded July 4, 2026)
 - **Length:** 63.30 seconds
-- **Why:** Spare: pop-culture interpretation, framed as JT's view. INDEX pick 15. YouTube version bleeps the swear.
+- **Why:** Pop-culture interpretation, framed as JT's view. INDEX pick 15. YouTube version bleeps the swear.
 - **X file:** `15 - Zombie stories and the collective unconscious (X).mp4`
 - **YouTube file:** `15 - Zombie stories and the collective unconscious (YouTube, bleeped).mp4`
 
@@ -341,11 +304,13 @@ JT and Matt McCarthy.
 
 ## Review notes
 
-The six dated slots are proposals at 12:00 PM America/New_York on X and YouTube Shorts. The three spares have no posting date. Nothing has been approved, staged, scheduled or posted.
+Matt approved these eight slots on 2026-11-16, at 12:00 PM America/New_York on X and YouTube Shorts. The two former spares took the next Mon/Wed/Fri slots (Wed Dec 2 and Fri Dec 4).
+
+Held, not scheduled: #16 Letting go of resentment (The Return of the King, April 1, 2026). Matt is checking with JT first. Its manifest entry is kept in `week-02-held.json`.
 
 All four Studio shortlist timings were checked against the edited kit transcripts and re-transcribed cuts. The challenge-rating clip starts on "What you're referring to" after the preamble. The technology clip starts on "We project the things" and ends on "it's a mirror." Exact source files and cut windows are recorded in week-02.json. The Sun caption corrects the homophone "son" to "Sun." The zombie-story YouTube bleep is padded around the swear, with masked captions.
 
-Passed: full decode of all ten MP4 files, H.264/AAC at 1080 by 1920, 30 to 90 seconds each, HTTPS byte ranges, and playback plus seeking in fresh private browser tabs through the tailnet links above. Reviewed sample frames for readable type, caption highlighting and the masked swear. Word alignment and fresh cut transcripts confirm the intended sentence openings and endings.
+Passed: full decode of all ten MP4 files rendered for review, H.264/AAC at 1080 by 1920, 30 to 90 seconds each, HTTPS byte ranges, and playback plus seeking in fresh private browser tabs through the tailnet links above. Reviewed sample frames for readable type, caption highlighting and the masked swear. Word alignment and fresh cut transcripts confirm the intended sentence openings and endings.
 
 Deferred candidates:
 

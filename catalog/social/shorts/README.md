@@ -23,7 +23,7 @@ Run `week.py stage <week.json>`, then from the repo root `source catalog/social/
   - On some screens the time list saves one slot off from the option clicked. `set_noon` keeps trying until the field reads 12:00 PM.
   - Confirm success with the "will be set to public on …" message, not by reading the page summary, which gets cut off when the Shorts list is behind the dialog.
   - If a run leaves drafts, finish them from the video's own page (`studio.youtube.com/video/<id>/edit` → **Edit draft**).
-- **X:** the composer's **Schedule post** panel (`data-testid=scheduleOption`) has six selects (Month, Day, Year, Hour, Minute, AM/PM). Set them with the native value setter and a `change` event.
+- **X:** the composer's **Schedule post** panel (`data-testid=scheduleOption`) has six selects (Month, Day, Year, Hour, Minute, AM/PM). Set them with the native value setter and a `change` event. `xpost <n> <day> '<expected date text>' [month]` uploads, types and schedules one post; month defaults to 11, so pass 12 for December slots.
   - Only click the button when it reads **Schedule** and the panel says "Will send on <date> at 12:00 PM". Never click it while it says **Post**.
   - Check the result at `x.com/compose/post/unsent/scheduled`.
   - Editing a scheduled post doesn't save, so to change one, make a new scheduled post and delete the old one (Edit, tick it, Delete). X drops a typed opening quotation mark; `xtype` puts it back.

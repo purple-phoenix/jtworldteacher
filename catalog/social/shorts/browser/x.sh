@@ -12,12 +12,12 @@ xtype(){ python3 -c "import json;p=[x for x in json.load(open('.upload-tmp/posts
     got=$($A eval "() => document.querySelector('[data-testid=tweetTextarea_0]').innerText.replace(/\\s+/g, ' ').trim()" 2>&1 | head -1 | jv)
   fi
   [ "$got" = "$want" ] || { echo "text mismatch: got [$got]" >&2; return 1; }; }
-xset(){ $A eval "() => { const want = {Month: '11', Day: '$1', Year: '2026', Hour: '12', Minute: '0', 'AM/PM': 'pm'}; for (const s of document.querySelectorAll('select')) { const lab = document.getElementById(s.getAttribute('aria-labelledby')).textContent; const v = want[lab]; if (v === undefined) continue; Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value').set.call(s, v); s.dispatchEvent(new Event('change', {bubbles: true})); } return 1 }" >/dev/null 2>&1; }
+xset(){ $A eval "() => { const want = {Month: '${2:-11}', Day: '$1', Year: '2026', Hour: '12', Minute: '0', 'AM/PM': 'pm'}; for (const s of document.querySelectorAll('select')) { const lab = document.getElementById(s.getAttribute('aria-labelledby')).textContent; const v = want[lab]; if (v === undefined) continue; Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value').set.call(s, v); s.dispatchEvent(new Event('change', {bubbles: true})); } return 1 }" >/dev/null 2>&1; }
 jv(){ python3 -c "import json,sys;l=sys.stdin.readline();print(json.loads(json.loads(l[len('result: '):])) if l.startswith('result: ') else '')"; }
 summary(){ $A eval "() => (document.body.innerText.match(/Will send on[^\\n]*/) || [''])[0]" 2>&1 | head -1 | jv; }
-xfinish(){ N=$1; DAY=$2; EXPECT="$3"
+xfinish(){ N=$1; DAY=$2; EXPECT="$3"; MONTH=${4:-11}
   [ -n "$($A eval "() => document.querySelectorAll('select').length || ''" 2>&1 | head -1 | jv)" ] || { $A eval "() => { document.querySelector('[data-testid=scheduleOption]').click(); return 1 }" >/dev/null 2>&1; $A wait 2000 >/dev/null; }
-  xset $DAY; $A wait 800 >/dev/null; s=$(summary); [ "$s" = "Will send on $EXPECT at 12:00 PM" ] || { echo "#$N STOPPED: '$s'"; return 1; }
+  xset $DAY $MONTH; $A wait 800 >/dev/null; s=$(summary); [ "$s" = "Will send on $EXPECT at 12:00 PM" ] || { echo "#$N STOPPED: '$s'"; return 1; }
   $A eval "() => { document.querySelector('[data-testid=scheduledConfirmationPrimaryAction]').click(); return 1 }" >/dev/null 2>&1; $A wait 1500 >/dev/null
   for i in $(seq 1 60); do st=$($A eval "() => { const b = document.querySelector('[data-testid=tweetButton]'); return b.innerText.trim() + '|' + (b.getAttribute('aria-disabled') || 'false') }" 2>&1 | head -1); echo "$st" | grep -q 'Schedule|false' && break; $A wait 1000 >/dev/null; done
   echo "$st" | grep -q 'Schedule|false' || { echo "#$N button not ready: $st"; return 1; }

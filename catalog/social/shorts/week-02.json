@@ -144,34 +144,10 @@
   "review_url": "https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-02/19%20-%20Where%20your%20Sun%20is.mp4"
  },
  {
-  "n": 16,
-  "episode": "2026-04-01-the-return-of-the-king",
-  "moment": 1,
-  "post_on": null,
-  "title": "Letting go of resentment",
-  "headline": "Letting go of resentment",
-  "recorded": "April 1, 2026",
-  "audio": "16 - Letting go of resentment (2026-04-01).m4a",
-  "episode_title": "The Return of the King",
-  "caption": "JT describes how seeing his father as someone acting out an inherited role helped him let go of resentment.",
-  "hashtags": [
-   "#Resentment",
-   "#PeakMind"
-  ],
-  "promote_live": false,
-  "spare": true,
-  "source_audio": "/Users/mattmccarthy/github/jtworldteacher/catalog/spaces/audio/2026-04-01-the-return-of-the-king.m4a",
-  "start_seconds": 2893.84,
-  "end_seconds": 2958.32,
-  "duration_seconds": 64.48,
-  "why": "Spare: a personal family story with an explicit question at the close. INDEX pick 16.",
-  "review_url": "https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-02/16%20-%20Letting%20go%20of%20resentment.mp4"
- },
- {
   "n": 17,
   "episode": "2026-03-27-you-re-screwed-astrology-questions-answered",
   "moment": 1,
-  "post_on": null,
+  "post_on": "2026-12-02",
   "title": "Influencers and aristocrats",
   "headline": "Influencers are the new aristocrats",
   "recorded": "March 27, 2026",
@@ -183,19 +159,19 @@
    "#PeakMind"
   ],
   "promote_live": false,
-  "spare": true,
+  "spare": false,
   "source_audio": "/Users/mattmccarthy/github/jtworldteacher/catalog/spaces/audio/2026-03-27-you-re-screwed-astrology-questions-answered.m4a",
   "start_seconds": 7396.6,
   "end_seconds": 7446.15,
   "duration_seconds": 49.55,
-  "why": "Spare: social commentary, ending before the later speculation about roundups. INDEX pick 17.",
+  "why": "Social commentary, ending before the later speculation about roundups. INDEX pick 17.",
   "review_url": "https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-02/17%20-%20Influencers%20and%20aristocrats.mp4"
  },
  {
   "n": 15,
   "episode": "2026-07-04-the-revelation-of-the-hierarchy",
   "moment": 1,
-  "post_on": null,
+  "post_on": "2026-12-04",
   "title": "Zombie stories and the collective unconscious",
   "headline": "Zombie stories and the collective unconscious",
   "recorded": "July 4, 2026",
@@ -207,12 +183,12 @@
    "#PeakMind"
   ],
   "promote_live": false,
-  "spare": true,
+  "spare": false,
   "source_audio": "https://media.jtworldteacher.com/episodes/2026-07-04-the-revelation-of-the-hierarchy.m4a",
   "start_seconds": 5174.65,
   "end_seconds": 5237.95,
   "duration_seconds": 63.3,
-  "why": "Spare: pop-culture interpretation, framed as JT's view. INDEX pick 15. YouTube version bleeps the swear.",
+  "why": "Pop-culture interpretation, framed as JT's view. INDEX pick 15. YouTube version bleeps the swear.",
   "review_url": "https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-02/15%20-%20Zombie%20stories%20and%20the%20collective%20unconscious%20%28X%29.mp4",
   "youtube_review_url": "https://matts-macbook-pro.tailebcf61.ts.net:5480/media/kits/shorts-week-02/15%20-%20Zombie%20stories%20and%20the%20collective%20unconscious%20%28YouTube%2C%20bleeped%29.mp4"
  }
