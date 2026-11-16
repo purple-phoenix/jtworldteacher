@@ -18,7 +18,7 @@ upload_date_utc: "20260827"
 
 **X Space**, supplied Eastern live date 2026-08-27. Hosted by **@McCarthy_JT** (verified with yt-dlp on 2026-11-15).
 
-An eight-hour open discussion involving JT, Morgan and other speakers. Selected JT passages cover the commercial origins of newspaper horoscopes, astrology as a calendar model, cognitive bias, and responsibility toward vulnerable clients.
+An eight-hour open discussion involving JT, Morgan and other speakers. Selected JT passages cover the commercial origins of newspaper horoscopes, cognitive bias, and responsibility toward vulnerable clients.
 
 [Listen on X](https://x.com/i/spaces/1yxBePZYqmzJN) · [Transcript](../spaces/transcripts/2026-08-27-margaritas-nachos-and-drama.txt) · [Timed cues](../spaces/transcripts/2026-08-27-margaritas-nachos-and-drama.vtt) · [Clip picks](../social/clips/2026-08-27-margaritas-nachos-and-drama.md).
 
@@ -31,3 +31,4 @@ An eight-hour open discussion involving JT, Morgan and other speakers. Selected 
 - JT's accounts of astrology and its history are his interpretations, not independently established findings. The selections do not authorize predictions or financial or medical guidance.
 - Excluded health and medication discussions, vaccine/pandemic content, personal allegations about community members, and the already-used technology-as-a-mirror and resentment/NPC themes.
 - Whisper renders sun sign as sunshine in the newspaper-horoscope passage. Excerpts remain verbatim; verify the audio before preparing subtitles.
+- Duplicate excluded: the planets-as-calendar passage at 00:24:11.320 to 00:25:01.380 retells the astrology-as-an-analog-simulation explanation already identified as a repeated story in INDEX. It is not counted as a new usable moment.
