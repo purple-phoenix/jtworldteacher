@@ -21,8 +21,8 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 SRC = os.path.expanduser("~/Downloads/JT social clips/Ready to post")
-OUT = os.path.expanduser("~/Downloads/JT social clips/Shorts")
-WORK = os.path.expanduser("~/Downloads/JT social clips/Shorts/.words")
+OUT = os.path.expanduser(os.environ.get("PEAK_MIND_SHORTS_DIR", "~/Downloads/JT social clips/Shorts"))
+WORK = os.path.join(OUT, ".words")
 SITE = "https://jtworldteacher.com/podcast"
 SPOTIFY = "https://open.spotify.com/show/033LHLE9BxNUNTLSzmDqfC"
 POST_TIME = "12:00 PM ET"
@@ -79,9 +79,9 @@ def x_len(text):
 
 def kit(week, week_path):
     lines = ["# Peak Mind shorts: posting kit\n",
-             f"Post time for every slot: {POST_TIME}, on X and YouTube Shorts the same day. Nothing in this kit "
+             f"Post time for every slot: {POST_TIME}, on X, YouTube Shorts, TikTok and Instagram the same day. Nothing in this kit "
              "has been posted. Each post goes out only after Matt approves it.\n",
-             "Files are in `~/Downloads/JT social clips/Shorts/`. X gets the uncensored file and YouTube gets "
+             f"Files are in `{OUT}/`. X gets the uncensored file and YouTube, TikTok and Instagram get "
              "the bleeped one when a clip has both.\n"]
     for c in week:
         title, caption, tags = moment(c)
