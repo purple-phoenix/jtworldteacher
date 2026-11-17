@@ -81,9 +81,9 @@ Two-track repo:
 When JT does a new X Space:
 
 1. Add the tweet URL to `catalog/spaces/queue.txt`.
-2. Run `bash catalog/scripts/parallel-pipeline.sh catalog/spaces/queue.txt [PARALLELISM]`. It downloads the audio and writes the catalog stub post (`download-space.sh`), then transcribes it to `.txt` + `.vtt` (`transcribe-pending.sh`, which converts to WAV first).
+2. Run `bash catalog/scripts/parallel-pipeline.sh catalog/spaces/queue.txt [PARALLELISM]`. It downloads the audio and writes the catalog stub post (`download-space.sh`), then transcribes it to `.txt` + `.vtt` (`transcribe-pending.sh`, which converts to WAV first). Both files must be nonempty. Conversion, transcription, or missing-output failures are listed by file and step, tried once per invocation, and cause a nonzero exit. The watcher keeps processing other files, then reports failures when `.stop-transcriber` requests its final pass. The final pass includes fresh downloads; a one-shot pass reports files still being written as unfinished. Set the stop flag only after audio writers finish. The pipeline propagates failure instead of printing completion; after fixing the reported cause, rerun to retry failed files.
 3. Trim the audio to the show and shift the transcript to match (see AGENTS.md, "Episodes are edited to the show").
-4. Run `bash catalog/scripts/generate-episode-pages.sh` to create the stub site episode page. It never overwrites an existing page.
+4. Run `bash catalog/scripts/generate-episode-pages.sh` to create the stub site episode page. It never overwrites an existing page. It matches the catalog Space ID first, then the exact filename, so distinct Spaces on the same date each get a page.
 5. For full show notes, dispatch an agent to read the transcript and write the notes in the convention described in AGENTS.md.
 6. Upload the audio to R2: `rclone copy catalog/spaces/audio/<slug>.m4a r2:jtworldteacher-podcast/episodes/ --metadata --metadata-set content-type=audio/mp4`. Then verify the public `Content-Type`, `Content-Length` and a `206` range response.
 7. Optionally, add the episode to the topic hubs in `site/src/data/topics.ts`.
@@ -138,7 +138,7 @@ jtworldteacher/
     └── scripts/
         ├── parallel-pipeline.sh  # parallel download + sequential transcribe
         ├── download-space.sh     # single-URL download
-        ├── transcribe-pending.sh # transcribe any m4a lacking a .txt
+        ├── transcribe-pending.sh # transcribe m4a lacking a complete .txt + .vtt pair
         ├── process-spaces.sh     # older sequential script (still works)
         ├── generate-episode-pages.sh  # generate stub site episode pages
         ├── prepare_peak_mind_kit.py   # Peak Mind Spotify kit (local only; never uploads)

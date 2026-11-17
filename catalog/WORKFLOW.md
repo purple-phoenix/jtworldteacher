@@ -139,6 +139,44 @@ rm audio/YYYY-MM-DD-slug.wav
 
 Keep both generated files as `transcripts/YYYY-MM-DD-slug.txt` and `transcripts/YYYY-MM-DD-slug.vtt`. Record the Space metadata and links in the matching `posts/YYYY-MM-DD-slug-space.md` catalog entry.
 
+### Automated intake and failures
+
+Run `bash catalog/scripts/parallel-pipeline.sh catalog/spaces/queue.txt` for
+parallel downloads and sequential transcription, or run
+`bash catalog/scripts/transcribe-pending.sh` for one transcription pass.
+`--watch` keeps checking for files until `catalog/spaces/audio/.stop-transcriber`
+exists, then performs a final pass and removes the flag. Set that flag only after
+all downloads or other audio writers have finished. The final pass processes
+fresh `.m4a` files too; regular watch passes defer files modified within five
+seconds. A one-shot pass reports such a file as unfinished and exits nonzero,
+so it cannot silently claim success.
+
+A transcript is complete only when both `.txt` and `.vtt` are nonempty.
+The transcriber checks conversion and transcription exit statuses and output
+files, including whisper returning success without writing output. Each failed
+file is tried once per invocation, remembered across watcher passes, and listed
+with the failed step at the end. Other files still run. A pass or watcher with
+failures exits nonzero, and the pipeline does too, without printing completion.
+A failed downloader also stops and joins the watcher. Fix the reported cause
+and rerun to retry; complete transcript pairs are skipped.
+
+`bash catalog/scripts/generate-episode-pages.sh` preserves existing pages by
+matching the catalog post's `space_id` to page `spaceId`, then by exact filename.
+It never uses the date alone, so two Spaces on one day can each have a page.
+
+For isolated tooling, `WHISPER_MODEL` overrides the usual model file and
+`EPISODE_TOOL_PATH` overrides the generator's default tool search path. Normal
+runs keep their existing defaults. The hermetic tests require Python 3.10 or
+newer and use fake tools, audio, and a model placeholder:
+
+```bash
+python3 -m unittest discover -s catalog/scripts/tests -v
+```
+
+Pull requests run these tests and the site checks on macOS, matching the
+scripts' BSD `stat` and `date` commands. No media tools or model downloads are
+needed for tests.
+
 ### Speeding it up
 
 Whisper-cpp uses Metal automatically on Apple Silicon. For a 90-min Space on an M1/M2/M3, expect:
