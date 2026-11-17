@@ -81,6 +81,7 @@ export const TOPICS: Topic[] = [
         slug: "2026-01-27-the-empire-never-ended-secret-of-the-psychic-gene",
         mentions: [
           { t: 1553, note: "JT retells the Gnostic creation story of Sophia and the Demiurge, and argues the Demiurge can be read as DNA." },
+          { t: 1808, note: "JT recommends a 1990s book (the transcript renders its title as 'The Cosmic Gene') that argues the case for reading the demiurge as DNA." },
         ],
       },
       {
@@ -101,7 +102,10 @@ export const TOPICS: Topic[] = [
         mentions: [
           { t: 874, note: "JT explains how the Against the Archons name came about and why Dungeon Crawler Carl fits the theme." },
           { t: 965, note: "JT discusses an evangelical author who accuses him of demonic deception and notes Gnosticism began as an insult for early Christian groups." },
+          { t: 2084, note: "JT says demons orchestrating out-of-body experiences is probably true in a sense, and that 'demon' is a newer word than archon, but he balks at the idea that dreams are run by non-human intelligence." },
           { t: 2319, note: "JT argues organized resistance to the archons is an emerging archetype surfacing from the collective unconscious, with art leaking it first." },
+          { t: 4458, note: "JT argues the emerging archetype of a community resisting the archons creates enough cognitive dissonance that a critic he has never met wrote a book claiming the world is orchestrated to deceive JT." },
+          { t: 4567, note: "JT tells listeners not to believe him on his say-so, and to check the Gnostic and esoteric texts, then ask when the archon themes began appearing in fiction, games and film." },
         ],
       },
       {
@@ -147,6 +151,7 @@ export const TOPICS: Topic[] = [
         slug: "2026-07-05-american-disclosure",
         mentions: [
           { t: 3467, note: "JT argues the simulation's creators were extraterrestrial, which history knows as the archons, called gods by pagans." },
+          { t: 3525, note: "A speaker says the archons represent the planets, or the planets represent them, and that these were taken to be kingdoms on other worlds, so aliens by definition." },
         ],
       },
       {
@@ -221,7 +226,9 @@ export const TOPICS: Topic[] = [
         slug: "2026-01-27-the-empire-never-ended-secret-of-the-psychic-gene",
         mentions: [
           { t: 3899, note: "JT says remote viewers in simulation sessions have surfaced the word Terra, and that he refuses to let RV replace Christian theology." },
+          { t: 3979, note: "JT says serious remote viewers tend to stop pursuing outside interests and each other's work, since extra knowledge could taint their sessions." },
           { t: 4275, note: "JT recalls Morgan's remote-viewing account of base reality, a war, experiments on prisoners and a cathedral-like building, and voices skepticism." },
+          { t: 4432, note: "JT says his sense is the remote-viewing consensus on the simulation points to non-human intelligence, Anunnaki type stuff, which he doubts, and that their targeting is superficial." },
         ],
       },
       {
@@ -251,6 +258,8 @@ export const TOPICS: Topic[] = [
         slug: "2026-04-02-the-against-the-archons-emergent-archetype-in-media",
         mentions: [
           { t: 2939, note: "JT recounts a remote viewer's career reading that pictured him inside a machine, which led him to Intuitive Underground and Morgan." },
+          { t: 3117, note: "JT recalls revisiting the Intuitive Underground material at the end of 2024, saying viewers who study it seem to develop post-traumatic stress, leave remote viewing and repudiate those sessions." },
+          { t: 4675, note: "JT proposes a test of the remote-viewing and media claims: how many technologies and perceptions in those sessions, such as brain-cell computers, were later built and are now real." },
         ],
       },
       {
@@ -333,9 +342,20 @@ export const TOPICS: Topic[] = [
         mentions: [
           { t: 73, note: "Morgan Farrell describes his week-three training exercise of working front-loaded to remote view the next morning's front-page photo, and its hit." },
           { t: 854, note: "Morgan Farrell recounts Intuitive Underground's 2016 election project, where blind viewers' sessions each called Trump and he named him in session." },
+          { t: 1101, note: "A speaker, picking up JT's observation, says a surprising share of practitioners in marginal fields such as astrology and remote viewing do not actually believe in what they do." },
           { t: 1701, note: "Asked about his mission, Morgan Farrell says Intuitive Underground began as a study group and aims to demonstrate remote viewing's power." },
+          { t: 1953, note: "Morgan Farrell cites Ingo Swann's Secrets of Power as the driver of his aim of individual empowerment, and repeats the old line that remote viewing at its best means a world without secrets." },
+          { t: 2408, note: "Morgan Farrell describes remote viewing research on a medical intervention introduced in late 2020, and says writing it up in medical language took him seven to ten days." },
+          { t: 2846, note: "JT says remote viewing can make money and notes groups that sell crypto forecasts, and Morgan Farrell agrees." },
           { t: 3062, note: "Matt asks about tracking hit rates, and Morgan explains perception-by-perception grading and the Targ scale; JT cites socialrv's roughly 51%." },
+          { t: 3254, note: "JT says TRV sessions are refined and run by teams, so grading one isolated target misses how aggregated team data works, and contrasts this with the heroic individual viewer." },
+          { t: 3384, note: "JT says Lyn Buchanan's group tracks each viewer's results by subject type, so clients can pick the best viewer for a target." },
+          { t: 3817, note: "Morgan Farrell says people with the least natural psychic ability work hardest at TRV, while strong natural psychics struggle to fit its rigid protocol, but improve once they submit to it." },
           { t: 4116, note: "Morgan Farrell describes the experimental target, 'the most significant remote viewing target', that led the group to the nature of reality." },
+          { t: 5092, note: "JT argues top experts are right about 51% of the time, so a remote viewing team at 65% to 85% would give a real edge, and says average public beliefs score under 50%." },
+          { t: 5457, note: "JT says many operational remote viewing organizations work under NDAs for corporations, politicians and governments, while most people in public RV groups are not operational." },
+          { t: 6304, note: "Morgan Farrell lists the filters his team uses to cut noise, saying they will not publish a result they do not trust, but must still submit contract results with a caveat." },
+          { t: 6469, note: "Morgan Farrell warns against any psychic or RV team claiming no client has ever been displeased, saying that suggests they tell clients what they want to hear, like a cold read." },
         ],
       },
       {
@@ -684,6 +704,7 @@ export const TOPICS: Topic[] = [
       {
         slug: "2026-07-05-american-disclosure",
         mentions: [
+          { t: 3978, note: "A speaker asks whether 3I/ATLAS passing near Mars (conflict) and Jupiter (expansion) points to a great conflict; JT calls it a good point but finds astrologers' articles on it speculative." },
           { t: 4282, note: "JT says global upheaval such as Hormuz closing and Greenland talk began correlating with 3I/ATLAS, while noting correlation is not causation." },
         ],
       },
@@ -804,6 +825,11 @@ export const TOPICS: Topic[] = [
         mentions: [
           { t: 2041, note: "JT argues ancient cultures called the world an illusion or reality overlay, tracing modern simulation ideas to Philip K. Dick." },
           { t: 2301, note: "JT describes Dick's belief that the Black Iron Prison was built around early Christians and that the Roman empire never ended." },
+          { t: 2375, note: "JT says Dick originated ideas that Terence McKenna and Robert Anton Wilson later carried through the Bay Area new age scene without crediting him." },
+          { t: 2445, note: "JT sets the multiple-realities argument (Christians taking Rome, an early industrial revolution) against Dick's own view that our reality is a prison for the Christians." },
+          { t: 3777, note: "JT recalls a 2011 alternative-media story of the Chani project, a mainframe in Africa said to have been contacted by people from a Roman-dominated other dimension, and calls it fanciful." },
+          { t: 4840, note: "JT says that if the simulation is only a metaphor, Dick's idea that a shift in collective belief moves us between reality layers, like a Mandela effect, would still describe society." },
+          { t: 5135, note: "JT says simulation theory is credited to around 2001, but he remembers it circulating in the 1990s and traces it to Dick in 1974 and back to older traditions." },
         ],
       },
       {
@@ -823,8 +849,13 @@ export const TOPICS: Topic[] = [
       {
         slug: "2026-04-02-the-against-the-archons-emergent-archetype-in-media",
         mentions: [
+          { t: 2267, note: "JT argues that if dreams and world events were being catered to deceive people, that would not disprove the simulation idea, since it would amount to a simulation." },
           { t: 2746, note: "JT traces dungeon-core fiction's focus on simulation theory and compares its details with remote-viewing session data on prisoners powering a simulation." },
+          { t: 3178, note: "JT says the reality overlay seems to run on biological hardware, with brain cells used as a computer, and that dreams or waking life may be a kind of computer downtime program." },
+          { t: 3444, note: "JT says the third season of the Fallout show reveals a reality overlay run from a mainframe that turns out to be a person's brain, and counts it among popular series carrying the same idea." },
           { t: 3739, note: "JT proposes the Intuitive Underground data describes a simulation run in networked brains, citing Cortical Labs' brain-cell computers playing Doom." },
+          { t: 3952, note: "JT summarizes Dungeon Crawler Carl: aliens turn Earth into a reality-TV dungeon, and a growing planetary AI is later shown drawing power from the recorded feelings of dying humans." },
+          { t: 4711, note: "JT says the little boxes of lab-grown brains playing Doom appeared in remote viewing years earlier, and that brains with no sensory input experience only the game as real, a simulation." },
         ],
       },
       {
@@ -857,6 +888,12 @@ export const TOPICS: Topic[] = [
           { t: 3618, note: "JT recounts finding Cortical Labs, an Australian firm selling $35,000 computers of human brain cells taught Pong and then Doom." },
           { t: 3973, note: "JT announces Cortical Labs data centers of brain-cell pods as final feedback, which he says matches Intuitive Underground's session descriptions." },
           { t: 6897, note: "JT speculates about future virtual worlds with sentient NPCs run by brain-cell computers, and what that implies for a reality overlay." },
+        ],
+      },
+      {
+        slug: "2026-05-07-ufox-the-crusade-within-ufology",
+        mentions: [
+          { t: 8563, note: "A speaker argues 'interdimensional' is a filler word for somewhere we cannot perceive, and says that if disclosure ever made that case it would land in simulation-theory territory." },
         ],
       },
       {
@@ -991,6 +1028,9 @@ export const TOPICS: Topic[] = [
           { t: 3528, note: "A speaker relays Brian Johnson's theory that the government's psyop has shifted from stigmatizing UFOs to acknowledging them, so adversaries who see craft assume aliens." },
           { t: 5190, note: "A speaker warns against adopting an 'angels and demons' overlay for the phenomenon, saying it will be weaponized." },
           { t: 6634, note: "A speaker reads a social-media post claiming 600 to 700 UAP documents would be released that Friday, and cites David Grusch's 'next 60 to 90 days'." },
+          { t: 8385, note: "A speaker says the claim that the truth would collapse society is a crutch, since most people would still go to work and pray, and argues it props up the psychological operations around the phenomenon." },
+          { t: 8675, note: "A guest argues the real secret is low-energy nuclear science, kept hidden to protect the US oil economy, and that the psyop works by controlling the narrative on both sides." },
+          { t: 9391, note: "A guest argues the community should push only for a congressional select committee, with subpoena power and testimony under oath, and says the program is run by people, not demons or aliens." },
         ],
       },
       {
@@ -1011,8 +1051,15 @@ export const TOPICS: Topic[] = [
         slug: "2026-07-05-american-disclosure",
         mentions: [
           { t: 2431, note: "JT argues UFO disclosure is really eschatology, end-times belief shaped by Puritan theology, with aliens cast as judging angels." },
+          { t: 2631, note: "JT says abduction accounts often end with a lecture from the aliens about nuclear weapons, pollution and climate change, which he maps onto the sins and global heat of the Book of Revelation." },
+          { t: 2886, note: "JT says people who see a UFO often react as if they had a religious experience, and he mentions Carl Jung's idea of a link between sightings and a religious impulse." },
           { t: 2957, note: "JT says Southern Baptist culture reads the whole UFO phenomenon as demonic deception, citing the Collins Elite inside the Pentagon." },
+          { t: 3155, note: "JT says the public disclosure push, Spielberg's Disclosure Day and congressmen calling aliens demonic beings are one sectarian fight, with aliens as angels for Puritans and devils for Baptists." },
+          { t: 3547, note: "JT says belief in people on other planets was common from ancient times to the 1800s, citing early Mormon leaders, and that doubt about aliens is only about a century old." },
           { t: 3651, note: "JT and Matt speculate about 3I/ATLAS passing close to Mars and Jupiter, and about amphibious beings and Europa." },
+          { t: 3819, note: "JT says amphibious beings are a common theme in ufology, citing claims of undersea bases, and ancient myths of nagas and Dagon-like figures that came from the water and brought civilization." },
+          { t: 4510, note: "A speaker suggests that noticing interstellar objects is an expansion of consciousness, like discovering Uranus, Neptune and Pluto, and JT agrees, citing three such objects in about eight years." },
+          { t: 4796, note: "JT says an awakening need not be a hippie utopia, and that the expansion of consciousness signalled by interstellar objects could be a bummer, since people assume crises are followed by something good." },
         ],
       },
       {
@@ -1092,7 +1139,13 @@ export const TOPICS: Topic[] = [
           { t: 3044, note: "JT sets the Catholic position (other worlds are possible, and arrivals would be baptized) as a dark-horse view against the 'aliens or demons' storyline." },
           { t: 3900, note: "JT describes newcomers being 'cocooned' by the same handful of UFOX hosts, who co-host and spin the narrative, citing the pastor example." },
           { t: 5588, note: "A speaker calls the Catholic Church probably the largest intelligence agency in the world, with every priest reporting back through the hierarchy to Rome." },
+          { t: 8856, note: "A caller says the pastors who spoke out all run the same circle, appearing on each other's shows and sharing a production network, which worries him." },
+          { t: 9086, note: "A speaker relays claims, from people in the scene, that intelligence insiders are looking at Scientology, Mormonism and Rosicrucianism over a belief in literal aliens, and says he cannot verify them." },
+          { t: 9181, note: "A speaker says reptilians are a taboo subject across UFOx, where people who raise them get private messages saying nobody talks about that, and he wonders why it is so taboo." },
+          { t: 10803, note: "A guest describes newcomers to the scene getting 'the talk', a briefing from prominent hosts that he says reflects a strong need to control the narrative and stay prominent." },
+          { t: 11139, note: "JT argues the arrival of a Catholic perspective, with Vatican positions quoted and no drama, will change the scene, and that the older hosts risk competing with a one-trick marketing strategy." },
           { t: 11226, note: "The panel debates whether a few prominent UFOX hosts act as gatekeepers, with guests on both sides." },
+          { t: 11439, note: "A guest says the scene's ecosystem pushes everyone toward one narrative, and warns that narrative control and psyops could come from people in the community as well as from agencies." },
         ],
       },
       {
@@ -1166,8 +1219,19 @@ export const TOPICS: Topic[] = [
         slug: "2026-01-27-the-empire-never-ended-secret-of-the-psychic-gene",
         mentions: [
           { t: 185, note: "JT introduces the Dean Radin 23andMe study and argues its mutation blocks psychic ability rather than grants it, clustering around Rome." },
+          { t: 519, note: "JT says the Rh-negative, red hair and Celtic claims that followed the study were confabulation the data did not support." },
           { t: 714, note: "JT says the mutation's documented function is suppressing recently acquired endogenous retroviruses, so he argues psychic ability arrived through a retrovirus." },
+          { t: 969, note: "JT recounts the researchers' conclusion that the Inquisition caused the mutation, and argues it is far too recent for that, since the weeding out of odd people predates it." },
+          { t: 1182, note: "JT floats that the mutation may be the cause of Rome's monasteries and nunneries rather than their result, and ties it to a Western, ultramaterialist way of seeing." },
+          { t: 1338, note: "JT argues the 40 percent with the mutation would lack psychic foresight, and recalls an astrologer who disputed his view that psychopaths have none." },
+          { t: 2711, note: "JT says that if psychic ability traces to retroviruses, the door opens to the ancient-alien idea, since retroviruses can be a vector for genetic engineering." },
+          { t: 2849, note: "JT says close relatives, including his brother, show no psychic perception, and argues people with the mutation cannot even perceive that others have it, so they judge them crazy." },
+          { t: 2920, note: "JT speculates, and says he expects it to be confirmed, that most accomplished scientists and doctors carry the mutation, which would shape who defines what is sane and real." },
+          { t: 3581, note: "JT argues the psychics rounded up in history were mostly members of other Christian sects such as the Cathars, so he reads the Inquisition-did-it story as the researchers' bias against Christianity." },
+          { t: 3692, note: "JT reads the retroviruses metaphorically as a Sophia virus or Adam and Eve virus, a recent divine invasion that gave humans psychic foresight." },
           { t: 4935, note: "JT connects the gene to the Gnostic hylic, psychic and pneumatic types, proposing it as a genetic marker for hylics." },
+          { t: 5098, note: "JT asks how to spot the spiritual type in the Gnostic scheme and guesses they are people who have not lived with complete amnesia and who sense a mission or purpose." },
+          { t: 5326, note: "JT says that if the Radin team did not know what the gene does, their Inquisition story was confirmation bias, and if they did know it would be propaganda." },
         ],
       },
       {
@@ -1205,6 +1269,7 @@ export const TOPICS: Topic[] = [
       {
         slug: "2026-09-09-intuitive-underground-and-the-power-of-remote-viewing",
         mentions: [
+          { t: 1625, note: "JT compares the roughly 40% who lack extrasensory perception to people blind from birth, who may never accept the sense is real when many in authority deny it." },
           { t: 4560, note: "JT argues about 40% of people lack extrasensory perception, often along with metacognition and empathy, and are over-represented among leaders." },
         ],
       },
