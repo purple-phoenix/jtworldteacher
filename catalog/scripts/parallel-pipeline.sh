@@ -32,6 +32,13 @@ echo
 # Start the transcription watcher in the background
 bash "$SCRIPT_DIR/transcribe-pending.sh" --watch &
 WATCHER_PID=$!
+# Also finish the watcher if a downloader fails. Preserve the pipeline status.
+finish_watcher() {
+  touch "$AUDIO_DIR/.stop-transcriber"
+  wait "$WATCHER_PID" || true
+  rm -f "$AUDIO_DIR/.stop-transcriber"
+}
+trap finish_watcher EXIT
 echo "transcriber watcher started (pid $WATCHER_PID)"
 echo
 

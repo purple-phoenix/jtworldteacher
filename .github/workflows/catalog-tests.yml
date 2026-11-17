@@ -1,0 +1,36 @@
+name: Catalog and site tests
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - name: Catalog tests (includes hermetic intake scripts)
+        run: python3 -m unittest discover -s catalog/scripts/tests -v
+      - name: Install site dependencies
+        working-directory: site
+        run: npm ci
+      - name: Build site
+        working-directory: site
+        run: npm run build
+      - name: Date regression
+        working-directory: site
+        run: npm run test:pubdate-tz
+      - name: Topic timestamps
+        working-directory: site
+        run: npm run test:topics

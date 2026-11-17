@@ -22,32 +22,39 @@ frontmatter_get() {
   grep -E "^${2}:" "$1" 2>/dev/null | head -1 | sed -E "s/^${2}:[[:space:]]*//; s/^\"//; s/\"$//"
 }
 
-PATH=/usr/bin:/bin:/usr/local/bin:/opt/homebrew/bin
+PATH="${EPISODE_TOOL_PATH:-/usr/bin:/bin:/usr/local/bin:/opt/homebrew/bin}"
 created=0
 skipped_existing=0
 skipped_missing_stub=0
 
 for m4a in "$AUDIO_DIR"/*.m4a; do
+  [[ -f "$m4a" ]] || continue
   base="$(basename "$m4a" .m4a)"
   date_iso="${base:0:10}"
   episode_md="$EPISODES_DIR/${base}.md"
   stub="$POSTS_DIR/${base}-space.md"
 
-  if [[ -f "$episode_md" ]]; then
-    skipped_existing=$((skipped_existing+1))
-    continue
+  # Identity takes precedence over the filename. Dates are not unique IDs.
+  space_id=""
+  [[ ! -f "$stub" ]] || space_id="$(frontmatter_get "$stub" 'space_id' || true)"
+  matched=false
+  if [[ -n "$space_id" ]]; then
+    for existing in "$EPISODES_DIR"/*.md; do
+      [[ -f "$existing" ]] || continue
+      existing_id="$(frontmatter_get "$existing" 'spaceId' || true)"
+      if [[ "$existing_id" == "$space_id" ]]; then
+        matched=true
+        break
+      fi
+    done
   fi
-
-  # Also skip if an episode file with the same date prefix already exists under
-  # a *different* slug — happens for the 3 hand-written episodes that used
-  # cleaner slugs (e.g. saturn-neptune vs saturnneptune).
-  if compgen -G "$EPISODES_DIR/${date_iso}-*.md" > /dev/null; then
+  if $matched || [[ -f "$episode_md" ]]; then
     skipped_existing=$((skipped_existing+1))
     continue
   fi
 
   if [[ ! -f "$stub" ]]; then
-    echo "  ! [${base}] stub catalog post missing — skipping"
+    echo "  ! [${base}] stub catalog post missing, skipping"
     skipped_missing_stub=$((skipped_missing_stub+1))
     continue
   fi
