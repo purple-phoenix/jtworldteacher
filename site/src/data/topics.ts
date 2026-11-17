@@ -825,7 +825,7 @@ export const TOPICS: Topic[] = [
         mentions: [
           { t: 2041, note: "JT argues ancient cultures called the world an illusion or reality overlay, tracing modern simulation ideas to Philip K. Dick." },
           { t: 2301, note: "JT describes Dick's belief that the Black Iron Prison was built around early Christians and that the Roman empire never ended." },
-          { t: 2375, note: "JT says Dick originated ideas that Terence McKenna and Robert Anton Wilson later carried through the Bay Area new age scene without crediting him." },
+          { t: 2375, note: "JT traces ideas that Terence McKenna and Robert Anton Wilson later carried through the Bay Area new age scene back to Dick's influence." },
           { t: 2445, note: "JT sets the multiple-realities argument (Christians taking Rome, an early industrial revolution) against Dick's own view that our reality is a prison for the Christians." },
           { t: 3777, note: "JT recalls a 2011 alternative-media story of the Chani project, a mainframe in Africa said to have been contacted by people from a Roman-dominated other dimension, and calls it fanciful." },
           { t: 4840, note: "JT says that if the simulation is only a metaphor, Dick's idea that a shift in collective belief moves us between reality layers, like a Mandela effect, would still describe society." },
@@ -1227,11 +1227,11 @@ export const TOPICS: Topic[] = [
           { t: 2711, note: "JT says that if psychic ability traces to retroviruses, the door opens to the ancient-alien idea, since retroviruses can be a vector for genetic engineering." },
           { t: 2849, note: "JT says close relatives, including his brother, show no psychic perception, and argues people with the mutation cannot even perceive that others have it, so they judge them crazy." },
           { t: 2920, note: "JT speculates, and says he expects it to be confirmed, that most accomplished scientists and doctors carry the mutation, which would shape who defines what is sane and real." },
-          { t: 3581, note: "JT argues the psychics rounded up in history were mostly members of other Christian sects such as the Cathars, so he reads the Inquisition-did-it story as the researchers' bias against Christianity." },
+          { t: 3581, note: "JT argues the psychics rounded up in history were mostly members of other Christian sects such as the Cathars, and questions the explanation that the Inquisition caused the mutation." },
           { t: 3692, note: "JT reads the retroviruses metaphorically as a Sophia virus or Adam and Eve virus, a recent divine invasion that gave humans psychic foresight." },
           { t: 4935, note: "JT connects the gene to the Gnostic hylic, psychic and pneumatic types, proposing it as a genetic marker for hylics." },
           { t: 5098, note: "JT asks how to spot the spiritual type in the Gnostic scheme and guesses they are people who have not lived with complete amnesia and who sense a mission or purpose." },
-          { t: 5326, note: "JT says that if the Radin team did not know what the gene does, their Inquisition story was confirmation bias, and if they did know it would be propaganda." },
+          { t: 5326, note: "JT questions the researchers' Inquisition explanation, calling it confirmation bias if they did not know what the gene does, and propaganda if they did and invented the story anyway." },
         ],
       },
       {
