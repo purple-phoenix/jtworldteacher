@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
 import { marked } from 'marked';
 
-const SHOW = {
+export const SHOW = {
   title: 'JT — Astrology & Simulation Theory',
   description:
     'A long-form inquiry into what the chart says about the nature of the reality we appear to be inside of. Slow, unhurried, and meant for people already asking the question.',

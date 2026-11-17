@@ -28,6 +28,9 @@ jobs:
       - name: Build site
         working-directory: site
         run: npm run build
+      - name: Page metadata and sitemap
+        working-directory: site
+        run: npm run test:head
       - name: Date regression
         working-directory: site
         run: npm run test:pubdate-tz

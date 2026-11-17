@@ -1,10 +1,13 @@
 ---
+import config from "../../astro.config.mjs";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  ogType?: string;
   /** Structured data (schema.org) emitted as a JSON-LD script. */
   jsonLd?: Record<string, unknown>;
 }
@@ -13,9 +16,16 @@ const {
   title,
   description = "Astrology and simulation theory — a long-form inquiry.",
   jsonLd,
+  image = "podcast-cover.jpg",
+  ogType = "website",
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "") + "/";
+const pagePath = "/" + Astro.url.pathname.slice(base.length);
+const canonical = new URL(pagePath, config.site).href;
+// Local artwork and the feed follow the build base and origin, including previews.
+const imageUrl = new URL(/^https?:\/\//.test(image) ? image : base + image.replace(/^\/+/, ""), Astro.site).href;
+const feedUrl = new URL(base + "feed.xml", Astro.site).href;
 // Escape "<" so data can never close the script tag early.
 const jsonLdHtml = jsonLd && JSON.stringify(jsonLd).replace(/</g, "\\u003c");
 ---
@@ -28,10 +38,13 @@ const jsonLdHtml = jsonLd && JSON.stringify(jsonLd).replace(/</g, "\\u003c");
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="J.T. Worldteacher" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" type="application/rss+xml" title="Podcast RSS" href={feedUrl} />
     <link rel="canonical" href={canonical} />
     <title>{title}</title>
     {jsonLdHtml && <script type="application/ld+json" set:html={jsonLdHtml} />}

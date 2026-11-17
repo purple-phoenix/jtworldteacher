@@ -1,4 +1,5 @@
 ---
+import { SHOW } from "../feed.xml";
 import Layout from "../../layouts/Layout.astro";
 import Icon from "../../components/Icon.astro";
 import EpisodeCover from "../../components/EpisodeCover.astro";
@@ -40,7 +41,7 @@ const dateLong = new Intl.DateTimeFormat("en-US", {
 });
 ---
 
-<Layout title="Podcast — J.T. Worldteacher">
+<Layout title="Podcast — J.T. Worldteacher" description={SHOW.description}>
   <main class="page-in">
     <section class="hair-b">
       <div class="container pod__head">
