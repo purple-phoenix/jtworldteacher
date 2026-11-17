@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "test:pubdate-tz": "TZ=America/New_York node scripts/test-pubdate-tz.mjs",
+    "test:head": "node scripts/test-head.mjs",
     "test:topics": "node scripts/test-topic-timestamps.mjs"
   },
   "dependencies": {
