@@ -57,19 +57,30 @@ def chunk_words(words, font, max_words=3, max_width=940):
     return chunks
 
 
-PROFANE = re.compile(r"^(shit|shitty|bullshit|fuck|fucking|fucked|fucker|motherfucker|goddamn|bitch|asshole)$", re.I)
+# Match complete normalized words. Spell out compound forms so unrelated words
+# such as "shitake" can't match just because they contain a listed stem.
+PROFANE = re.compile(
+    r"(?:bull|bat|chicken|dog|horse|dip|dumb)?shit(?:s|ted|tin[g]?|ters?)?"
+    r"|shit(?:ty|tier|tiest|tiness|(?:head|show|storm|load|hole)s?)"
+    r"|(?:mother|cluster)?fuck(?:s|ed|in[g]?|ers?)?"
+    r"|fuck(?:head|face|up|wit)s?"
+    r"|goddamn(?:s|ed|in[g]?)?"
+    r"|bitch(?:es|ed|in[g]?|y|ier|iest|iness)?"
+    r"|assholes?",
+    re.IGNORECASE,
+)
 BLEEP = False
 
 
 def is_profane(word):
-    return bool(PROFANE.match(re.sub(r"[^A-Za-z]", "", word)))
+    return PROFANE.fullmatch(re.sub(r"[^A-Za-z]", "", word)) is not None
 
 
 def display(word):
     word = re.sub(r"[,.;:]+$", "", word)
     if BLEEP and is_profane(word):
-        core = re.sub(r"[^A-Za-z]", "", word)
-        word = core[0] + "*" * (len(core) - 1) + word[len(core):] if word.startswith(core) else core[0] + "***"
+        first_letter = re.search(r"[A-Za-z]", word).end()
+        word = word[:first_letter] + re.sub(r"[A-Za-z]", "*", word[first_letter:])
     return word.upper()
 
 

@@ -12,6 +12,10 @@ Each video has a headline, word-by-word captions with the spoken word highlighte
 Clips that swear get two files: an uncensored one for X and a bleeped one for YouTube.
 Nothing posts automatically. Each week's kit is approved by Matt before anything is scheduled.
 
+The swear check matches whole caption tokens after stripping punctuation and ignoring case. It covers the existing words, common plurals and inflections such as `shits`, `bitches`, `assholes`, `fuckin'`, and `goddamned`, plus selected compounds such as `motherfuckers`, `shithead`, and `cluster-fuck`. Clean lookalikes such as `assess`, `classic`, and `shitake` pass. The same check selects timed words to bleep and masks all but their first letter in the bleeped captions.
+
+Run the catalog tests from the repo root with `python3.13 -m unittest discover -s catalog/scripts/tests`. The shorts tests use synthetic word timings and stub the renderer dependencies and subprocesses.
+
 Set `output_subdir` on each clip (for example, `week-03`) to keep its videos below the Shorts folder; rendering, kit paths and staging all use that subfolder. `audio` may be an absolute path to a saved isolated cut.
 
 Week files may include `caption`, `episode_title` and `hashtags` for transcript-grounded copy from Studio, plus `review_url`, `duration_seconds` and `why` for review. Set `promote_live: false` to omit live-show promotion. List optional `spare: true` clips after the dated slots with `post_on: null`; the kit labels them as undated spares. Staging refuses a file containing spares, so first make a manifest containing only the approved dated choices.
