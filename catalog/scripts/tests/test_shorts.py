@@ -23,10 +23,10 @@ class ShortsTests(unittest.TestCase):
         profane = (
             "shit", "shitty", "bullshit", "fuck", "fucking", "fucked",
             "fucker", "motherfucker", "goddamn", "bitch", "asshole",
-            "shits", "bullshittin’", "bitches", "assholes", "“FUCKIN'!”",
+            "shits", "bullshittin’", "bitches", "bitch’s", "assholes", "“FUCKIN'!”",
             "motherfuckers", "goddamned", "shithead", "cluster-fucks",
         )
-        clean = ("assess", "classic", "shiitake", "shitake", "embassy", "scunthorpe")
+        clean = ("assess", "classic", "shiitake", "shitake", "Shittim", "embassy", "scunthorpe")
         for word in profane:
             with self.subTest(word=word):
                 self.assertTrue(render_short.is_profane(word))

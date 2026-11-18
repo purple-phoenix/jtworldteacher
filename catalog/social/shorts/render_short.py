@@ -60,12 +60,12 @@ def chunk_words(words, font, max_words=3, max_width=940):
 # Match complete normalized words. Spell out compound forms so unrelated words
 # such as "shitake" can't match just because they contain a listed stem.
 PROFANE = re.compile(
-    r"(?:bull|bat|chicken|dog|horse|dip|dumb)?shit(?:s|ted|tin[g]?|ters?)?"
+    r"(?:bull|bat|chicken|dog|horse|dip|dumb)?shit(?:s|ted|ting?|ters?)?"
     r"|shit(?:ty|tier|tiest|tiness|(?:head|show|storm|load|hole)s?)"
-    r"|(?:mother|cluster)?fuck(?:s|ed|in[g]?|ers?)?"
+    r"|(?:mother|cluster)?fuck(?:s|ed|ing?|ers?)?"
     r"|fuck(?:head|face|up|wit)s?"
-    r"|goddamn(?:s|ed|in[g]?)?"
-    r"|bitch(?:es|ed|in[g]?|y|ier|iest|iness)?"
+    r"|goddamn(?:s|ed|ing?)?"
+    r"|bitch(?:e?s|ed|ing?|y|ier|iest|iness)?"
     r"|assholes?",
     re.IGNORECASE,
 )
